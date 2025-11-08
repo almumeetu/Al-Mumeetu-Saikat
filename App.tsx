@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
+import type { Tab } from './types';
 import Sidebar from './components/Header'; // Re-using Header.tsx as Sidebar
 import Home from './components/Hero'; // Re-using Hero.tsx as Home
 import Resume from './components/About'; // Re-using About.tsx as Resume
@@ -8,7 +9,22 @@ import Gallery from './components/Experience'; // Re-using Experience.tsx as Gal
 import Contact from './components/Contact';
 import BottomNavBar from './components/BottomNavBar';
 
-export type Tab = 'home' | 'resume' | 'projects' | 'blog' | 'gallery' | 'contact';
+const LazyHome = lazy(() => import('./components/Hero'));
+const LazyResume = lazy(() => import('./components/About'));
+const LazyProjects = lazy(() => import('./components/Projects'));
+const LazyBlog = lazy(() => import('./components/Skills'));
+const LazyGallery = lazy(() => import('./components/Experience'));
+const LazyContact = lazy(() => import('./components/Contact'));
+const LazySidebar = lazy(() => import('./components/Header'));
+const LazyBottomNavBar = lazy(() => import('./components/BottomNavBar'));
+
+
+const LoadingSpinner: React.FC = () => (
+    <div className="flex items-center justify-center w-full h-full pt-20">
+        <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-purple-500"></div>
+    </div>
+);
+
 
 const App: React.FC = () => {
     const [activeTab, setActiveTab] = useState<Tab>('home');
@@ -25,32 +41,38 @@ const App: React.FC = () => {
     const renderContent = () => {
         switch (activeTab) {
             case 'home':
-                return <Home />;
+                return <LazyHome />;
             case 'resume':
-                return <Resume />;
+                return <LazyResume />;
             case 'projects':
-                return <Projects />;
+                return <LazyProjects />;
             case 'blog':
-                return <Blog />;
+                return <LazyBlog />;
             case 'gallery':
-                return <Gallery />;
+                return <LazyGallery />;
             case 'contact':
-                return <Contact />;
+                return <LazyContact />;
             default:
-                return <Home />;
+                return <LazyHome />;
         }
     };
 
     return (
         <div className="gradient-bg w-screen h-screen flex overflow-hidden">
             <div className="aurora-bg"></div>
-            <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+            <Suspense fallback={<div className="hidden md:block w-64 h-screen bg-slate-900/70 flex-shrink-0"></div>}>
+                <LazySidebar activeTab={activeTab} setActiveTab={setActiveTab} isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+            </Suspense>
             <main className="flex-1 h-screen overflow-y-auto relative z-10">
                 <div key={activeTab} className="p-6 md:p-10 lg:p-12 pb-24 md:pb-12 animate-content-fade-in">
-                    {renderContent()}
+                    <Suspense fallback={<LoadingSpinner />}>
+                        {renderContent()}
+                    </Suspense>
                 </div>
             </main>
-            <BottomNavBar activeTab={activeTab} setActiveTab={setActiveTab} onMenuClick={() => setIsSidebarOpen(true)} />
+            <Suspense fallback={null}>
+                <LazyBottomNavBar activeTab={activeTab} setActiveTab={setActiveTab} onMenuClick={() => setIsSidebarOpen(true)} />
+            </Suspense>
             <style>{`
                 @keyframes content-fade-in {
                     from {

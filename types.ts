@@ -1,6 +1,15 @@
 // FIX: Import `ReactNode` from 'react' to resolve 'Cannot find namespace React' error.
 import type { ReactNode, FC } from 'react';
 
+export type Tab = 'home' | 'resume' | 'projects' | 'blog' | 'gallery' | 'contact';
+
+export interface Service {
+  title: string;
+  description: string;
+  projects: string;
+  icon: string; // Phosphor icon class name
+}
+
 export interface Skill {
   name: string;
   icon: FC; 

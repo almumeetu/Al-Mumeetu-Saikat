@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Tab } from '../App';
+import type { Tab } from '../types';
 
 interface BottomNavBarProps {
     activeTab: Tab;

@@ -48,7 +48,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
 
                 <div className="md:flex">
                     <div className="md:w-1/2">
-                        <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
+                        <img 
+                            src={project.imageUrl} 
+                            alt={project.title} 
+                            className="w-full h-full object-cover" 
+                            referrerPolicy="no-referrer"
+                        />
                     </div>
                     <div className="md:w-1/2 p-8 flex flex-col">
                         <h2 className="text-3xl font-bold text-white mb-4">{project.title}</h2>

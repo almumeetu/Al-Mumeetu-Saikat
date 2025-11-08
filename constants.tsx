@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Skill, Project, ExperienceItem, BlogPost, GalleryImage, EducationItem, OnlineCourseItem } from './types';
+import type { Skill, Project, ExperienceItem, BlogPost, GalleryImage, EducationItem, OnlineCourseItem, Service } from './types';
 import { 
     HtmlIcon, CssIcon, SassIcon, BootstrapIcon, TailwindCssIcon, JavascriptIcon, JqueryIcon, ReactIcon, NextjsIcon,
     WordpressIcon, ElementorIcon, WoocommerceIcon, PhpIcon, GitIcon, GithubIcon
@@ -31,30 +31,129 @@ export const SKILLS: { [key: string]: Skill[] } = {
   ],
 };
 
-export const PROJECTS: Project[] = [
+export const SERVICES: Service[] = [
   {
+    title: "Frontend Web Development",
+    description: "Expert in HTML5, CSS3, JavaScript, SCSS, and responsive design. Clean, accessible code with pixel-perfect results.",
+    projects: "150+ Projects",
+    icon: "ph-laptop-code",
+  },
+  {
+    title: "PSD / Figma to HTML",
+    description: "Convert PSD or Figma files into responsive, W3C-validated HTML using Bootstrap or custom layouts.",
+    projects: "90+ Projects",
+    icon: "ph-paint-brush",
+  },
+  {
+    title: "Elementor Website Building",
+    description: "Highly skilled in building modern websites with Elementor Pro including custom widgets, animations, and dynamic content.",
+    projects: "70+ Projects",
+    icon: "ph-selection-all",
+  },
+  {
+    title: "Custom WordPress Theme Development",
+    description: "Develop WordPress themes from scratch with advanced PHP, template hierarchy, hooks, and clean structure.",
+    projects: "45+ Themes",
+    icon: "ph-code",
+  },
+  {
+    title: "JavaScript Development",
+    description: "Strong foundation in vanilla JavaScript: DOM manipulation, functions, ES6, animations, and interactive UI components.",
+    projects: "60+ Projects",
+    icon: "ph-file-js",
+  },
+  {
+    title: "SASS / SCSS Styling",
+    description: "Experienced in writing efficient, scalable SCSS code using variables, mixins, nesting, and modular organization.",
+    projects: "40+ Projects",
+    icon: "ph-paint-roller",
+  },
+  {
+    title: "Bootstrap Development",
+    description: "Build fast, mobile-first websites using Bootstrap 4/5 with full grid, utility, and component-based layouts.",
+    projects: "50+ Projects",
+    icon: "ph-t-shirt",
+  },
+  {
+    title: "SEO & Optimization",
+    description: "Improve website ranking and performance with on-page SEO, page speed improvements, and semantic markup.",
+    projects: "15+ Projects",
+    icon: "ph-chart-line-up",
+  }
+];
+
+export const PROJECTS: Project[] = [
+    {
     id: 1,
-    title: "Japanese Client Projects (NEXUS)",
-    description: "Elementor-based WordPress development and customization for Japanese clients.",
-    longDescription: "Focused on building and customizing WordPress themes and developing custom Elementor widgets with dynamic controls. Created responsive HTML templates following ThemeForest standards and maintained WordPress plugins tailored to specific project needs. Also responsible for fixing advanced Elementor bugs and layout issues with clean, optimized code.",
-    imageUrl: "https://picsum.photos/seed/project1/600/400",
-    tags: ["WordPress", "Elementor", "PHP", "HTML", "CSS"],
+    title: "Airlinehnd Pethotel",
+    description: "A professional website for a pet hotel service, built on WordPress with Elementor.",
+    longDescription: "This project for a Japanese client involved creating a clean, user-friendly website to showcase their pet hotel services. Built with WordPress and Elementor, it features custom post types for services, a gallery, and clear contact information. The design is fully responsive and optimized for performance.",
+    imageUrl: "https://i.ibb.co/d2N8pW2/al-hnd.png",
+    tags: ["WordPress", "Elementor", "Custom Theme"],
+    liveUrl: "https://www.airlinehnd-pethotel.com/",
   },
   {
     id: 2,
-    title: "Freelance Web Development",
-    description: "Developed various websites for global clients on Upwork.",
-    longDescription: "Developed responsive websites using HTML, CSS, SCSS, Bootstrap, JavaScript, and jQuery. Communicated effectively with clients to understand their requirements and preferences, and collaborated on global freelancing projects.",
-    imageUrl: "https://picsum.photos/seed/project2/600/400",
-    tags: ["HTML", "SCSS", "Bootstrap", "JavaScript", "jQuery"],
+    title: "News Auto",
+    description: "A comprehensive automobile news and inspection service portal from Japan.",
+    longDescription: "News Auto required a robust platform to deliver auto news and manage vehicle inspection services. The site was developed on WordPress using Elementor, featuring complex layouts, service booking integration, and a news blog. It's optimized for high traffic and lead generation.",
+    imageUrl: "https://i.ibb.co/9vM5xW0/news-auto.png",
+    tags: ["WordPress", "Elementor", "PHP", "Custom Plugin"],
+    liveUrl: "https://www.news-auto.net/",
   },
   {
     id: 3,
-    title: "Internal Web Projects",
-    description: "Built responsive websites and mini-projects during my roles at Bdevs and WebDev Software Solutions.",
-    longDescription: "Gained hands-on expertise in Responsive Design, SEO, Bootstrap, and SCSS. Ensured cross-browser compatibility and adaptive design using media queries. Customized websites with WordPress, handling themes, plugins, and basic PHP. Built mini JavaScript projects and solved 200+ JS challenges on GitHub.",
-    imageUrl: "https://picsum.photos/seed/project3/600/400",
-    tags: ["Responsive Design", "WordPress", "PHP", "JavaScript"],
+    title: "Grand Cru Animal Eye Clinic",
+    description: "An elegant and professional website for a specialized animal eye clinic.",
+    longDescription: "This project focused on creating a sophisticated and trustworthy online presence for an animal eye clinic. The site features a minimalist design, detailed service pages, and an easy-to-use contact system. Built with WordPress and Elementor for easy content management by the client.",
+    imageUrl: "https://i.ibb.co/9g0g2Y7/grand-cru.png",
+    tags: ["WordPress", "Elementor", "UI/UX"],
+    liveUrl: "https://grandcru-aec.com/",
+  },
+  {
+    id: 4,
+    title: "Fuji Horse Riding Club",
+    description: "A visually engaging website for a horse riding club in Japan.",
+    longDescription: "The goal was to capture the excitement and beauty of horse riding. The website uses high-quality imagery and a dynamic layout to attract new members. It includes information on lessons, club membership, and events. Developed using WordPress and Elementor.",
+    imageUrl: "https://i.ibb.co/gZ7rVzQ/fuji-horse.png",
+    tags: ["WordPress", "Elementor", "Booking"],
+    liveUrl: "https://fuji-horse.com/",
+  },
+    {
+    id: 5,
+    title: "Sycho - Psychology HTML Template",
+    description: "A modern and responsive HTML5 template for psychology and therapy clinics.",
+    longDescription: "Sycho is a premium, handcrafted HTML5 template designed for counselors, psychologists, and health clinics. It features a clean, calming design, multiple page layouts, and is built with Bootstrap for full responsiveness. The code is well-commented and easy to customize.",
+    imageUrl: "https://i.ibb.co/L8zBjw3/sycho.png",
+    tags: ["HTML", "SCSS", "Bootstrap", "JavaScript", "jQuery"],
+    liveUrl: "https://almumeetu.github.io/sycho/",
+  },
+  {
+    id: 6,
+    title: "Gardomia - Gardening HTML Template",
+    description: "A beautiful and feature-rich HTML5 template for landscaping and gardening businesses.",
+    longDescription: "Gardomia is a fully responsive template built with Bootstrap. It's designed to help gardening businesses create a professional online presence. Features include service pages, project galleries, and a contact form. The SASS files are included for easy styling.",
+    imageUrl: "https://i.ibb.co/sKkGv7C/gardomia.png",
+    tags: ["HTML", "SCSS", "Bootstrap", "JavaScript"],
+    liveUrl: "https://almumeetu.github.io/gardomia/",
+  },
+    {
+    id: 7,
+    title: "Nailsalongalene",
+    description: "A stylish and chic website for a nail salon in Japan.",
+    longDescription: "This project showcases the salon's services, portfolio, and pricing in an elegant design. Built on WordPress with Elementor, it allows the owner to easily update their gallery and services. The site includes a booking inquiry form and is mobile-friendly.",
+    imageUrl: "https://i.ibb.co/qmWfX0D/nail-salone.png",
+    tags: ["WordPress", "Elementor", "E-commerce"],
+    liveUrl: "https://nailsalongalene.com/",
+  },
+  {
+    id: 8,
+    title: "Men's Egg Drama",
+    description: "A promotional website for the Men's Egg Japanese fashion model collection and event.",
+    longDescription: "A visually-driven website for a fashion event. This site features bold typography, a model collection gallery, and event details. Built with WordPress and Elementor, it is designed to be impactful and easy to navigate for fans.",
+    imageUrl: "https://i.ibb.co/Jqj8c4j/mens-egg.png",
+    tags: ["WordPress", "Elementor", "Events"],
+    liveUrl: "https://mensegg.jp/",
   },
 ];
 
@@ -125,6 +224,11 @@ export const EXPERIENCE: ExperienceItem[] = [
 ];
 
 export const EDUCATION: EducationItem[] = [
+     {
+        degree: "BSc in CSE",
+        institution: "World University Of Bangladesh",
+        period: "2024 - Present",
+    },
     {
         degree: "HSC in Science",
         institution: "Jahangirpur Govt. Collage, Mohadevpur, Naogaon",

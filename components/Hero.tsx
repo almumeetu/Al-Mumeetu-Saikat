@@ -21,9 +21,10 @@ const Home: React.FC = () => {
                 <div className="relative w-full md:w-1/3 flex-shrink-0 flex justify-center">
                     <div className="absolute inset-x-0 top-0 h-full bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full blur-2xl opacity-30 max-w-sm mx-auto"></div>
                     <img
-                        src="https://i.ibb.co/6yvppCr/Al-Mumeetu-Saikat.jpg"
+                        src="https://i.ibb.co/Lz0x16b/profile.png"
                         alt="Al Mumeetu Saikat"
                         className="relative rounded-full w-60 h-60 md:w-72 md:h-72 border-4 border-slate-700 shadow-2xl object-cover"
+                        referrerPolicy="no-referrer"
                     />
                 </div>
                 <div className="md:w-2/3 text-lg text-gray-300 space-y-4 text-center md:text-left">

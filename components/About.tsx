@@ -1,9 +1,24 @@
 import React from 'react';
-import { SKILLS, EXPERIENCE, EDUCATION, ONLINE_COURSES } from '../constants';
-import type { ExperienceItem, EducationItem, OnlineCourseItem, Skill } from '../types';
+import { SKILLS, EXPERIENCE, EDUCATION, ONLINE_COURSES, SERVICES } from '../constants';
+import type { ExperienceItem, EducationItem, OnlineCourseItem, Skill, Service } from '../types';
 
 const SectionTitle: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 md:mb-12 tracking-tight text-center">{children}</h2>
+);
+
+const ServiceCard: React.FC<{ service: Service }> = ({ service }) => (
+    <div className="bg-slate-800/50 p-6 rounded-lg border border-slate-700/50 transition-all duration-300 hover:bg-slate-800 hover:border-purple-500/50 text-center flex flex-col">
+        <div className="flex-shrink-0 mx-auto">
+            <i className={`ph-bold ${service.icon} text-4xl text-purple-400 mb-4`}></i>
+        </div>
+        <div className="flex-grow">
+            <h3 className="text-lg font-bold text-white mb-2">{service.title}</h3>
+            <p className="text-sm text-gray-300 mb-4">{service.description}</p>
+        </div>
+        <span className="text-xs font-semibold text-purple-300 bg-purple-900/50 px-3 py-1 rounded-full mt-auto">
+            {service.projects}
+        </span>
+    </div>
 );
 
 const SkillCard: React.FC<{ skill: Skill }> = ({ skill }) => (
@@ -47,6 +62,16 @@ const OnlineCourseCard: React.FC<{ item: OnlineCourseItem }> = ({ item }) => (
 const Resume: React.FC = () => {
     return (
         <div className="max-w-6xl mx-auto space-y-16 md:space-y-20">
+            {/* Services Section */}
+            <div>
+                <SectionTitle>My Specializations</SectionTitle>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {SERVICES.map((service, index) => (
+                        <ServiceCard key={index} service={service} />
+                    ))}
+                </div>
+            </div>
+            
             {/* Skills Section */}
             <div>
                 <SectionTitle>Technical Skills</SectionTitle>

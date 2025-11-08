@@ -13,7 +13,12 @@ const ProjectCard: React.FC<{ project: Project; onClick: () => void }> = ({ proj
         className="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer transform transition-transform duration-300 hover:scale-105"
         onClick={onClick}
     >
-        <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
+        <img 
+            src={project.imageUrl} 
+            alt={project.title} 
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+            referrerPolicy="no-referrer"
+        />
         <div className="absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-300 group-hover:bg-opacity-70 flex flex-col justify-end p-6">
             <h3 className="text-2xl font-bold text-white mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">{project.title}</h3>
             <p className="text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{project.description}</p>
