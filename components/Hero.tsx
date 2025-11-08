@@ -21,7 +21,7 @@ const Home: React.FC = () => {
                 <div className="relative w-full md:w-1/3 flex-shrink-0 flex justify-center">
                     <div className="absolute inset-x-0 top-0 h-full bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full blur-2xl opacity-30 max-w-sm mx-auto"></div>
                     <img
-                        src="/public/images/projects/al_mumeetu_saikat.png"
+                        src="/images/projects/al_mumeetu_saikat.png"
                         alt="Al Mumeetu Saikat"
                         className="relative rounded-full w-60 h-60 md:w-72 md:h-72 border-4 border-slate-700 shadow-2xl object-cover"
                         referrerPolicy="no-referrer"

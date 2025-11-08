@@ -37,7 +37,7 @@ const BottomNavBar: React.FC<BottomNavBarProps> = ({ activeTab, setActiveTab, on
     ] as const;
 
     return (
-        <nav className="fixed md:hidden fixed bottom-0 left-0 right-0 h-16 bg-slate-900/80 backdrop-blur-md border-t border-slate-800/50 z-50 flex items-center justify-around">
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-slate-900/80 backdrop-blur-md border-t border-slate-800/50 z-50 flex items-center justify-around">
             {navLinks.map((link) => (
                 <NavItem
                     key={link.tabName}
