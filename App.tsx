@@ -1,13 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import type { Tab } from './types';
-import Sidebar from './components/Header'; // Re-using Header.tsx as Sidebar
-import Home from './components/Hero'; // Re-using Hero.tsx as Home
-import Resume from './components/About'; // Re-using About.tsx as Resume
-import Projects from './components/Projects';
-import Blog from './components/Skills'; // Re-using Skills.tsx as Blog
-import Gallery from './components/Experience'; // Re-using Experience.tsx as Gallery
-import Contact from './components/Contact';
-import BottomNavBar from './components/BottomNavBar';
 
 const LazyHome = lazy(() => import('./components/Hero'));
 const LazyResume = lazy(() => import('./components/About'));

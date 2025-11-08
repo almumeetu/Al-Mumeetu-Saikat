@@ -76,10 +76,10 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isOpen, setI
                         <a href="https://github.com/almumeetu" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors">
                             <i className="ph-bold ph-github-logo text-2xl"></i>
                         </a>
-                        <a href="https://linkedin.com/in/al-mumeetu-saikat" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors">
+                        <a href="https://www.linkedin.com/in/almumeetu" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors">
                             <i className="ph-bold ph-linkedin-logo text-2xl"></i>
                         </a>
-                        <a href="https://www.upwork.com/freelancers/~01e006522858184551" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors">
+                        <a href="https://www.upwork.com/freelancers/~014e951fc886d72e8c" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors">
                             <i className="ph-bold ph-briefcase text-2xl"></i>
                         </a>
                     </div>
