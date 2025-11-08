@@ -89,7 +89,7 @@ export const PROJECTS: Project[] = [
     description: "A professional website for a pet hotel service, built on WordPress with Elementor.",
     longDescription: "This project for a Japanese client involved creating a clean, user-friendly website to showcase their pet hotel services. Built with WordPress and Elementor, it features custom post types for services, a gallery, and clear contact information. The design is fully responsive and optimized for performance.",
     imageUrl: "/images/projects/airlined-pethotel.png",
-    tags: ["WordPress", "Elementor", "Custom Theme"],
+    tags: ["WordPress", "Elementor", "Frontend"],
     liveUrl: "https://www.airlinehnd-pethotel.com/",
   },
   {
@@ -98,7 +98,7 @@ export const PROJECTS: Project[] = [
     description: "A comprehensive automobile news and inspection service portal from Japan.",
     longDescription: "News Auto required a robust platform to deliver auto news and manage vehicle inspection services. The site was developed on WordPress using Elementor, featuring complex layouts, service booking integration, and a news blog. It's optimized for high traffic and lead generation.",
     imageUrl: "/images/projects/news-auto.png",
-    tags: ["WordPress", "Elementor", "PHP", "Custom Plugin"],
+    tags: ["WordPress", "E-commerce", "Frontend"],
     liveUrl: "https://www.news-auto.net/",
   },
   {
@@ -107,7 +107,7 @@ export const PROJECTS: Project[] = [
     description: "An elegant and professional website for a specialized animal eye clinic.",
     longDescription: "This project focused on creating a sophisticated and trustworthy online presence for an animal eye clinic. The site features a minimalist design, detailed service pages, and an easy-to-use contact system. Built with WordPress and Elementor for easy content management by the client.",
     imageUrl: "/images/projects/grand-cru.png",
-    tags: ["WordPress", "Elementor", "UI/UX"],
+    tags: ["WordPress", "Frontend", "E-commerce"],
     liveUrl: "https://grandcru-aec.com/",
   },
   {
@@ -125,7 +125,7 @@ export const PROJECTS: Project[] = [
     description: "A modern and responsive HTML5 template for psychology and therapy clinics.",
     longDescription: "Sycho is a premium, handcrafted HTML5 template designed for counselors, psychologists, and health clinics. It features a clean, calming design, multiple page layouts, and is built with Bootstrap for full responsiveness. The code is well-commented and easy to customize.",
     imageUrl: "/images/projects/sycho.png",
-    tags: ["HTML", "SCSS", "Bootstrap", "JavaScript", "jQuery"],
+    tags: ["Frontend", "Tailwind", "React/Next.js"],
     liveUrl: "https://almumeetu.github.io/sycho/",
   },
   {
@@ -163,11 +163,10 @@ export const EXPERIENCE: ExperienceItem[] = [
         company: "Softzino Technologies, Dhaka",
         period: "Jan 2024 – Present",
         description: [
-            "Currently working on **Japanese client projects**, focusing on modern front-end development.",
+            "Currently working on **E-Commerce Project**, focusing on modern front-end development.",
             "Utilizing the **Next.js** framework for building fast, scalable, and SEO-friendly applications.",
             "Styling user interfaces using **Tailwind CSS** for rapid development and consistent design.",
-            "Developing and maintaining responsive, high-performance web applications using **React**.",
-            "Occasionally maintaining and updating existing WordPress sites, focusing on advanced Elementor bug fixes and optimization.",
+            "Occasionally maintaining and updating existing WordPress sites,advanced bug fixes,Custom Theme Development and optimization.",
             "Collaborating within a dedicated team to deliver efficient, pixel-perfect, and modern web solutions."
         ],
     },

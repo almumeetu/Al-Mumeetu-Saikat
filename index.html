@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Al Mumeetu Saikat - WordPress & Frontend Expert</title>
     <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
       :root {
         --c-brand: #8b5cf6; /* purple-500 */
@@ -17,14 +17,28 @@
         --c-secondary: #6366f1; /* indigo-500 */
       }
 
+      /* Prevent horizontal scrolling across the whole app while allowing vertical scrolling */
+      html, body, #root {
+        max-width: 100%;
+        overflow-x: hidden;
+        min-height: 100%;
+      }
+
       body {
         font-family: 'Inter', sans-serif;
-        overflow: hidden; /* Prevent body scrolling for app-like feel */
+        overflow-y: auto;
+        min-width: 320px;
+        margin: 0;
         background-color: #0f172a; /* slate-900 */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
+
       .gradient-bg {
-         background: radial-gradient(circle at 10% 20%, #020617, #0f172a 70%, #1e293b 100%);
+        background: radial-gradient(circle at 10% 20%, #020617, #0f172a 70%, #1e293b 100%);
       }
+
+      /* Background aurora should sit behind content */
       .aurora-bg {
         position: absolute;
         top: 0;
@@ -32,19 +46,20 @@
         right: 0;
         bottom: 0;
         background-image:
-            radial-gradient(at 27% 37%, hsla(262, 98%, 61%, 0.15) 0px, transparent 50%),
-            radial-gradient(at 97% 21%, hsla(242, 98%, 72%, 0.1) 0px, transparent 50%),
-            radial-gradient(at 52% 99%, hsla(335, 98%, 72%, 0.15) 0px, transparent 50%),
-            radial-gradient(at 10% 29%, hsla(256, 96%, 68%, 0.1) 0px, transparent 50%),
-            radial-gradient(at 97% 96%, hsla(28, 60%, 74%, 0.1) 0px, transparent 50%),
-            radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 0.1) 0px, transparent 50%),
-            radial-gradient(at 79% 53%, hsla(303, 68%, 73%, 0.15) 0px, transparent 50%);
-        z-index: 0;
+          radial-gradient(at 27% 37%, hsla(262, 98%, 61%, 0.15) 0px, transparent 50%),
+          radial-gradient(at 97% 21%, hsla(242, 98%, 72%, 0.1) 0px, transparent 50%),
+          radial-gradient(at 52% 99%, hsla(335, 98%, 72%, 0.15) 0px, transparent 50%),
+          radial-gradient(at 10% 29%, hsla(256, 96%, 68%, 0.1) 0px, transparent 50%),
+          radial-gradient(at 97% 96%, hsla(28, 60%, 74%, 0.1) 0px, transparent 50%),
+          radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 0.1) 0px, transparent 50%),
+          radial-gradient(at 79% 53%, hsla(303, 68%, 73%, 0.15) 0px, transparent 50%);
+        z-index: -1;
         filter: blur(50px);
+        pointer-events: none;
       }
     </style>
 </head>
-  <body class="bg-slate-900 text-gray-200">
+  <body class="bg-slate-900 text-gray-200 px-0 sm:px-4">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

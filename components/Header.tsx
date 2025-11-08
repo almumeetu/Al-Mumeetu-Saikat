@@ -85,7 +85,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isOpen, setI
                     </div>
                      <div className="my-4">
                         <span className="text-xs font-semibold text-slate-400 bg-slate-800/50 px-3 py-1 rounded-full">
-                            Built with React & Tailwind
+                            Built with :
                         </span>
                     </div>
                     <p className="text-xs text-gray-500">&copy; {new Date().getFullYear()} Al Mumeetu Saikat</p>

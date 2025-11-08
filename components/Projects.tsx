@@ -31,11 +31,19 @@ const Projects: React.FC = () => {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [filter, setFilter] = useState('All');
 
-    const tags = ['All', ...Array.from(new Set(PROJECTS.flatMap(p => p.tags)))];
+    const tags = ['All', 'React/Next.js', 'WordPress', 'Frontend', 'Tailwind', 'E-commerce'];
 
     const filteredProjects = filter === 'All' 
         ? PROJECTS 
-        : PROJECTS.filter(p => p.tags.includes(filter));
+        : PROJECTS.filter(p => {
+            if (filter === 'React/Next.js') {
+                return p.tags.some(tag => ['React', 'Next.js'].includes(tag));
+            }
+            if (filter === 'Frontend') {
+                return p.tags.some(tag => ['HTML', 'SCSS', 'Bootstrap', 'JavaScript'].includes(tag));
+            }
+            return p.tags.includes(filter);
+        });
 
     return (
         <div className="max-w-7xl mx-auto">
