@@ -90,11 +90,10 @@ const Home: React.FC<Props> = ({ setActiveTab }) => {
                             if (setActiveTab) {
                                 setActiveTab('contact');
                             } else {
-                                // Fallback: update hash so if app listens to it or for direct anchor navigation
                                 window.location.hash = 'contact';
                             }
                         }}
-                        className="inline-flex items-center px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-full text-white font-semibold shadow-lg transition duration-150 ease-in-out"
+                        className="inline-flex items-center px-6 py-3 rounded-full font-semibold shadow-lg transition duration-150 ease-in-out text-white bg-purple-600 hover:bg-purple-700"
                     >
                         <svg
                             className="w-5 h-5 mr-2"
@@ -120,11 +119,10 @@ const Home: React.FC<Props> = ({ setActiveTab }) => {
                     </button>
                     <button
                         onClick={() => {
-                            // quick scroll to reviews
                             const el = document.getElementById('reviews');
                             el?.scrollIntoView({ behavior: 'smooth' });
                         }}
-                        className="inline-flex items-center px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-full text-gray-200"
+                        className="inline-flex items-center px-6 py-3 rounded-full font-semibold shadow-lg transition duration-150 ease-in-out text-gray-200 bg-slate-700 hover:bg-slate-600"
                     >
                         See Reviews ({reviews.length})
                     </button>
