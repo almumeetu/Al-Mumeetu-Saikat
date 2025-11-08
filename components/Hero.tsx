@@ -83,7 +83,7 @@ const Home: React.FC<Props> = ({ setActiveTab }) => {
                     A creative WordPress Expert & Frontend Developer, now building high-performance web applications with React and Next.js.
                 </p>
 
-                <div className="mt-6 flex items-center justify-center gap-4">
+                <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
                     <button
                         type="button"
                         onClick={() => {
@@ -93,36 +93,17 @@ const Home: React.FC<Props> = ({ setActiveTab }) => {
                                 window.location.hash = 'contact';
                             }
                         }}
-                        className="inline-flex items-center px-6 py-3 rounded-full font-semibold shadow-lg transition duration-150 ease-in-out text-white bg-purple-600 hover:bg-purple-700"
+                        className="inline-flex items-center px-6 py-3 rounded-full font-semibold shadow-lg transition duration-150 ease-in-out text-sm text-white bg-purple-600 hover:bg-purple-700"
                     >
-                        <svg
-                            className="w-5 h-5 mr-2"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M21 13.255A23.593 23.593 0 0112 15c-3.18 0-6.234-.403-9-1.745V20a2 2 0 002 2h14a2 2 0 002-2v-6.745z"
-                            ></path>
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M3 7a2 2 0 012-2h14a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"
-                            ></path>
-                        </svg>
-                        Get Hired
+                    
+                        Get Hired 🌟
                     </button>
                     <button
                         onClick={() => {
                             const el = document.getElementById('reviews');
                             el?.scrollIntoView({ behavior: 'smooth' });
                         }}
-                        className="inline-flex items-center px-6 py-3 rounded-full font-semibold shadow-lg transition duration-150 ease-in-out text-gray-200 bg-slate-700 hover:bg-slate-600"
+                        className="inline-flex items-center px-6 py-3 text-sm rounded-full font-semibold shadow-lg transition duration-150 ease-in-out text-gray-200 bg-slate-700 hover:bg-slate-600"
                     >
                         See Reviews ({reviews.length})
                     </button>
