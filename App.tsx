@@ -33,7 +33,7 @@ const App: React.FC = () => {
     const renderContent = () => {
         switch (activeTab) {
             case 'home':
-                return <LazyHome />;
+                return <LazyHome setActiveTab={setActiveTab} />;
             case 'resume':
                 return <LazyResume />;
             case 'projects':

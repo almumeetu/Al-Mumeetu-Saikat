@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
+import type { Tab } from '../types';
 
-const Home: React.FC = () => {
+type Props = { setActiveTab?: (tab: Tab) => void };
+const Home: React.FC<Props> = ({ setActiveTab }) => {
     const [reviews, setReviews] = useState<Review[]>([]);
     const [name, setName] = useState('');
     const [rating, setRating] = useState(5);
@@ -82,12 +84,40 @@ const Home: React.FC = () => {
                 </p>
 
                 <div className="mt-6 flex items-center justify-center gap-4">
-                    <a
-                        href="mailto:almumeetu@gmail.com"
-                        className="inline-flex items-center px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-full text-white font-semibold shadow-lg"
+                    <button
+                        type="button"
+                        onClick={() => {
+                            if (setActiveTab) {
+                                setActiveTab('contact');
+                            } else {
+                                // Fallback: update hash so if app listens to it or for direct anchor navigation
+                                window.location.hash = 'contact';
+                            }
+                        }}
+                        className="inline-flex items-center px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-full text-white font-semibold shadow-lg transition duration-150 ease-in-out"
                     >
+                        <svg
+                            className="w-5 h-5 mr-2"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M21 13.255A23.593 23.593 0 0112 15c-3.18 0-6.234-.403-9-1.745V20a2 2 0 002 2h14a2 2 0 002-2v-6.745z"
+                            ></path>
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M3 7a2 2 0 012-2h14a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"
+                            ></path>
+                        </svg>
                         Get Hired
-                    </a>
+                    </button>
                     <button
                         onClick={() => {
                             // quick scroll to reviews
