@@ -17,11 +17,8 @@ const Contact: React.FC = () => {
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
         
-        // IMPORTANT: Replace 'YOUR_UNIQUE_ID' with your actual Formspree form ID.
         // You can create a new form at https://formspree.io/
-        const formspreeEndpoint = 'https://formspree.io/f/mqkrvvzb'; 
-        // This is a demo endpoint. Replace it with your own.
-        // I have used my own for now so you can test it: almumeetu@gmail.com
+        const formspreeEndpoint = 'https://formspree.io/f/xkgkwbjo'; 
 
         try {
             const response = await fetch(formspreeEndpoint, {
