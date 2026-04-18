@@ -116,3 +116,93 @@ export const GithubIcon: React.FC = () => (
         <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.475 2 2 6.475 2 12c0 4.418 2.863 8.168 6.837 9.49.5.09.684-.217.684-.482 0-.237-.008-.868-.013-1.703-2.781.602-3.367-1.34-3.367-1.34-.455-1.156-1.11-1.465-1.11-1.465-.908-.62.068-.608.068-.608 1.003.07 1.53 1.03 1.53 1.03.89 1.527 2.34 1.087 2.91.832.09-.647.35-1.087.635-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.09.39-1.984 1.03-2.682-.103-.253-.446-1.27.098-2.643 0 0 .84-.27 2.75 1.025A9.55 9.55 0 0112 6.82a9.55 9.55 0 012.504.336c1.91-1.294 2.75-1.025 2.75-1.025.546 1.373.203 2.39.1 2.643.64.7 1.03 1.59 1.03 2.682 0 3.842-2.337 4.687-4.565 4.935.36.308.675.92.675 1.852 0 1.338-.013 2.418-.013 2.747 0 .267.18.577.69.48C19.14 20.165 22 16.417 22 12c0-5.525-4.475-10-10-10z"/>
     </IconWrapper>
 );
+
+export const TypeScriptIcon: React.FC = () => (
+    <IconWrapper viewBox="0 0 400 400">
+        <rect width="400" height="400" rx="50" fill="#3178c6"/>
+        <path d="M87.7 187.2H175v-24H0v24h87.3v247H87.7V187.2zM214 220.6c9.7 5 21.5 8.4 34.2 8.4 26.2 0 40.2-13.2 40.2-30.3 0-16.7-9.7-26.5-34.2-35.9-23.5-9.2-33.8-14.3-33.8-28.6 0-10 8-19 25.3-19 13 0 22.8 4.3 29.7 8.3l6-19.3c-8.2-4.7-21-9-35-9-31.3 0-46.3 17.7-46.3 37.3 0 18 11.7 28.7 37 38.3 21.3 8 30.8 15 30.8 28 0 12.3-9.7 22.3-28.7 22.3-13.3 0-26-5-33.8-9.3l-5.7 20.3c8 4.7 22.7 9.7 38.3 9.7z" fill="#fff"/>
+    </IconWrapper>
+);
+
+export const PostgreSQLIcon: React.FC = () => (
+    <IconWrapper viewBox="0 0 60 60">
+        <ellipse cx="30" cy="10" rx="20" ry="8" fill="none" stroke="#336791" strokeWidth="3"/>
+        <path d="M10 10 Q10 50 30 50 Q50 50 50 10" fill="none" stroke="#336791" strokeWidth="3"/>
+        <path d="M10 10 Q10 28 30 28 Q50 28 50 10" fill="#336791" opacity="0.15"/>
+        <ellipse cx="30" cy="10" rx="20" ry="8" fill="#336791" opacity="0.15"/>
+        <path d="M10 24 Q30 32 50 24" fill="none" stroke="#336791" strokeWidth="2" opacity="0.5"/>
+        <path d="M10 38 Q30 46 50 38" fill="none" stroke="#336791" strokeWidth="2" opacity="0.5"/>
+    </IconWrapper>
+);
+
+export const DockerIcon: React.FC = () => (
+    <IconWrapper viewBox="0 0 60 60">
+        <rect x="4" y="20" width="9" height="8" rx="1" fill="#2496ed"/>
+        <rect x="15" y="20" width="9" height="8" rx="1" fill="#2496ed"/>
+        <rect x="26" y="20" width="9" height="8" rx="1" fill="#2496ed"/>
+        <rect x="15" y="11" width="9" height="8" rx="1" fill="#2496ed"/>
+        <rect x="26" y="11" width="9" height="8" rx="1" fill="#2496ed"/>
+        <rect x="26" y="2" width="9" height="8" rx="1" fill="#2496ed"/>
+        <path d="M37 28c0 0 2-1.5 5-0.5 0.5 2 0 4-2 5.5C37 36 30 37 20 37 10 37 5 35 3 32c-1-1.5-1-3 0-4.5 1.5-2 4-2 4-2" fill="none" stroke="#2496ed" strokeWidth="2"/>
+        <circle cx="46" cy="26" r="3" fill="none" stroke="#2496ed" strokeWidth="2"/>
+    </IconWrapper>
+);
+
+export const SupabaseIcon: React.FC = () => (
+    <IconWrapper viewBox="0 0 60 60">
+        <defs>
+            <linearGradient id="sb-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#3ecf8e"/>
+                <stop offset="100%" stopColor="#1c8a58"/>
+            </linearGradient>
+        </defs>
+        <path d="M32 5 L5 38 H28 L28 55 L55 22 H32 Z" fill="url(#sb-grad)"/>
+    </IconWrapper>
+);
+
+export const PrismaIcon: React.FC = () => (
+    <IconWrapper viewBox="0 0 60 60">
+        <path d="M30 4 L54 52 L6 40 Z" fill="none" stroke="#2D3748" strokeWidth="3"/>
+        <path d="M30 4 L6 40 L30 34 Z" fill="#2D3748" opacity="0.6"/>
+        <path d="M30 4 L30 34 L54 52 Z" fill="#2D3748" opacity="0.9"/>
+    </IconWrapper>
+);
+
+export const DrizzleIcon: React.FC = () => (
+    <IconWrapper viewBox="0 0 60 60">
+        <text x="5" y="42" fontSize="36" fontFamily="Arial" fontWeight="900" fill="#c5f74f">ORM</text>
+    </IconWrapper>
+);
+
+export const GitLabIcon: React.FC = () => (
+    <IconWrapper viewBox="0 0 60 60">
+        <path d="M30 52 L8 20 L15 8 L22 28 H38 L45 8 L52 20 Z" fill="#e24329"/>
+        <path d="M30 52 L8 20 H22 Z" fill="#fc6d26"/>
+        <path d="M30 52 L38 28 H52 Z" fill="#fc6d26"/>
+        <path d="M8 20 L15 8 L22 28 Z" fill="#fca326"/>
+        <path d="M52 20 L45 8 L38 28 Z" fill="#fca326"/>
+    </IconWrapper>
+);
+
+export const PnpmIcon: React.FC = () => (
+    <IconWrapper viewBox="0 0 60 60">
+        <rect x="4" y="4" width="16" height="16" rx="2" fill="#f69220"/>
+        <rect x="22" y="4" width="16" height="16" rx="2" fill="#f69220" opacity="0.5"/>
+        <rect x="40" y="4" width="16" height="16" rx="2" fill="#f69220" opacity="0.5"/>
+        <rect x="4" y="22" width="16" height="16" rx="2" fill="#f69220" opacity="0.5"/>
+        <rect x="22" y="22" width="16" height="16" rx="2" fill="#f69220"/>
+        <rect x="40" y="22" width="16" height="16" rx="2" fill="#f69220" opacity="0.5"/>
+        <rect x="4" y="40" width="16" height="16" rx="2" fill="#f69220" opacity="0.5"/>
+        <rect x="22" y="40" width="16" height="16" rx="2" fill="#f69220" opacity="0.5"/>
+        <rect x="40" y="40" width="16" height="16" rx="2" fill="#f69220"/>
+    </IconWrapper>
+);
+
+export const SQLiteIcon: React.FC = () => (
+    <IconWrapper viewBox="0 0 60 60">
+        <ellipse cx="30" cy="18" rx="14" ry="16" fill="#0f80cc" opacity="0.9"/>
+        <rect x="16" y="18" width="28" height="26" fill="#0f80cc" opacity="0.7"/>
+        <ellipse cx="30" cy="44" rx="14" ry="6" fill="#0f80cc" opacity="0.5"/>
+        <text x="22" y="35" fontSize="13" fontFamily="Arial" fontWeight="bold" fill="#fff">SQL</text>
+    </IconWrapper>
+);

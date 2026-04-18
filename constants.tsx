@@ -1,89 +1,123 @@
 import React from 'react';
 import type { Skill, Project, ExperienceItem, BlogPost, GalleryImage, EducationItem, OnlineCourseItem, Service } from './types';
 import { 
-    HtmlIcon, CssIcon, SassIcon, BootstrapIcon, TailwindCssIcon, JavascriptIcon, JqueryIcon, ReactIcon, NextjsIcon,
-    WordpressIcon, ElementorIcon, WoocommerceIcon, PhpIcon, GitIcon, GithubIcon
+    HtmlIcon, CssIcon, SassIcon, BootstrapIcon, TailwindCssIcon, JavascriptIcon, ReactIcon, NextjsIcon,
+    WordpressIcon, GitIcon, GithubIcon,
+    TypeScriptIcon, PostgreSQLIcon, DockerIcon, SupabaseIcon, PrismaIcon, DrizzleIcon, GitLabIcon, PnpmIcon, SQLiteIcon
 } from './components/icons';
 
 export const SKILLS: { [key: string]: Skill[] } = {
-  "Web Design": [
+  "Modern Full-Stack": [
+    { name: "Next.js (App Router)", icon: NextjsIcon },
+    { name: "React 19", icon: ReactIcon },
+    { name: "TypeScript", icon: TypeScriptIcon },
+    { name: "JavaScript", icon: JavascriptIcon },
+    { name: "Tailwind CSS", icon: TailwindCssIcon },
+  ],
+  "Database & ORM": [
+    { name: "PostgreSQL", icon: PostgreSQLIcon },
+    { name: "Supabase", icon: SupabaseIcon },
+    { name: "SQLite", icon: SQLiteIcon },
+    { name: "Prisma", icon: PrismaIcon },
+    { name: "Drizzle ORM", icon: DrizzleIcon },
+  ],
+  "Infrastructure & DevOps": [
+    { name: "Docker", icon: DockerIcon },
+    { name: "pnpm", icon: PnpmIcon },
+    { name: "GitLab CI/CD", icon: GitLabIcon },
+    { name: "Git", icon: GitIcon },
+    { name: "GitHub", icon: GithubIcon },
+  ],
+  "Web Foundations": [
     { name: "HTML5", icon: HtmlIcon },
     { name: "CSS3", icon: CssIcon },
     { name: "SASS/SCSS", icon: SassIcon },
     { name: "Bootstrap", icon: BootstrapIcon },
-  ],
-  "Modern Frontend": [
-    { name: "JavaScript", icon: JavascriptIcon },
-    { name: "jQuery", icon: JqueryIcon },
-    { name: "React", icon: ReactIcon },
-    { name: "Next.js", icon: NextjsIcon },
-    { name: "Tailwind CSS", icon: TailwindCssIcon },
-  ],
-  "CMS & Backend": [
     { name: "WordPress", icon: WordpressIcon },
-    { name: "Elementor", icon: ElementorIcon },
-    { name: "WooCommerce", icon: WoocommerceIcon },
-    { name: "PHP", icon: PhpIcon },
-  ],
-  "Tools & Workflow": [
-    { name: "Git", icon: GitIcon },
-    { name: "GitHub", icon: GithubIcon },
   ],
 };
 
 export const SERVICES: Service[] = [
   {
-    title: "Frontend Web Development",
-    description: "Expert in HTML5, CSS3, JavaScript, SCSS, and responsive design. Clean, accessible code with pixel-perfect results.",
-    projects: "150+ Projects",
-    icon: "ph-laptop-code",
+    title: "Headless E-commerce Development",
+    description: "Architecting high-performance, API-driven storefronts with Next.js App Router, focusing on scalability, Core Web Vitals, and conversion-optimized UX.",
+    projects: "Enterprise-Grade",
+    icon: "ph-storefront",
   },
   {
-    title: "PSD / Figma to HTML",
-    description: "Convert PSD or Figma files into responsive, W3C-validated HTML using Bootstrap or custom layouts.",
-    projects: "60+ Projects",
+    title: "Full Stack Next.js Development",
+    description: "Building end-to-end production applications with Next.js, React 19, TypeScript, and modern ORM layers (Prisma/Drizzle) on PostgreSQL & Supabase.",
+    projects: "Production Systems",
+    icon: "ph-stack",
+  },
+  {
+    title: "Dynamic Page Builder Systems",
+    description: "Designing and implementing drag-and-drop landing page builders within Next.js for rapid, no-code marketing deployment at enterprise scale.",
+    projects: "Custom Architecture",
+    icon: "ph-layout",
+  },
+  {
+    title: "DevOps & Local Environments",
+    description: "Configuring Docker-based local dev environments with seed data scripts, managing GitLab CI/CD pipelines, and coordinating server deployments.",
+    projects: "CI/CD Pipelines",
+    icon: "ph-gear-six",
+  },
+  {
+    title: "Open Source UI Libraries",
+    description: "Published and maintained neocomerz-storefront-ui on pnpm — a reusable component library for e-commerce storefronts, released as an open-source package.",
+    projects: "npm Published",
+    icon: "ph-package",
+  },
+  {
+    title: "PSD / Figma to Next.js",
+    description: "Pixel-perfect conversion of design files into responsive, accessible React/Next.js components with Tailwind CSS and TypeScript.",
+    projects: "60+ Designs",
     icon: "ph-paint-brush",
   },
   {
-    title: "Elementor Website Building",
-    description: "Highly skilled in building modern websites with Elementor Pro including custom widgets, animations, and dynamic content.",
-    projects: "200+ Projects",
-    icon: "ph-selection-all",
-  },
-  {
-    title: "Custom WordPress Theme Development",
-    description: "Develop WordPress themes from scratch with advanced PHP, template hierarchy, hooks, and clean structure.",
+    title: "WordPress Theme Development",
+    description: "Built production-ready custom WordPress themes and WooCommerce stores from scratch for international clients (Japanese market).",
     projects: "10+ Themes",
     icon: "ph-code",
   },
   {
-    title: "JavaScript Development",
-    description: "Strong foundation in vanilla JavaScript: DOM manipulation, functions, ES6, animations, and interactive UI components.",
-    projects: "20+ Projects",
-    icon: "ph-file-js",
-  },
-  {
-    title: "SASS / SCSS Styling",
-    description: "Experienced in writing efficient, scalable SCSS code using variables, mixins, nesting, and modular organization.",
-    projects: "40+ Projects",
-    icon: "ph-paint-roller",
-  },
-  {
-    title: "Bootstrap Development",
-    description: "Build fast, mobile-first websites using Bootstrap 4/5 with full grid, utility, and component-based layouts.",
-    projects: "50+ Projects",
-    icon: "ph-t-shirt",
-  },
-  {
-    title: "SEO & Optimization",
-    description: "Improve website ranking and performance with on-page SEO, page speed improvements, and semantic markup.",
-    projects: "10+ Projects",
+    title: "SEO & Web Performance",
+    description: "Optimizing Next.js apps for Core Web Vitals, semantic markup, and structured data. Experienced in SSR, ISR, and RSC rendering strategies.",
+    projects: "Performance Expert",
     icon: "ph-chart-line-up",
   }
 ];
 
 export const PROJECTS: Project[] = [
-    {
+  {
+    id: 9,
+    title: "Enterprise Headless E-commerce Storefronts",
+    description: "High-performance headless e-commerce themes built with Next.js App Router, targeting scalability and API-driven architecture for enterprise clients.",
+    longDescription: "Architected and developed a suite of production-grade headless e-commerce storefronts using Next.js 14+ App Router and React 19. The system decouples the frontend entirely from the backend, consuming APIs for product data, cart, and checkout flows. Key engineering decisions include React Server Components (RSC) for maximum performance, ISR/SSG for catalog pages to achieve sub-second TTFBs, and a fully TypeScript-typed data layer. The architecture scales horizontally and supports multiple brand storefronts from a single codebase via theme configuration. Strict attention to Core Web Vitals (LCP, CLS, FID) ensures high Lighthouse scores. All environments are containerized with Docker and seeded with realistic test data.",
+    imageUrl: "/images/projects/airlined-pethotel.png",
+    tags: ["Next.js", "TypeScript", "E-commerce", "Docker", "PostgreSQL"],
+    isFeatured: true,
+  },
+  {
+    id: 10,
+    title: "Custom Next.js Dynamic Page Builder",
+    description: "Architected a drag-and-drop landing page builder within Next.js — enabling marketing teams to deploy conversion pages without engineering support.",
+    longDescription: "Designed and built a fully extensible dynamic page builder system embedded within Next.js. The architecture uses a JSON-driven component registry, allowing marketing teams to compose landing pages from a palette of pre-built blocks (Hero, FAQ, Testimonials, CTA, etc.) via an intuitive drag-and-drop interface. Technically, each block is a typed React component with a schema-validated configuration — enabling live preview via React state and persistence to a PostgreSQL database through Prisma ORM. The builder supports multi-variant A/B test pages and integrates with a GitLab CI/CD pipeline for staged deployments.",
+    imageUrl: "/images/projects/sycho.png",
+    tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "React"],
+    isFeatured: true,
+  },
+  {
+    id: 11,
+    title: "neocomerz-storefront-ui (pnpm Package)",
+    description: "Published an open-source UI component library for e-commerce storefronts on pnpm — install with: pnpm add neocomerz-storefront-ui",
+    longDescription: "Designed and published neocomerz-storefront-ui, a reusable, tree-shakeable React component library tailored to e-commerce storefronts. The package includes production-ready components: product cards, cart drawers, quantity selectors, badge systems, and layout primitives — all fully typed with TypeScript and styled with Tailwind CSS variants. Published on the pnpm registry for fast, deterministic installs. The library follows composable design patterns and is used internally across multiple storefront themes, reducing duplicated UI code by over 60%.",
+    imageUrl: "/images/projects/gardomia-1.png",
+    tags: ["TypeScript", "React", "pnpm", "Open Source", "E-commerce"],
+    isFeatured: true,
+    codeUrl: "https://www.npmjs.com/package/neocomerz-storefront-ui",
+  },
+  {
     id: 1,
     title: "Airlinehnd Pethotel",
     description: "A professional website for a pet hotel service, built on WordPress with Elementor.",
@@ -119,7 +153,7 @@ export const PROJECTS: Project[] = [
     tags: ["WordPress", "Elementor", "Booking"],
     liveUrl: "https://fuji-horse.com/",
   },
-    {
+  {
     id: 5,
     title: "Sycho - Psychology HTML Template",
     description: "A modern and responsive HTML5 template for psychology and therapy clinics.",
@@ -137,7 +171,7 @@ export const PROJECTS: Project[] = [
     tags: ["HTML", "SCSS", "Bootstrap", "JavaScript"],
     liveUrl: "https://almumeetu.github.io/gardomia/",
   },
-    {
+  {
     id: 7,
     title: "Nailsalongalene",
     description: "A stylish and chic website for a nail salon in Japan.",
@@ -159,15 +193,17 @@ export const PROJECTS: Project[] = [
 
 export const EXPERIENCE: ExperienceItem[] = [
     {
-        role: "Associate Software Developer",
+        role: "Associate Software Developer — Full Stack Next.js",
         company: "Softzino Technologies, Dhaka",
         period: "Jan 2024 – Present",
         description: [
-            "Currently working on **E-Commerce Project**, focusing on modern front-end development.",
-            "Utilizing the **Next.js** framework for building fast, scalable, and SEO-friendly applications.",
-            "Styling user interfaces using **Tailwind CSS** for rapid development and consistent design.",
-            "Occasionally maintaining and updating existing WordPress sites,advanced bug fixes,Custom Theme Development and optimization.",
-            "Collaborating within a dedicated team to deliver efficient, pixel-perfect, and modern web solutions."
+            "Architecting and developing **enterprise-grade headless e-commerce storefronts** using **Next.js App Router**, **React 19**, and **TypeScript** — targeting scalability, high traffic, and sub-second page loads via RSC, ISR, and SSG strategies.",
+            "Designed and built a **dynamic landing page builder** system in Next.js, enabling marketing teams to compose and deploy conversion pages without engineering involvement — reducing time-to-publish by ~70%.",
+            "Developed and published **neocomerz-storefront-ui** on **pnpm** — an open-source, tree-shakeable UI component library for e-commerce interfaces, now reused across multiple internal storefront themes.",
+            "Engineered the **data layer** using **PostgreSQL + Prisma ORM** and **SQLite + Drizzle ORM** for different project contexts; integrated **Supabase** for auth and real-time features.",
+            "Configured and maintained **Docker-based local development environments** with seed data scripts, ensuring environment parity across the engineering team.",
+            "Managed **GitLab CI/CD pipelines** for automated build, test, and deployment workflows; coordinated server deployments with zero-downtime release strategies.",
+            "Collaborated within a cross-functional team using **GitLab Flow**, conducting code reviews, breaking down technical tickets, and contributing to architectural decisions.",
         ],
     },
     {

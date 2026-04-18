@@ -24,6 +24,7 @@ export interface Project {
   tags: string[];
   liveUrl?: string;
   codeUrl?: string;
+  isFeatured?: boolean;
 }
 
 export interface ExperienceItem {

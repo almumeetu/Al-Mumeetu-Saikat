@@ -76,11 +76,11 @@ const Home: React.FC<Props> = ({ setActiveTab }) => {
             <div className="text-center space-y-6 md:space-y-8 pt-10 md:pt-20">
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tighter">
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-indigo-500 animate-gradient-x">
-                        Al Mumeetu Saikat
+                        Full Stack Next.js Developer & Headless E-commerce Expert
                     </span>
                 </h1>
                 <p className="text-lg md:text-xl lg:text-2xl font-medium text-gray-300 max-w-3xl mx-auto">
-                    A creative WordPress Expert & Frontend Developer, now building high-performance web applications with React and Next.js.
+                    Associate Software Developer at Softzino Technologies — architecting enterprise-grade headless e-commerce systems with modern tech stack.
                 </p>
 
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-4">

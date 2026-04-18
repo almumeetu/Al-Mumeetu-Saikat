@@ -30,14 +30,21 @@ const SkillCard: React.FC<{ skill: Skill }> = ({ skill }) => (
     </div>
 );
 
+const renderBold = (text: string) => {
+    const parts = text.split(/\*\*(.*?)\*\*/g);
+    return parts.map((part, i) =>
+        i % 2 === 1 ? <strong key={i} className="text-white font-semibold">{part}</strong> : part
+    );
+};
+
 const ExperienceCard: React.FC<{ item: ExperienceItem }> = ({ item }) => (
-     <div className="bg-slate-800/40 p-6 rounded-lg border border-slate-700/60 shadow-lg transition-transform duration-300 hover:scale-[1.02] hover:border-purple-500/30">
+     <div className="bg-slate-800/40 p-6 rounded-lg border border-slate-700/60 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-purple-500/30 hover:bg-slate-800/60">
         <p className="text-sm font-medium text-purple-400 mb-1">{item.period}</p>
         <h3 className="text-xl md:text-2xl font-bold text-white">{item.role}</h3>
         <h4 className="text-base md:text-lg font-semibold text-gray-400 mb-4">{item.company}</h4>
         <ul className="list-disc list-inside text-gray-300 space-y-2">
             {item.description.map((point, index) => (
-                <li key={index}>{point}</li>
+                <li key={index}>{renderBold(point)}</li>
             ))}
         </ul>
     </div>
