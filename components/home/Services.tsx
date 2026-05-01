@@ -1,17 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Code, Figma, Zap, Globe, FileCode, Palette, Layout, Search } from 'lucide-react';
+import { Code, Database, Globe, Server, Palette, Search, Smartphone, Blocks } from 'lucide-react';
 
 const services = [
-  { icon: Code, title: 'Frontend Development', desc: 'Expert in HTML5, CSS3, JavaScript, SCSS, responsive design.', count: '150+ Projects' },
-  { icon: Figma, title: 'PSD / Figma to HTML', desc: 'Convert designs into responsive, W3C-validated HTML.', count: '60+ Projects' },
-  { icon: Zap, title: 'Elementor Building', desc: 'Modern websites with Elementor Pro, custom widgets.', count: '200+ Projects' },
-  { icon: Globe, title: 'Custom WordPress Themes', desc: 'WordPress themes from scratch with PHP & hooks.', count: '10+ Themes' },
-  { icon: FileCode, title: 'JavaScript Development', desc: 'Vanilla JS: DOM, ES6, animations, interactive UI.', count: '20+ Projects' },
-  { icon: Palette, title: 'SASS / SCSS Styling', desc: 'Efficient SCSS with variables, mixins, modular code.', count: '40+ Projects' },
-  { icon: Layout, title: 'Bootstrap Development', desc: 'Mobile-first websites with Bootstrap 4/5.', count: '50+ Projects' },
-  { icon: Search, title: 'SEO & Optimization', desc: 'On-page SEO, page speed, semantic markup.', count: '10+ Projects' },
+  { icon: Blocks, title: 'Full-Stack Apps', desc: 'End-to-end web apps using Next.js, Vue, and Nuxt.', count: '30+ Apps' },
+  { icon: Database, title: 'Database Architecture', desc: 'Robust data modeling with PostgreSQL, SQLite, and Supabase.', count: '20+ Databases' },
+  { icon: Server, title: 'API & Backend', desc: 'Secure APIs, authentication, and serverless functions.', count: '40+ Integrations' },
+  { icon: Code, title: 'Frontend Engineering', desc: 'Interactive, accessible UIs with React and Tailwind CSS.', count: '100+ Projects' },
+  { icon: Globe, title: 'Custom WordPress', desc: 'Themes from scratch, plugin modifications, and Elementor.', count: '150+ Sites' },
+  { icon: Smartphone, title: 'Responsive Design', desc: 'Mobile-first interfaces that look great on any device.', count: '200+ Projects' },
+  { icon: Palette, title: 'UI/UX Implementation', desc: 'Figma to high-fidelity, pixel-perfect code conversion.', count: '80+ Projects' },
+  { icon: Search, title: 'SEO & Performance', desc: 'Core Web Vitals optimization and semantic markup.', count: '50+ Audits' },
 ];
 
 export default function Services() {

@@ -4,8 +4,14 @@ import { connectDB } from '@/lib/db';
 import Project from '@/models/Project';
 
 export default async function FeaturedProjects() {
-  await connectDB();
-  const projects = await Project.find({ featured: true }).sort({ createdAt: -1 }).limit(3).lean();
+  let projects: any[] = [];
+  try {
+    await connectDB();
+    projects = await Project.find({ featured: true }).sort({ createdAt: -1 }).limit(3).lean();
+  } catch (error) {
+    console.error('Failed to fetch featured projects:', error);
+    // Fallback to empty array on DB error
+  }
 
   return (
     <section className="py-24">

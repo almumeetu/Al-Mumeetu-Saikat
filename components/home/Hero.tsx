@@ -21,10 +21,9 @@ export default function Hero() {
           <h1 className="mb-4 text-5xl font-extrabold leading-tight md:text-7xl">
             Al Mumeetu <span className="gradient-text">Saikat</span>
           </h1>
-          <h2 className="mb-5 text-xl font-mono text-primary md:text-2xl">WordPress &amp; Frontend Specialist</h2>
+          <h2 className="mb-5 text-xl font-mono text-primary md:text-2xl">Full-Stack Engineer &amp; WordPress Specialist</h2>
           <p className="mb-8 max-w-xl text-lg text-slate-600 dark:text-slate-400">
-            A professional <strong>WordPress Specialist</strong> &amp; <strong>Frontend Developer</strong>, building
-            high-performance digital products with <strong>React</strong> and <strong>Next.js</strong>.
+            Building high-performance digital products with <strong>Next.js</strong>, <strong>Vue/Nuxt</strong>, modern databases like <strong>Supabase</strong>, and custom <strong>WordPress</strong> solutions.
           </p>
           <div className="mb-8 flex flex-wrap gap-4">
             <Link href="/contact" className="btn-primary">
@@ -70,7 +69,7 @@ export default function Hero() {
           </div>
           {[
             { emoji: '⚛️', pos: 'top-0 -left-6' },
-            { emoji: '🎨', pos: 'top-1/2 -right-6' },
+            { emoji: '🐘', pos: 'top-1/2 -right-6' }, // PostgreSQL/Supabase representation
             { emoji: '⚡', pos: 'bottom-0 left-10' },
           ].map((badge, index) => (
             <div

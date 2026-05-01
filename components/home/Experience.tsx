@@ -1,18 +1,18 @@
 const experience = [
   {
-    year: '2020 - Present',
-    title: 'WordPress / Frontend Specialist',
-    description: 'Delivered client websites, landing pages, and custom WordPress builds with a focus on speed and maintainability.',
+    year: '2022 - Present',
+    title: 'Full-Stack Engineer',
+    description: 'Architecting scalable web applications using Next.js, Vue/Nuxt, and integrating modern databases (PostgreSQL, Supabase).',
   },
   {
-    year: '2018 - 2020',
-    title: 'Frontend Developer',
-    description: 'Worked on responsive UI implementation, JavaScript interactions, and PSD/Figma to HTML conversions.',
+    year: '2020 - 2022',
+    title: 'WordPress & Frontend Specialist',
+    description: 'Delivered robust client websites, landing pages, and custom WordPress builds with a focus on speed, React interfaces, and maintainability.',
   },
   {
-    year: '2016 - 2018',
-    title: 'Web Designer',
-    description: 'Built early portfolio and business websites, learning performance, accessibility, and conversion design.',
+    year: '2016 - 2020',
+    title: 'Frontend Developer & Web Designer',
+    description: 'Worked on responsive UI implementation, PSD/Figma to HTML conversions, and built early portfolio sites focusing on UX and performance.',
   },
 ];
 

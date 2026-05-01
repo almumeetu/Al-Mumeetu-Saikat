@@ -14,14 +14,12 @@ export default function About() {
           <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
             About Me
           </span>
-          <h2 className="text-4xl font-extrabold md:text-5xl">I build clean, fast, conversion-focused websites.</h2>
+          <h2 className="text-4xl font-extrabold md:text-5xl">I build scalable, fast, and modern web applications.</h2>
           <p className="max-w-2xl text-lg text-slate-600 dark:text-slate-400">
-            I work across WordPress, frontend engineering, and performance-focused UI implementation. My focus is on
-            delivery that feels polished, maintainable, and easy for clients to grow over time.
+            I am a Full-Stack Engineer with deep expertise in modern JavaScript frameworks like <strong>Next.js</strong> and <strong>Vue/Nuxt</strong>, backed by robust databases like <strong>PostgreSQL</strong>, <strong>SQLite</strong>, and <strong>Supabase</strong>. 
           </p>
           <p className="max-w-2xl text-slate-600 dark:text-slate-400">
-            From custom WordPress themes to React interfaces, I keep the emphasis on clarity, speed, and real-world
-            outcomes instead of generic templates.
+            Alongside my full-stack capabilities, I also have extensive experience delivering custom <strong>WordPress</strong> solutions. My focus is always on creating polished, maintainable, and high-performance products that drive real-world outcomes.
           </p>
           <Link href="/about" className="btn-primary">
             Learn More

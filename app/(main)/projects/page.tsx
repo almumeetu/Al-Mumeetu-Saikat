@@ -4,8 +4,13 @@ import { connectDB } from '@/lib/db';
 import Project from '@/models/Project';
 
 export default async function ProjectsPage() {
-  await connectDB();
-  const projects = await Project.find({}).sort({ createdAt: -1 }).lean();
+  let projects: any[] = [];
+  try {
+    await connectDB();
+    projects = await Project.find({}).sort({ createdAt: -1 }).lean();
+  } catch (error) {
+    console.error('Failed to fetch projects:', error);
+  }
 
   return (
     <section className="py-20">

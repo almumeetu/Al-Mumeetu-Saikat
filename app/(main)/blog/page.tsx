@@ -4,8 +4,13 @@ import { connectDB } from '@/lib/db';
 import Blog from '@/models/Blog';
 
 export default async function BlogPage() {
-  await connectDB();
-  const blogs = await Blog.find({ published: true }).sort({ createdAt: -1 }).lean();
+  let blogs: any[] = [];
+  try {
+    await connectDB();
+    blogs = await Blog.find({ published: true }).sort({ createdAt: -1 }).lean();
+  } catch (error) {
+    console.error('Failed to fetch blogs:', error);
+  }
 
   return (
     <section className="py-20">
