@@ -1,17 +1,34 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { connectDB } from '@/lib/db';
-import Project from '@/models/Project';
+
 
 export default async function FeaturedProjects() {
-  let projects: any[] = [];
-  try {
-    await connectDB();
-    projects = await Project.find({ featured: true }).sort({ createdAt: -1 }).limit(3).lean();
-  } catch (error) {
-    console.error('Failed to fetch featured projects:', error);
-    // Fallback to empty array on DB error
-  }
+  const projects = [
+    {
+      _id: '1',
+      title: 'neocomerz-storefront-ui',
+      category: 'Package',
+      description: 'A comprehensive pnpm package for building modern, high-performance e-commerce storefronts.',
+      tech: ['pnpm', 'TypeScript', 'React', 'Tailwind CSS'],
+      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=800'
+    },
+    {
+      _id: '2',
+      title: 'Friends Gallery',
+      category: 'Headless E-commerce',
+      description: 'A custom headless e-commerce platform built with React interfaces on top of a flexible WordPress backend.',
+      tech: ['React', 'WordPress', 'GraphQL', 'Next.js'],
+      image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=800'
+    },
+    {
+      _id: '3',
+      title: 'Next.js Dynamic Page Builder',
+      category: 'Architecture',
+      description: 'A custom frontend architecture designed to generate high-converting landing pages dynamically.',
+      tech: ['Next.js 15', 'Tailwind CSS', 'Framer Motion'],
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800'
+    }
+  ];
 
   return (
     <section className="py-24">
@@ -32,7 +49,7 @@ export default async function FeaturedProjects() {
                 </div>
                 <div className="space-y-4 p-6">
                   <div className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{project.category}</div>
-                  <h3 className="text-2xl font-bold">{project.title}</h3>
+                  <h3 className={`text-2xl font-bold ${project.title === 'neocomerz-storefront-ui' ? 'font-mono tracking-tight text-xl' : ''}`}>{project.title}</h3>
                   <p className="text-sm text-slate-600 dark:text-slate-400">{project.description}</p>
                   <div className="flex flex-wrap gap-2 text-xs text-slate-600 dark:text-slate-400">
                     {(project.tech || []).slice(0, 4).map((tech: string) => (

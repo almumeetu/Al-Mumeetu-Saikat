@@ -1,19 +1,12 @@
-const skillCategories = [
-  {
-    title: 'Frontend',
-    skills: ['Next.js', 'React', 'Vue', 'Nuxt', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'SASS/SCSS', 'HTML5', 'CSS3']
-  },
-  {
-    title: 'Backend & DB',
-    skills: ['PostgreSQL', 'SQLite', 'Supabase', 'Node.js', 'REST APIs']
-  },
-  {
-    title: 'CMS & Tools',
-    skills: ['WordPress', 'Elementor', 'Git', 'Figma', 'SEO']
-  }
-];
+import type { SiteSettingsData } from '@/lib/getSiteSettings';
 
-export default function Skills() {
+export default function Skills({ s }: { s: SiteSettingsData }) {
+  const skillCategories = [
+    { title: 'Frontend', skills: s.skillsFrontend },
+    { title: 'Backend', skills: s.skillsBackend },
+    { title: 'Tools & DevOps', skills: s.skillsDevops },
+  ];
+
   return (
     <section className="py-24 bg-slate-50/50 dark:bg-slate-900/20">
       <div className="container-custom">

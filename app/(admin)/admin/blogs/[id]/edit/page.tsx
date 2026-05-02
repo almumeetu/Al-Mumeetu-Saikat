@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import ImageUploader from '@/components/admin/ImageUploader';
 
 export default function EditBlogPage({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -84,7 +85,6 @@ export default function EditBlogPage({ params }: { params: { id: string } }) {
         {[
           ['title', 'Title'],
           ['excerpt', 'Excerpt'],
-          ['coverImage', 'Cover Image URL'],
           ['category', 'Category'],
           ['tags', 'Tags (comma separated)'],
         ].map(([key, label]) => (
@@ -97,6 +97,12 @@ export default function EditBlogPage({ params }: { params: { id: string } }) {
             />
           </div>
         ))}
+
+        <ImageUploader
+          label="Cover Image"
+          value={form.coverImage}
+          onChange={(url) => setForm((current) => ({ ...current, coverImage: url }))}
+        />
 
         <div>
           <label className="mb-2 block text-sm font-medium">Content</label>

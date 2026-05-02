@@ -44,6 +44,13 @@ export default function AboutPage() {
           </div>
 
           <div className="card space-y-4 p-8">
+            <h2 className="text-2xl font-bold">Education & Goals</h2>
+            <p className="text-slate-600 dark:text-slate-400">
+              I completed my Higher Secondary Certificate (HSC) in 2021. Currently, I am actively preparing for a Bachelor&apos;s degree in Computer Science and Engineering (CSE) to further formalize my technical foundation, alongside studying for the IELTS exam.
+            </p>
+          </div>
+
+          <div className="card space-y-4 p-8 lg:col-span-2">
             <h2 className="text-2xl font-bold">Availability</h2>
             <p className="text-slate-600 dark:text-slate-400">Open to freelance projects, collaborations, and long-term work.</p>
             <Link href="/contact" className="btn-primary">

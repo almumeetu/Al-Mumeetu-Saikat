@@ -5,17 +5,20 @@ import Skills from '@/components/home/Skills';
 import Experience from '@/components/home/Experience';
 import FeaturedProjects from '@/components/home/FeaturedProjects';
 import Newsletter from '@/components/home/Newsletter';
+import { getSiteSettings } from '@/lib/getSiteSettings';
 
-export default function HomePage() {
-	return (
-		<>
-			<Hero />
-			<About />
-			<Services />
-			<Skills />
-			<Experience />
-			<FeaturedProjects />
-			<Newsletter />
-		</>
-	);
+export default async function HomePage() {
+  const settings = await getSiteSettings();
+
+  return (
+    <>
+      <Hero s={settings} />
+      <About s={settings} />
+      <Services />
+      <Skills s={settings} />
+      <Experience s={settings} />
+      <FeaturedProjects />
+      <Newsletter />
+    </>
+  );
 }
