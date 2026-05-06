@@ -20,7 +20,8 @@ export type SiteSettingsData = {
   skillsFrontend: string[];
   skillsBackend: string[];
   skillsDevops: string[];
-  experience: { year: string; title: string; description: string }[];
+  experience: { year: string; title: string; company: string; description: string }[];
+  services: { icon: string; title: string; desc: string; count: string }[];
 };
 
 const DEFAULTS: SiteSettingsData = {
@@ -47,23 +48,36 @@ const DEFAULTS: SiteSettingsData = {
   skillsDevops: ['Docker', 'GitLab CI/CD', 'pnpm', 'Linux Server Deployment'],
   experience: [
     {
-      year: 'April 2026 - Present',
-      title: 'AI Feedback Engineer @ Outlier / Scale AI',
+      year: 'Jan 2024 – Present',
+      title: 'Associate Software Developer',
+      company: 'Softzino Technologies, Dhaka',
       description:
-        'Evaluating AI model logic and technical accuracy for coding projects, ensuring high-quality outputs for advanced AI systems.',
+        'Currently working on **E-Commerce Project**, focusing on modern front-end development using Next.js and Tailwind CSS.',
     },
     {
-      year: '2023 - Present',
-      title: 'Associate Software Developer @ Softzino Technologies',
+      year: 'Aug 2023 - Oct 2024',
+      title: 'Online Tutor on demand',
+      company: 'SSPTV, West Bengal, India',
       description:
-        'Focusing on e-commerce themes, custom page builders, and headless architecture to deliver scalable and performant web solutions.',
+        'Delivering web development instruction for a training center, educating students in HTML, CSS, SASS, Bootstrap, JavaScript, and jQuery.',
     },
     {
-      year: '2020 - 2023',
-      title: 'WordPress & Frontend Specialist',
+      year: 'Jan 2023 - Present',
+      title: 'Web Designer/Developer',
+      company: 'Upwork.com',
       description:
-        'Delivered robust client websites, landing pages, and custom WordPress builds with a focus on speed and maintainability.',
+        'Developed websites using HTML, CSS, SCSS, Bootstrap, JS and jQuery. Communicating effectively with clients globally.',
     },
+  ],
+  services: [
+    { icon: 'Blocks', title: 'Full-Stack Apps', desc: 'End-to-end web apps using Next.js, Vue, and Nuxt.', count: '30+ Apps' },
+    { icon: 'Database', title: 'Database Architecture', desc: 'Robust data modeling with PostgreSQL, SQLite, and Supabase.', count: '20+ Databases' },
+    { icon: 'Server', title: 'API & Backend', desc: 'Secure APIs, authentication, and serverless functions.', count: '40+ Integrations' },
+    { icon: 'Code', title: 'Frontend Engineering', desc: 'Interactive, accessible UIs with React and Tailwind CSS.', count: '100+ Projects' },
+    { icon: 'Globe', title: 'Custom WordPress', desc: 'Themes from scratch, plugin modifications, and Elementor.', count: '150+ Sites' },
+    { icon: 'Smartphone', title: 'Responsive Design', desc: 'Mobile-first interfaces that look great on any device.', count: '200+ Projects' },
+    { icon: 'Palette', title: 'UI/UX Implementation', desc: 'Figma to high-fidelity, pixel-perfect code conversion.', count: '80+ Projects' },
+    { icon: 'Search', title: 'SEO & Performance', desc: 'Core Web Vitals optimization and semantic markup.', count: '50+ Audits' },
   ],
 };
 

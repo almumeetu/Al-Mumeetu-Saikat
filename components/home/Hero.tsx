@@ -1,19 +1,29 @@
 'use client';
 
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Github, Linkedin, Mail, Briefcase, Twitter } from 'lucide-react';
 import type { SiteSettingsData } from '@/lib/getSiteSettings';
 
+const BADGES = [
+  { emoji: '⚛️', pos: 'top-0 -left-6' },
+  { emoji: '🐘', pos: 'top-1/2 -right-6' },
+  { emoji: '⚡', pos: 'bottom-0 left-10' },
+] as const;
+
 export default function Hero({ s }: { s: SiteSettingsData }) {
-  const socials = [
-    { icon: Github, href: s.githubUrl || '#', label: 'GitHub' },
-    { icon: Linkedin, href: s.linkedinUrl || '#', label: 'LinkedIn' },
-    { icon: Twitter, href: s.twitterUrl || '#', label: 'Twitter' },
-    { icon: Briefcase, href: s.upworkUrl || '#', label: 'Upwork' },
-    { icon: Mail, href: `mailto:${s.email}`, label: 'Email' },
-  ].filter((l) => l.href && l.href !== '#' && l.href !== 'mailto:');
+  const socials = useMemo(
+    () => [
+      { icon: Github, href: s.githubUrl || '#', label: 'GitHub' },
+      { icon: Linkedin, href: s.linkedinUrl || '#', label: 'LinkedIn' },
+      { icon: Twitter, href: s.twitterUrl || '#', label: 'Twitter' },
+      { icon: Briefcase, href: s.upworkUrl || '#', label: 'Upwork' },
+      { icon: Mail, href: `mailto:${s.email}`, label: 'Email' },
+    ].filter((l) => l.href && l.href !== '#' && l.href !== 'mailto:'),
+    [s.githubUrl, s.linkedinUrl, s.twitterUrl, s.upworkUrl, s.email]
+  );
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
@@ -29,9 +39,6 @@ export default function Hero({ s }: { s: SiteSettingsData }) {
           </span>
           <h1 className="mb-4 text-5xl font-extrabold leading-tight md:text-7xl">
             Md Al Mumeetu{' '}
-            <span className="gradient-text mt-2 block text-4xl md:text-5xl">
-              (Al Mumeetu Saikat)
-            </span>
           </h1>
           <h2 className="mb-5 font-mono text-xl text-primary md:text-2xl">{s.heroTagline}</h2>
           <p className="mb-8 max-w-xl text-lg text-slate-600 dark:text-slate-400">{s.heroBio}</p>
@@ -67,22 +74,15 @@ export default function Hero({ s }: { s: SiteSettingsData }) {
         >
           <div className="relative aspect-square rounded-full bg-gradient-to-br from-primary to-secondary p-2">
             <Image
-              src={
-                s.avatarUrl ||
-                `https://ui-avatars.com/api/?name=Al+Mumeetu&size=400&background=6366f1&color=fff&bold=true`
-              }
-              alt={s.heroName}
+              src="/images/profile-portfolio.png"
+              alt="Al Mumeetu Saikat"
               width={400}
               height={400}
               className="h-full w-full rounded-full object-cover"
               priority
             />
           </div>
-          {[
-            { emoji: '⚛️', pos: 'top-0 -left-6' },
-            { emoji: '🐘', pos: 'top-1/2 -right-6' },
-            { emoji: '⚡', pos: 'bottom-0 left-10' },
-          ].map((badge, index) => (
+          {BADGES.map((badge, index) => (
             <div
               key={index}
               className={`absolute ${badge.pos} flex h-16 w-16 items-center justify-center rounded-full bg-white text-2xl shadow-2xl dark:bg-slate-800`}

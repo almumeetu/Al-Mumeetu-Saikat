@@ -45,7 +45,7 @@ const SiteSettingsSchema = new Schema(
     // ── Skills (stored as JSON string arrays) ─────────────
     skillsFrontend: {
       type: [String],
-      default: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS'],
+      default: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'Bootstrap 5', 'SASS'],
     },
     skillsBackend: {
       type: [String],
@@ -62,6 +62,7 @@ const SiteSettingsSchema = new Schema(
         {
           year: String,
           title: String,
+          company: String,
           description: String,
         },
       ],
@@ -84,6 +85,23 @@ const SiteSettingsSchema = new Schema(
           description:
             'Delivered robust client websites, landing pages, and custom WordPress builds with a focus on speed and maintainability.',
         },
+      ],
+    },
+    // ── Services ──────────────────────────────────────────
+    services: {
+      type: [
+        {
+          icon: String,
+          title: String,
+          desc: String,
+          count: String,
+        },
+      ],
+      default: [
+        { icon: 'Blocks', title: 'Full-Stack Apps', desc: 'End-to-end web apps using Next.js, Vue, and Nuxt.', count: '30+ Apps' },
+        { icon: 'Database', title: 'Database Architecture', desc: 'Robust data modeling with PostgreSQL, SQLite, and Supabase.', count: '20+ Databases' },
+        { icon: 'Server', title: 'API & Backend', desc: 'Secure APIs, authentication, and serverless functions.', count: '40+ Integrations' },
+        { icon: 'Code', title: 'Frontend Engineering', desc: 'Interactive, accessible UIs with React and Tailwind CSS.', count: '100+ Projects' },
       ],
     },
   },

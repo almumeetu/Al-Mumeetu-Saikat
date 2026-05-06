@@ -14,29 +14,47 @@ export const authOptions: NextAuthOptions = {
 			},
 			async authorize(credentials) {
 				if (!credentials?.email || !credentials?.password) return null;
-				await connectDB();
 
 				const adminEmail = process.env.ADMIN_EMAIL?.toLowerCase();
 				const adminPassword = process.env.ADMIN_PASSWORD;
+
 				if (!adminEmail || !adminPassword) return null;
 
-				const adminCount = await User.countDocuments();
-				if (adminCount === 0) {
-					const hashed = await bcrypt.hash(adminPassword, 10);
-					await User.create({
-						email: adminEmail,
-						password: hashed,
-						name: 'Admin',
-					});
+				// 1. Check against environment variables first (Bypass for Dev/DB issues)
+				if (
+					credentials.email.toLowerCase() === adminEmail &&
+					credentials.password === adminPassword
+				) {
+					return { id: 'admin', email: adminEmail, name: 'Admin (Bypass)' };
 				}
 
-				const user = await User.findOne({ email: credentials.email.toLowerCase() });
-				if (!user) return null;
+				// 2. Fallback to database check
+				try {
+					await connectDB();
 
-				const valid = await bcrypt.compare(credentials.password, user.password);
-				if (!valid) return null;
+					const adminCount = await User.countDocuments();
+					if (adminCount === 0) {
+						const hashed = await bcrypt.hash(adminPassword, 10);
+						await User.create({
+							email: adminEmail,
+							password: hashed,
+							name: 'Admin',
+						});
+					}
 
-				return { id: user._id.toString(), email: user.email, name: user.name };
+					const user = await User.findOne({ email: credentials.email.toLowerCase() });
+					if (!user) return null;
+
+					const valid = await bcrypt.compare(credentials.password, user.password);
+					if (!valid) return null;
+
+					return { id: user._id.toString(), email: user.email, name: user.name };
+				} catch (error) {
+					console.error('Database connection failed during login:', error);
+					// Since we already checked admin credentials above, we can return null here
+					// or handle it as needed. For now, if DB is down, we only allow env-based login.
+					return null;
+				}
 			},
 		}),
 	],

@@ -60,6 +60,33 @@ export default function AdminLoginPage() {
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
+
+        {process.env.NODE_ENV === 'development' && (
+          <div className="relative pt-4">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-slate-200 dark:border-slate-800"></span>
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-white px-2 text-slate-500 dark:bg-[#0f172a]">Development</span>
+            </div>
+            <div className="mt-4">
+              <button
+                onClick={async () => {
+                  setLoading(true);
+                  await signIn('credentials', {
+                    email: 'almumeetu@gmail.com',
+                    password: '223355',
+                    callbackUrl: '/admin',
+                    redirect: true,
+                  });
+                }}
+                className="w-full rounded-2xl border border-dashed border-primary/50 py-3 text-sm font-medium text-primary hover:bg-primary/5 transition-colors"
+              >
+                Quick Admin Login
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

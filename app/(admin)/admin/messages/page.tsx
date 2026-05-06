@@ -1,6 +1,8 @@
 import { connectDB } from '@/lib/db';
 import Message from '@/models/Message';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminMessagesPage() {
   await connectDB();
   const messages = await Message.find({}).sort({ createdAt: -1 }).lean();

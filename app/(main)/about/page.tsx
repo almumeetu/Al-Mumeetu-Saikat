@@ -14,7 +14,9 @@ export default function AboutPage() {
           <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
             About Me
           </span>
-          <h1 className="text-4xl font-extrabold md:text-6xl">Focused on practical design and frontend delivery.</h1>
+          <h1 className="text-2xl font-extrabold leading-normal md:text-3xl lg:text-4xl">
+            Next.js Full-Stack Developer specializing in 100% pixel-perfect design development and eCommerce solutions.
+          </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400">
             I work on WordPress builds, frontend development, and conversion-oriented website experiences for clients
             around the world. The goal is to keep the work fast, maintainable, and easy for teams to evolve.
@@ -43,11 +45,57 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="card space-y-4 p-8">
-            <h2 className="text-2xl font-bold">Education & Goals</h2>
-            <p className="text-slate-600 dark:text-slate-400">
-              I completed my Higher Secondary Certificate (HSC) in 2021. Currently, I am actively preparing for a Bachelor&apos;s degree in Computer Science and Engineering (CSE) to further formalize my technical foundation, alongside studying for the IELTS exam.
-            </p>
+          <div className="card space-y-6 p-8">
+            <h2 className="text-2xl font-bold">Education</h2>
+            <div className="space-y-4">
+              <div className="border-l-4 border-primary pl-4">
+                <h3 className="font-semibold text-lg">BSc in CSE <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full ml-2">Running</span></h3>
+                <p className="text-primary font-medium">World University Of Bangladesh</p>
+                <p className="text-sm text-slate-600 dark:text-slate-400">2025 - Present</p>
+              </div>
+              
+              <div className="border-l-4 border-primary pl-4">
+                <h3 className="font-semibold text-lg">HSC in Science</h3>
+                <p className="text-primary font-medium">Jahangirpur Govt. Collage, Mohadevpur, Naogaon</p>
+                <p className="text-sm text-slate-600 dark:text-slate-400">Dec 2019 - Dec 2021</p>
+              </div>
+              
+              <div className="border-l-4 border-primary pl-4">
+                <h3 className="font-semibold text-lg">SSC in Science</h3>
+                <p className="text-primary font-medium">Bagdob High School, Mohadevpur, Naogaon</p>
+                <p className="text-sm text-slate-600 dark:text-slate-400">Jan 2014 - Nov 2019</p>
+              </div>
+            </div>
+            
+            <div className="border-t pt-6">
+              <h3 className="font-semibold text-lg mb-4">Online Courses</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="font-medium">Web Designer Courses</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">BanglaDevs, Dhaka</p>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="font-medium">PSD to HTML</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">Bangla-devs</p>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="font-medium">SASS & Bootstrap</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">Bangla-devs</p>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="font-medium">WordPress Theme Development</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">Weblearn</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="card space-y-4 p-8 lg:col-span-2">

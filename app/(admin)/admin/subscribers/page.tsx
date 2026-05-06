@@ -1,6 +1,8 @@
 import { connectDB } from '@/lib/db';
 import Subscriber from '@/models/Subscriber';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminSubscribersPage() {
   await connectDB();
   const subscribers = await Subscriber.find({}).sort({ createdAt: -1 }).lean();

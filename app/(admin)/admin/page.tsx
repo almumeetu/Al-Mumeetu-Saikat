@@ -4,6 +4,8 @@ import Project from '@/models/Project';
 import Message from '@/models/Message';
 import Subscriber from '@/models/Subscriber';
 
+export const dynamic = 'force-dynamic';
+
 const stats = [
   { label: 'Blogs', key: 'blogs' },
   { label: 'Projects', key: 'projects' },
@@ -12,16 +14,20 @@ const stats = [
 ] as const;
 
 export default async function AdminDashboardPage() {
-  await connectDB();
+  let values = { blogs: 0, projects: 0, messages: 0, subscribers: 0 };
 
-  const [blogs, projects, messages, subscribers] = await Promise.all([
-    Blog.countDocuments(),
-    Project.countDocuments(),
-    Message.countDocuments(),
-    Subscriber.countDocuments(),
-  ]);
-
-  const values = { blogs, projects, messages, subscribers };
+  try {
+    await connectDB();
+    const [blogs, projects, messages, subscribers] = await Promise.all([
+      Blog.countDocuments(),
+      Project.countDocuments(),
+      Message.countDocuments(),
+      Subscriber.countDocuments(),
+    ]);
+    values = { blogs, projects, messages, subscribers };
+  } catch (error) {
+    console.error('Failed to fetch dashboard stats:', error);
+  }
 
   return (
     <section className="space-y-8">

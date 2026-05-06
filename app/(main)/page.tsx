@@ -14,7 +14,7 @@ export default async function HomePage() {
     <>
       <Hero s={settings} />
       <About s={settings} />
-      <Services />
+      <Services s={settings} />
       <Skills s={settings} />
       <Experience s={settings} />
       <FeaturedProjects />
