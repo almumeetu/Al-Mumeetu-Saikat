@@ -12,9 +12,10 @@ type BlogLean = {
   category?: string;
 };
 
-export default async function BlogDetailsPage({ params }: { params: { slug: string } }) {
+export default async function BlogDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   await connectDB();
-  const blog = await Blog.findOne({ slug: params.slug }).lean<BlogLean>();
+  const blog = await Blog.findOne({ slug }).lean<BlogLean>();
 
   if (!blog) notFound();
 

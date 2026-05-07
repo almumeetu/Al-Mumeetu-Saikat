@@ -5,10 +5,11 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import ImageUploader from '@/components/admin/ImageUploader';
 
-export default function EditBlogPage({ params }: { params: { id: string } }) {
+export default function EditBlogPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
+  const [blogId, setBlogId] = useState<string>('');
   const [form, setForm] = useState({
     title: '',
     excerpt: '',
@@ -20,32 +21,30 @@ export default function EditBlogPage({ params }: { params: { id: string } }) {
   });
 
   useEffect(() => {
-    const loadBlog = async () => {
-      try {
-        const response = await fetch(`/api/blogs/${params.id}`);
-        const blog = await response.json();
-        setForm({
-          title: blog.title || '',
-          excerpt: blog.excerpt || '',
-          content: blog.content || '',
-          coverImage: blog.coverImage || '',
-          category: blog.category || 'General',
-          tags: Array.isArray(blog.tags) ? blog.tags.join(', ') : '',
-          published: Boolean(blog.published),
-        });
-      } finally {
-        setInitialLoading(false);
-      }
-    };
-
-    loadBlog();
-  }, [params.id]);
+    params.then(({ id }) => {
+      setBlogId(id);
+      fetch(`/api/blogs/${id}`)
+        .then((r) => r.json())
+        .then((blog) => {
+          setForm({
+            title: blog.title || '',
+            excerpt: blog.excerpt || '',
+            content: blog.content || '',
+            coverImage: blog.coverImage || '',
+            category: blog.category || 'General',
+            tags: Array.isArray(blog.tags) ? blog.tags.join(', ') : '',
+            published: Boolean(blog.published),
+          });
+        })
+        .finally(() => setInitialLoading(false));
+    });
+  }, [params]);
 
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(`/api/blogs/${params.id}`, {
+      const res = await fetch(`/api/blogs/${blogId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
