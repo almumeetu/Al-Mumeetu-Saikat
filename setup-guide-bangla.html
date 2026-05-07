@@ -1,0 +1,1125 @@
+<!doctype html>
+<html lang="bn">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>Al Mumeetu Portfolio - Setup Guide (Bangla)</title>
+      <meta
+         name="description"
+         content="Al Mumeetu portfolio website setup guide in Bangla with database, auth, upload, API, layout, and deployment instructions."
+      />
+      <style>
+         :root {
+            --bg: #0f172a;
+            --bg-soft: #111827;
+            --surface: rgba(15, 23, 42, 0.7);
+            --surface-2: rgba(30, 41, 59, 0.8);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --line: rgba(148, 163, 184, 0.18);
+            --brand: #7c3aed;
+            --brand-2: #06b6d4;
+            --accent: #f97316;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --code-bg: #0b1220;
+            --code-line: rgba(148, 163, 184, 0.25);
+            --shadow: 0 20px 50px rgba(2, 6, 23, 0.45);
+         }
+
+         * {
+            box-sizing: border-box;
+         }
+
+         html {
+            scroll-behavior: smooth;
+         }
+
+         body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--text);
+            background:
+               radial-gradient(circle at top left, rgba(124, 58, 237, 0.18), transparent 28%),
+               radial-gradient(circle at top right, rgba(6, 182, 212, 0.14), transparent 26%),
+               linear-gradient(180deg, #020617 0%, #0f172a 35%, #111827 100%);
+            min-height: 100vh;
+         }
+
+         a {
+            color: inherit;
+         }
+
+         .page {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 28px 0 56px;
+         }
+
+         .hero {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.82));
+            box-shadow: var(--shadow);
+            padding: 32px;
+            margin-bottom: 24px;
+         }
+
+         .hero::after {
+            content: "";
+            position: absolute;
+            inset: auto -120px -120px auto;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.24), transparent 65%);
+            filter: blur(4px);
+            pointer-events: none;
+         }
+
+         .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.04);
+            color: #cbd5e1;
+            font-size: 13px;
+            letter-spacing: 0.02em;
+         }
+
+         h1,
+         h2,
+         h3,
+         h4 {
+            margin: 0;
+            line-height: 1.15;
+         }
+
+         h1 {
+            font-size: clamp(32px, 4vw, 54px);
+            margin-top: 16px;
+         }
+
+         .subtitle {
+            margin: 16px 0 0;
+            max-width: 840px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.8;
+         }
+
+         .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 24px;
+         }
+
+         .meta-card {
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(15, 23, 42, 0.52);
+            padding: 16px 18px;
+         }
+
+         .meta-card small {
+            display: block;
+            color: var(--muted);
+            margin-bottom: 6px;
+         }
+
+         .meta-card strong {
+            font-size: 15px;
+         }
+
+         .layout {
+            display: grid;
+            grid-template-columns: 280px minmax(0, 1fr);
+            gap: 24px;
+            align-items: start;
+         }
+
+         .toc {
+            position: sticky;
+            top: 18px;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: rgba(15, 23, 42, 0.78);
+            backdrop-filter: blur(18px);
+            padding: 18px;
+            box-shadow: var(--shadow);
+         }
+
+         .toc h2 {
+            font-size: 16px;
+            margin-bottom: 12px;
+         }
+
+         .toc a {
+            display: block;
+            text-decoration: none;
+            color: #cbd5e1;
+            padding: 10px 12px;
+            border-radius: 12px;
+            transition: 0.2s ease;
+            font-size: 14px;
+            line-height: 1.4;
+         }
+
+         .toc a:hover {
+            background: rgba(124, 58, 237, 0.12);
+            color: #fff;
+         }
+
+         .content {
+            min-width: 0;
+         }
+
+         .section {
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            background: rgba(15, 23, 42, 0.72);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            margin-bottom: 18px;
+         }
+
+         .section-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+         }
+
+         .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            background: rgba(124, 58, 237, 0.14);
+            color: #ddd6fe;
+         }
+
+         .section h2 {
+            font-size: 28px;
+            margin-top: 10px;
+         }
+
+         .section p,
+         .section li {
+            color: var(--text);
+            line-height: 1.9;
+            font-size: 15px;
+         }
+
+         .section .lead {
+            color: var(--muted);
+            margin-top: 8px;
+         }
+
+         .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+         }
+
+         .card {
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(2, 6, 23, 0.4);
+            padding: 18px;
+         }
+
+         .card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+         }
+
+         ol,
+         ul {
+            margin: 0;
+            padding-left: 22px;
+         }
+
+         li + li {
+            margin-top: 8px;
+         }
+
+         .callout {
+            border-left: 4px solid var(--brand-2);
+            background: rgba(6, 182, 212, 0.08);
+            padding: 14px 16px;
+            border-radius: 14px;
+            color: #dffbff;
+            margin: 14px 0;
+         }
+
+         .warning {
+            border-left-color: var(--warning);
+            background: rgba(245, 158, 11, 0.08);
+         }
+
+         pre {
+            margin: 14px 0 0;
+            background: var(--code-bg);
+            border: 1px solid var(--code-line);
+            border-radius: 18px;
+            padding: 18px;
+            overflow: auto;
+            color: #e2e8f0;
+            font-size: 13px;
+            line-height: 1.8;
+         }
+
+         code {
+            font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+         }
+
+         .inline-code {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 8px;
+            background: rgba(148, 163, 184, 0.12);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.92em;
+         }
+
+         .link-list a {
+            color: #93c5fd;
+            text-decoration: none;
+         }
+
+         .link-list a:hover {
+            text-decoration: underline;
+         }
+
+         .steps {
+            display: grid;
+            gap: 14px;
+         }
+
+         .step {
+            display: grid;
+            grid-template-columns: 42px minmax(0, 1fr);
+            gap: 14px;
+            align-items: start;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(2, 6, 23, 0.36);
+            padding: 16px;
+         }
+
+         .num {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            color: #fff;
+            background: linear-gradient(135deg, var(--brand), var(--brand-2));
+         }
+
+         .footer {
+            margin-top: 18px;
+            padding: 18px 4px 0;
+            color: var(--muted);
+            font-size: 14px;
+            text-align: center;
+         }
+
+         .note-box {
+            display: grid;
+            gap: 10px;
+            margin-top: 14px;
+         }
+
+         .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+         }
+
+         .pill {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.1);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            color: #dbeafe;
+            font-size: 13px;
+         }
+
+         @media (max-width: 960px) {
+            .layout {
+               grid-template-columns: 1fr;
+            }
+
+            .toc {
+               position: static;
+            }
+
+            .meta-grid,
+            .grid-2 {
+               grid-template-columns: 1fr;
+            }
+         }
+
+         @media (max-width: 640px) {
+            .page {
+               width: min(100% - 20px, 1180px);
+               padding-top: 14px;
+            }
+
+            .hero,
+            .section,
+            .toc {
+               border-radius: 20px;
+               padding: 18px;
+            }
+
+            h1 {
+               font-size: 30px;
+            }
+
+            .section h2 {
+               font-size: 22px;
+            }
+
+            .step {
+               grid-template-columns: 1fr;
+            }
+         }
+      </style>
+   </head>
+   <body>
+      <main class="page">
+         <section class="hero" id="top">
+            <span class="eyebrow">🚀 Al Mumeetu Portfolio · Complete Setup Guide · Bangla</span>
+            <h1>আপনার portfolio website setup করার সুন্দর, readable guide</h1>
+            <p class="subtitle">
+               এই guide টা step-by-step follow করলে frontend, backend, admin panel, database, image upload, email, এবং
+               deployment related সব core setup clear হয়ে যাবে। নিচে সবগুলো part clean section আকারে সাজানো আছে যাতে দ্রুত
+               পড়া, copy করা, এবং follow করা সহজ হয়।
+            </p>
+
+            <div class="meta-grid">
+               <div class="meta-card">
+                  <small>Scope</small>
+                  <strong>Portfolio + Admin + API + Auth</strong>
+               </div>
+               <div class="meta-card">
+                  <small>Style</small>
+                  <strong>Readable HTML + CSS layout</strong>
+               </div>
+               <div class="meta-card">
+                  <small>Audience</small>
+                  <strong>Bangla step-by-step users</strong>
+               </div>
+            </div>
+         </section>
+
+         <div class="layout">
+            <aside class="toc">
+               <h2>সূচিপত্র</h2>
+               <a href="#requirements">Requirements</a>
+               <a href="#mongodb">MongoDB Atlas Setup</a>
+               <a href="#cloudinary">Cloudinary Setup</a>
+               <a href="#gmail">Gmail App Password</a>
+               <a href="#package">package.json</a>
+               <a href="#env">.env.local</a>
+               <a href="#nextconfig">next.config.mjs</a>
+               <a href="#tailwind">tailwind.config.ts</a>
+               <a href="#db-models">DB + Models</a>
+               <a href="#auth">NextAuth</a>
+               <a href="#api">API Routes</a>
+               <a href="#layout-css">Layouts + CSS</a>
+               <a href="#components">Home Components</a>
+               <a href="#pages">Main Pages</a>
+               <a href="#admin">Admin Panel</a>
+               <a href="#final">Final Checklist</a>
+            </aside>
+
+            <article class="content">
+               <section class="section" id="requirements">
+                  <div class="section-header">
+                     <div>
+                        <span class="badge">📋 শুরু করার আগে</span>
+                        <h2>যা যা লাগবে</h2>
+                        <p class="lead">শুরু করার আগে নিচের tools/account গুলো ready করে নিন।</p>
+                     </div>
+                  </div>
+
+                  <div class="grid-2">
+                     <div class="card">
+                        <h3>1) Node.js Install করুন</h3>
+                        <div class="link-list">
+                           <p>Link: <a href="https://nodejs.org" target="_blank" rel="noreferrer">https://nodejs.org</a></p>
+                        </div>
+                        <ul>
+                           <li>LTS version download করুন (সবুজ button)</li>
+                           <li>Install শেষে version check করুন</li>
+                        </ul>
+                        <pre><code>node --version
+npm --version</code></pre>
+                     </div>
+
+                     <div class="card">
+                        <h3>2) VS Code Install করুন</h3>
+                        <div class="link-list">
+                           <p>Link: <a href="https://code.visualstudio.com" target="_blank" rel="noreferrer">https://code.visualstudio.com</a></p>
+                        </div>
+                        <p>Free, lightweight, এবং এই project এর জন্য best editor।</p>
+                     </div>
+
+                     <div class="card">
+                        <h3>3) Git Install করুন</h3>
+                        <div class="link-list">
+                           <p>Link: <a href="https://git-scm.com/downloads" target="_blank" rel="noreferrer">https://git-scm.com/downloads</a></p>
+                        </div>
+                        <p>Code push, update, এবং version control এর জন্য Git প্রয়োজন।</p>
+                     </div>
+
+                     <div class="card">
+                        <h3>4) Gmail Account</h3>
+                        <p>যেকোনো Gmail account হবে। পরে email sending setup এ এটি ব্যবহার হবে।</p>
+                     </div>
+                  </div>
+               </section>
+
+               <section class="section" id="mongodb">
+                  <div class="section-header">
+                     <div>
+                        <span class="badge">🎯 Part 1</span>
+                        <h2>MongoDB Atlas Setup</h2>
+                        <p class="lead">Database হিসেবে MongoDB ব্যবহার করা হবে, যেখানে blog, message, subscriber data save হবে।</p>
+                     </div>
+                  </div>
+
+                  <div class="steps">
+                     <div class="step">
+                        <div class="num">1</div>
+                        <div>
+                           <h3>Account খুলুন</h3>
+                           <ol>
+                              <li>এই link এ যান: <a href="https://www.mongodb.com/cloud/atlas/register" target="_blank" rel="noreferrer">MongoDB Atlas Register</a></li>
+                              <li>Email/Password দিয়ে signup করুন বা Google ব্যবহার করুন</li>
+                              <li>Prompt এ সাধারণত এই options থাকে:</li>
+                           </ol>
+                           <div class="pill-row">
+                              <span class="pill">What is your goal? → Learn MongoDB</span>
+                              <span class="pill">What type of application? → Other</span>
+                              <span class="pill">Preferred language? → JavaScript</span>
+                           </div>
+                           <p>শেষে Finish এ click করুন।</p>
+                        </div>
+                     </div>
+
+                     <div class="step">
+                        <div class="num">2</div>
+                        <div>
+                           <h3>Free Cluster তৈরি করুন</h3>
+                           <ol>
+                              <li><strong>Build a Database</strong> button click করুন</li>
+                              <li><strong>M0 FREE</strong> plan select করুন</li>
+                              <li>Provider: AWS</li>
+                              <li>Region: Singapore বা Mumbai</li>
+                              <li>Cluster Name: <span class="inline-code">Portfolio</span></li>
+                              <li>Create Deployment click করুন</li>
+                           </ol>
+                        </div>
+                     </div>
+
+                     <div class="step">
+                        <div class="num">3</div>
+                        <div>
+                           <h3>Database User তৈরি করুন</h3>
+                           <ol>
+                              <li>Popup এ Username: <span class="inline-code">admin</span></li>
+                              <li>Password হিসেবে strong password দিন</li>
+                              <li class="warning">এই password অবশ্যই note করে রাখুন</li>
+                              <li>Create Database User click করুন</li>
+                           </ol>
+                        </div>
+                     </div>
+
+                     <div class="step">
+                        <div class="num">4</div>
+                        <div>
+                           <h3>Network Access / IP Whitelist</h3>
+                           <ol>
+                              <li>Add My Current IP Address click করুন</li>
+                              <li>Add a Different IP Address click করুন</li>
+                              <li>IP Address: <span class="inline-code">0.0.0.0/0</span></li>
+                              <li>Description: Allow All</li>
+                              <li>Add Entry → Finish and Close</li>
+                           </ol>
+                        </div>
+                     </div>
+
+                     <div class="step">
+                        <div class="num">5</div>
+                        <div>
+                           <h3>Connection String নিন</h3>
+                           <ol>
+                              <li>Database menu → আপনার cluster → Connect</li>
+                              <li>Drivers select করুন</li>
+                              <li>Connection string copy করুন</li>
+                           </ol>
+                           <pre><code>mongodb+srv://admin:&lt;password&gt;@portfolio.xxxxx.mongodb.net/?retryWrites=true&amp;w=majority</code></pre>
+                           <p>শেষে database name যোগ করুন:</p>
+                           <pre><code>mongodb+srv://admin:MyPass123!@portfolio.xxxxx.mongodb.net/portfolio?retryWrites=true&amp;w=majority</code></pre>
+                           <div class="callout">এই string টা save করে রাখুন — এটা হবে <span class="inline-code">MONGODB_URI</span>।</div>
+                        </div>
+                     </div>
+                  </div>
+               </section>
+
+               <section class="section" id="cloudinary">
+                  <div class="section-header">
+                     <div>
+                        <span class="badge">🎯 Part 2</span>
+                        <h2>Cloudinary Setup</h2>
+                        <p class="lead">Blog cover, project image, admin upload এর জন্য Cloudinary ব্যবহার হবে।</p>
+                     </div>
+                  </div>
+
+                  <div class="grid-2">
+                     <div class="card">
+                        <h3>Account তৈরি করুন</h3>
+                        <ol>
+                           <li>এই link এ যান: <a href="https://cloudinary.com/users/register_free" target="_blank" rel="noreferrer">Cloudinary Free Signup</a></li>
+                           <li>Email ও Password দিয়ে signup করুন</li>
+                           <li>Email verify করুন</li>
+                        </ol>
+                     </div>
+
+                     <div class="card">
+                        <h3>API Keys নিন</h3>
+                        <ol>
+                           <li>Login করার পর Dashboard এ যাবেন</li>
+                           <li>Dashboard থেকে Cloud Name, API Key, API Secret কপি করুন</li>
+                        </ol>
+                        <pre><code>CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret</code></pre>
+                     </div>
+                  </div>
+               </section>
+
+               <section class="section" id="gmail">
+                  <div class="section-header">
+                     <div>
+                        <span class="badge">🎯 Part 3</span>
+                        <h2>Gmail App Password Setup</h2>
+                        <p class="lead">Contact form এবং newsletter welcome email send করার জন্য দরকার।</p>
+                     </div>
+                  </div>
+
+                  <div class="steps">
+                     <div class="step">
+                        <div class="num">1</div>
+                        <div>
+                           <h3>2-Step Verification On করুন</h3>
+                           <ol>
+                              <li><a href="https://myaccount.google.com/security" target="_blank" rel="noreferrer">Google Security Page</a> এ যান</li>
+                              <li>2-Step Verification খুঁজে enable করুন</li>
+                              <li>Phone number verify করুন</li>
+                           </ol>
+                        </div>
+                     </div>
+
+                     <div class="step">
+                        <div class="num">2</div>
+                        <div>
+                           <h3>App Password তৈরি করুন</h3>
+                           <ol>
+                              <li><a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noreferrer">App Passwords</a> page এ যান</li>
+                              <li>না পেলে search bar এ App Password লিখে search দিন</li>
+                              <li>App Name: Portfolio</li>
+                              <li>Create click করুন</li>
+                              <li>16 character password দেখাবে</li>
+                              <li class="warning">এই password copy করে safe place এ save করুন</li>
+                           </ol>
+                           <pre><code>SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-gmail@gmail.com
+SMTP_PASS=your-16-character-app-password
+EMAIL_FROM=your-gmail@gmail.com</code></pre>
+                        </div>
+                     </div>
+                  </div>
+               </section>
+
+               <section class="section" id="package">
+                  <div class="section-header">
+                     <div>
+                        <span class="badge">📦 Core Files</span>
+                        <h2>package.json</h2>
+                        <p class="lead">Project scripts এবং dependencies ঠিক রাখলে app সহজে run হবে।</p>
+                     </div>
+                  </div>
+                  <pre><code>{
+   "name": "almumeetu-portfolio",
+   "version": "1.0.0",
+   "private": true,
+   "scripts": {
+      "dev": "next dev",
+      "build": "next build",
+      "start": "next start",
+      "lint": "next lint",
+      "seed": "tsx scripts/seed.ts"
+   }
+}</code></pre>
+               </section>
+
+               <section class="section" id="env">
+                  <div class="section-header">
+                     <div>
+                        <span class="badge">🔐 Environment</span>
+                        <h2>.env.local</h2>
+                        <p class="lead">সব secret এখানে রাখুন — কখনও public repo তে real value push করবেন না।</p>
+                     </div>
+                  </div>
+                  <pre><code># Database
+MONGODB_URI=mongodb+srv://USER:PASS@cluster.mongodb.net/portfolio
+
+# NextAuth
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-super-secret-key-change-this
+
+# Admin Default Credentials
+ADMIN_EMAIL=admin@almumeetu.com
+ADMIN_PASSWORD=Admin@123
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
+
+# Email
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=almumeetu@gmail.com
+SMTP_PASS=your-gmail-app-password
+EMAIL_FROM=almumeetu@gmail.com
+
+# Site
+NEXT_PUBLIC_SITE_URL=http://localhost:3000</code></pre>
+               </section>
+
+               <section class="section" id="nextconfig">
+                  <div class="section-header">
+                     <div>
+                        <span class="badge">⚙️ Config</span>
+                        <h2>next.config.mjs</h2>
+                        <p class="lead">Remote images, optimized imports, এবং header settings এখানে আছে।</p>
+                     </div>
+                  </div>
+                  <pre><code>/** @type {import('next').NextConfig} */
+const nextConfig = {
+   images: {
+      remotePatterns: [
+         { protocol: 'https', hostname: 'res.cloudinary.com' },
+         { protocol: 'https', hostname: 'placehold.co' },
+         { protocol: 'https', hostname: 'ui-avatars.com' },
+      ],
+      formats: ['image/avif', 'image/webp'],
+   },
+   experimental: {
+      optimizePackageImports: ['lucide-react', 'react-icons'],
+   },
+   poweredByHeader: false,
+   compress: true,
+};
+
+export default nextConfig;</code></pre>
+               </section>
+
+               <section class="section" id="tailwind">
+                  <div class="section-header">
+                     <div>
+                        <span class="badge">🎨 Styling</span>
+                        <h2>tailwind.config.ts</h2>
+                        <p class="lead">Readable design tokens, animation, এবং theme colors define করা আছে।</p>
+                     </div>
+                  </div>
+                  <pre><code>import type { Config } from 'tailwindcss';
+
+const config: Config = {
+   content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
+   darkMode: 'class',
+   theme: {
+      extend: {
+         fontFamily: {
+            sans: ['var(--font-inter)', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+         },
+         colors: {
+            primary: { DEFAULT: '#6366f1', dark: '#4f46e5' },
+            secondary: '#ec4899',
+            accent: '#06b6d4',
+         },
+      },
+   },
+   plugins: [],
+};
+
+export default config;</code></pre>
+               </section>
+
+               <section class="section" id="db-models">
+                  <div class="section-header">
+                     <div>
+                        <span class="badge">🗄️ Database Layer</span>
+                        <h2>DB Connection + Models</h2>
+                        <p class="lead">MongoDB connection cached থাকবে, এবং প্রয়োজনীয় schema গুলো আলাদা model ফাইলে রাখা হবে।</p>
+                     </div>
+                  </div>
+
+                  <div class="grid-2">
+                     <div class="card">
+                        <h3>lib/db.ts</h3>
+                        <pre><code>import mongoose from 'mongoose';
+
+const MONGODB_URI = process.env.MONGODB_URI;
+
+if (!MONGODB_URI) throw new Error('Please define MONGODB_URI');
+
+interface Cached {
+   conn: typeof mongoose | null;
+   promise: Promise&lt;typeof mongoose&gt; | null;
+}
+
+declare global {
+   // eslint-disable-next-line no-var
+   var mongoose: Cached | undefined;
+}
+
+const cached: Cached = global.mongoose || { conn: null, promise: null };
+if (!global.mongoose) global.mongoose = cached;
+
+export async function connectDB() {
+   if (cached.conn) return cached.conn;
+   if (!cached.promise) {
+      cached.promise = mongoose.connect(MONGODB_URI, { bufferCommands: false });
+   }
+   cached.conn = await cached.promise;
+   return cached.conn;
+}</code></pre>
+                     </div>
+
+                     <div class="card">
+                        <h3>Models</h3>
+                        <ul>
+                           <li><span class="inline-code">Blog</span> → title, slug, excerpt, content, coverImage, category, tags, author, published, views</li>
+                           <li><span class="inline-code">Project</span> → title, slug, description, image, category, tech, liveUrl, githubUrl, featured</li>
+                           <li><span class="inline-code">Message</span> → name, email, subject, message, read</li>
+                           <li><span class="inline-code">Subscriber</span> → email, active</li>
+                           <li><span class="inline-code">User</span> → email, password, name, role</li>
+                        </ul>
+                     </div>
+                  </div>
+               </section>
+
+               <section class="section" id="auth">
+                  <div class="section-header">
+                     <div>
+                        <span class="badge">🔑 Authentication</span>
+                        <h2>NextAuth Setup</h2>
+                        <p class="lead">Admin login credentials থেকে session তৈরি হবে, এবং first login এ auto-seed support থাকবে।</p>
+                     </div>
+                  </div>
+                  <pre><code>import { NextAuthOptions } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import bcrypt from 'bcryptjs';
+import { connectDB } from './db';
+import User from '@/models/User';
+
+export const authOptions: NextAuthOptions = {
+   providers: [
+      CredentialsProvider({
+         name: 'Credentials',
+         credentials: {
+            email: { label: 'Email', type: 'email' },
+            password: { label: 'Password', type: 'password' },
+         },
+         async authorize(credentials) {
+            if (!credentials?.email || !credentials?.password) return null;
+            await connectDB();
+
+            const adminCount = await User.countDocuments();
+            if (adminCount === 0) {
+               const hashed = await bcrypt.hash(process.env.ADMIN_PASSWORD!, 10);
+               await User.create({ email: process.env.ADMIN_EMAIL, password: hashed });
+            }
+
+            const user = await User.findOne({ email: credentials.email });
+            if (!user) return null;
+
+            const valid = await bcrypt.compare(credentials.password, user.password);
+            if (!valid) return null;
+
+            return { id: user._id.toString(), email: user.email, name: user.name };
+         },
+      }),
+   ],
+   session: { strategy: 'jwt' },
+   pages: { signIn: '/admin/login' },
+   callbacks: {
+      async jwt({ token, user }) {
+         if (user) token.role = 'admin';
+         return token;
+      },
+      async session({ session, token }) {
+         if (session.user) (session.user as any).role = token.role;
+         return session;
+      },
+   },
+   secret: process.env.NEXTAUTH_SECRET,
+};</code></pre>
+               </section>
+
+               <section class="section" id="api">
+                  <div class="section-header">
+                     <div>
+                        <span class="badge">🌐 API Routes</span>
+                        <h2>Backend Endpoints</h2>
+                        <p class="lead">Form submit, login, blog CRUD, project CRUD, এবং upload route আলাদা রাখা উচিত।</p>
+                     </div>
+                  </div>
+
+                  <div class="grid-2">
+                     <div class="card">
+                        <h3>Auth</h3>
+                        <pre><code>app/api/auth/[...nextauth]/route.ts</code></pre>
+                     </div>
+                     <div class="card">
+                        <h3>Contact</h3>
+                        <pre><code>app/api/contact/route.ts</code></pre>
+                     </div>
+                     <div class="card">
+                        <h3>Subscribe</h3>
+                        <pre><code>app/api/subscribe/route.ts</code></pre>
+                     </div>
+                     <div class="card">
+                        <h3>Blogs / Projects / Upload</h3>
+                        <pre><code>app/api/blogs/route.ts
+app/api/blogs/[id]/route.ts
+app/api/projects/route.ts
+app/api/upload/route.ts</code></pre>
+                     </div>
+                  </div>
+               </section>
+
+               <section class="section" id="layout-css">
+                  <div class="section-header">
+                     <div>
+                        <span class="badge">🧱 Layout + CSS</span>
+                        <h2>Root Layout + Global Styles</h2>
+                        <p class="lead">একটা polished visual system maintain করার জন্য base layout এবং utility classes use করা হয়েছে।</p>
+                     </div>
+                  </div>
+
+                  <div class="grid-2">
+                     <div class="card">
+                        <h3>app/layout.tsx</h3>
+                        <pre><code>import './globals.css';
+import { Inter } from 'next/font/google';
+import { Toaster } from 'react-hot-toast';
+import { Providers } from './providers';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+
+export default function RootLayout({ children }) {
+   return (
+      &lt;html lang="en" suppressHydrationWarning&gt;
+         &lt;body className={`${inter.variable} font-sans antialiased`}&gt;
+            &lt;Providers&gt;{children}&lt;Toaster position="top-right" /&gt;&lt;/Providers&gt;
+         &lt;/body&gt;
+      &lt;/html&gt;
+   );
+}</code></pre>
+                     </div>
+
+                     <div class="card">
+                        <h3>app/globals.css</h3>
+                        <pre><code>@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+   html { scroll-behavior: smooth; }
+   body {
+      @apply bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100;
+   }
+}
+
+@layer components {
+   .container-custom { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+   .gradient-text {
+      @apply bg-gradient-to-r from-primary via-sky-500 to-secondary bg-clip-text text-transparent;
+   }
+   .btn-primary { @apply inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold bg-gradient-to-r from-primary to-secondary text-white; }
+   .btn-outline { @apply inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold border-2 border-slate-300; }
+   .card { @apply bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800; }
+}</code></pre>
+                     </div>
+                  </div>
+               </section>
+
+               <section class="section" id="components">
+                  <div class="section-header">
+                     <div>
+                        <span class="badge">🏠 UI</span>
+                        <h2>Home Components</h2>
+                        <p class="lead">Hero, About, Services, Skills, Experience, Featured Projects, Newsletter — সব component আলাদা রাখা ভালো।</p>
+                     </div>
+                  </div>
+
+                  <div class="grid-2">
+                     <div class="card">
+                        <h3>Recommended components</h3>
+                        <ul>
+                           <li><span class="inline-code">components/shared/Navbar.tsx</span></li>
+                           <li><span class="inline-code">components/shared/Footer.tsx</span></li>
+                           <li><span class="inline-code">components/home/Hero.tsx</span></li>
+                           <li><span class="inline-code">components/home/Services.tsx</span></li>
+                           <li><span class="inline-code">components/home/Newsletter.tsx</span></li>
+                        </ul>
+                     </div>
+                     <div class="card">
+                        <h3>Why separate them?</h3>
+                        <p>
+                           এতে page clean থাকে, reuse সহজ হয়, এবং later admin/SEO/update কাজ করার সময় same structure maintain করা
+                           comfortable হয়।
+                        </p>
+                     </div>
+                  </div>
+               </section>
+
+               <section class="section" id="pages">
+                  <div class="section-header">
+                     <div>
+                        <span class="badge">📄 Pages</span>
+                        <h2>Main Pages</h2>
+                        <p class="lead">Public pages গুলো আলাদা route এ রাখলে site maintain করা সহজ হয়।</p>
+                     </div>
+                  </div>
+
+                  <div class="grid-2">
+                     <div class="card">
+                        <h3>Main site</h3>
+                        <ul>
+                           <li><span class="inline-code">app/(main)/page.tsx</span> → home</li>
+                           <li><span class="inline-code">app/(main)/about/page.tsx</span></li>
+                           <li><span class="inline-code">app/(main)/projects/page.tsx</span></li>
+                           <li><span class="inline-code">app/(main)/blog/page.tsx</span></li>
+                           <li><span class="inline-code">app/(main)/blog/[slug]/page.tsx</span></li>
+                           <li><span class="inline-code">app/(main)/contact/page.tsx</span></li>
+                        </ul>
+                     </div>
+                     <div class="card">
+                        <h3>Layout</h3>
+                        <p>
+                           <span class="inline-code">app/(main)/layout.tsx</span> এ Navbar + Footer use করুন, যাতে public pages একই
+                           wrapper এর মধ্যে থাকে।
+                        </p>
+                     </div>
+                  </div>
+               </section>
+
+               <section class="section" id="admin">
+                  <div class="section-header">
+                     <div>
+                        <span class="badge">🛡️ Admin</span>
+                        <h2>Admin Panel</h2>
+                        <p class="lead">Dashboard, login, blogs, projects, messages, subscribers — সব route আলাদা করে manage করা যায়।</p>
+                     </div>
+                  </div>
+
+                  <div class="grid-2">
+                     <div class="card">
+                        <h3>Admin routes</h3>
+                        <pre><code>app/(admin)/admin/page.tsx
+app/(admin)/admin/login/page.tsx
+app/(admin)/admin/blogs/page.tsx
+app/(admin)/admin/blogs/new/page.tsx
+app/(admin)/admin/blogs/[id]/edit/page.tsx
+app/(admin)/admin/projects/page.tsx
+app/(admin)/admin/messages/page.tsx
+app/(admin)/admin/subscribers/page.tsx</code></pre>
+                     </div>
+                     <div class="card">
+                        <h3>Protection</h3>
+                        <p>
+                           <span class="inline-code">middleware.ts</span> দিয়ে <span class="inline-code">/admin</span> routes protect করুন এবং login page কে NextAuth config এ set করুন।
+                        </p>
+                     </div>
+                  </div>
+               </section>
+
+               <section class="section" id="final">
+                  <div class="section-header">
+                     <div>
+                        <span class="badge">✅ Final</span>
+                        <h2>শেষে কী করবেন</h2>
+                        <p class="lead">সব files বসানোর পর একবার clean install এবং run test করুন।</p>
+                     </div>
+                  </div>
+
+                  <div class="steps">
+                     <div class="step">
+                        <div class="num">1</div>
+                        <div>
+                           <h3>Dependency install করুন</h3>
+                           <pre><code>npm install</code></pre>
+                        </div>
+                     </div>
+                     <div class="step">
+                        <div class="num">2</div>
+                        <div>
+                           <h3>Development server চালান</h3>
+                           <pre><code>npm run dev</code></pre>
+                        </div>
+                     </div>
+                     <div class="step">
+                        <div class="num">3</div>
+                        <div>
+                           <h3>Environment variables check করুন</h3>
+                           <p>`.env.local` এর সব value ঠিক আছে কিনা verify করুন।</p>
+                        </div>
+                     </div>
+                     <div class="step">
+                        <div class="num">4</div>
+                        <div>
+                           <h3>Login test করুন</h3>
+                           <p>Admin email/password দিয়ে <span class="inline-code">/admin/login</span> এ login করে dashboard খুলে দেখুন।</p>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="callout warning">
+                     Real secrets, passwords, app passwords, API keys, এবং database URI কখনও public repo তে hardcode করবেন না।
+                  </div>
+               </section>
+
+               <div class="footer">
+                  Built as a readable Bangla setup guide for the Al Mumeetu portfolio project.
+               </div>
+            </article>
+         </div>
+      </main>
+   </body>
+</html>
