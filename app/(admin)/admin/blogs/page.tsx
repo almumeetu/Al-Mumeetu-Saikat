@@ -2,8 +2,6 @@ import Link from 'next/link';
 import { connectDB } from '@/lib/db';
 import Blog from '@/models/Blog';
 
-export const dynamic = 'force-dynamic';
-
 export default async function AdminBlogsPage() {
   await connectDB();
   const blogs = await Blog.find({}).sort({ createdAt: -1 }).lean();
