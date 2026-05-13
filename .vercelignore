@@ -1,17 +1,8 @@
-.git
-.gitignore
-README.md
-ADMIN_SETUP_COMPLETE.md
-VERCEL_DEPLOYMENT_GUIDE.md
-ENVIRONMENT_SETUP.md
-setup-guide-bangla.html
 .env.local
 .env.*.local
 node_modules
 .next
 .turbo
-pnpm-lock.yaml
-pnpm-workspace.yaml
 scratch/
 .vscode/
 .idea/
