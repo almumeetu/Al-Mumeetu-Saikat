@@ -1,17 +1,11 @@
-import { useMemo } from 'react';
 import type { SiteSettingsData } from '@/lib/getSiteSettings';
 
-const CATEGORY_TITLES = ['Frontend', 'Backend', 'Tools & DevOps'] as const;
-
 export default function Skills({ s }: { s: SiteSettingsData }) {
-  const skillCategories = useMemo(
-    () => [
-      { title: CATEGORY_TITLES[0], skills: s.skillsFrontend },
-      { title: CATEGORY_TITLES[1], skills: s.skillsBackend },
-      { title: CATEGORY_TITLES[2], skills: s.skillsDevops },
-    ],
-    [s.skillsFrontend, s.skillsBackend, s.skillsDevops]
-  );
+  const skillCategories = [
+    { title: 'Frontend', skills: s.skillsFrontend },
+    { title: 'Backend', skills: s.skillsBackend },
+    { title: 'Tools & DevOps', skills: s.skillsDevops },
+  ];
 
   return (
     <section className="py-24 bg-slate-50/50 dark:bg-slate-900/20">
