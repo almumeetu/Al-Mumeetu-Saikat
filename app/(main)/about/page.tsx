@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { BookOpen, GraduationCap, Code2, Briefcase, Sparkles, Send } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 const highlights = [
   { label: 'Years Experience', value: '5+', icon: Briefcase },
   { label: 'Projects Delivered', value: '250+', icon: Code2 },
