@@ -1,3 +1,13 @@
+// Fix for Node.js 25.x localStorage warning and crash
+if (typeof localStorage !== 'undefined') {
+  global.localStorage = {
+    getItem: () => null,
+    setItem: () => {},
+    removeItem: () => {},
+    clear: () => {}
+  };
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {

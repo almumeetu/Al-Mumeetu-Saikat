@@ -3,7 +3,6 @@
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
 import type { SiteSettingsData } from '@/lib/getSiteSettings';
 
 const STAT_ICONS = ['📅', '🚀', '⭐'] as const;
@@ -41,42 +40,38 @@ export default function About({ s }: { s: SiteSettingsData }) {
             {s.aboutHeadline}
           </motion.h2>
         </div>
-
-        <div className="grid gap-12 lg:grid-cols-2 items-center">
+        <div className="mx-auto max-w-5xl">
           <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="space-y-6"
-          >
-            <div className="relative overflow-hidden rounded-3xl shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20" />
-              <Image
-                src="/images/portfolio.jpg"
-                alt="Portfolio showcase"
-                width={600}
-                height={400}
-                className="relative h-full w-full object-cover"
-              />
-            </div>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-6"
+            className="space-y-12"
           >
-            <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300">
-              {s.aboutBio}
-            </p>
-            <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300">
-              {s.aboutBio2}
-            </p>
+            <div className="relative overflow-hidden rounded-[2rem] bg-white p-8 md:p-12 shadow-xl shadow-slate-200/20 ring-1 ring-slate-900/5 dark:bg-slate-800/50 dark:shadow-none dark:ring-white/10 backdrop-blur-xl">
+              {/* Decorative elements */}
+              <div className="absolute -left-6 -top-6 text-[12rem] leading-none text-primary/5 font-serif select-none pointer-events-none">
+                "
+              </div>
+              <div className="absolute -bottom-24 -right-24 h-64 w-64 rounded-full bg-secondary/10 blur-[80px] pointer-events-none" />
 
-            <div className="grid gap-4 sm:grid-cols-3">
+              <div className="relative z-10 space-y-8 text-left">
+                <p className="text-xl md:text-3xl font-bold leading-snug text-slate-800 dark:text-white">
+                  {s.aboutBio}
+                </p>
+                
+                <div className="flex items-center gap-4 opacity-80">
+                  <div className="h-px w-16 bg-gradient-to-r from-primary to-secondary" />
+                  <div className="h-1.5 w-1.5 rounded-full bg-secondary" />
+                </div>
+                
+                <p className="text-lg md:text-xl leading-relaxed text-slate-600 dark:text-slate-300 font-medium">
+                  {s.aboutBio2}
+                </p>
+              </div>
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-3">
               {stats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
@@ -104,6 +99,7 @@ export default function About({ s }: { s: SiteSettingsData }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.6 }}
+              className="pt-4"
             >
               <Link href="/about" className="inline-flex items-center gap-2 btn-primary">
                 Learn More

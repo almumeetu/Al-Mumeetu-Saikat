@@ -1,76 +1,114 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { connectDB } from '@/lib/db';
+import Project from '@/models/Project';
+import { ExternalLink, Github } from 'lucide-react';
 
+async function getFeaturedProjects() {
+  try {
+    await connectDB();
+    const projects = await Project.find({ featured: true })
+      .sort({ createdAt: -1 })
+      .limit(6)
+      .lean();
+    return projects as any[];
+  } catch {
+    return [];
+  }
+}
 
 export default async function FeaturedProjects() {
-  const projects = [
-    {
-      _id: '1',
-      title: 'neocomerz-storefront-ui',
-      category: 'Package',
-      description: 'A comprehensive pnpm package for building modern, high-performance e-commerce storefronts.',
-      tech: ['pnpm', 'TypeScript', 'React', 'Tailwind CSS'],
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=800'
-    },
-    {
-      _id: '2',
-      title: 'Friends Gallery',
-      category: 'Headless E-commerce',
-      description: 'A custom headless e-commerce platform built with React interfaces on top of a flexible WordPress backend.',
-      tech: ['React', 'WordPress', 'GraphQL', 'Next.js'],
-      image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=800'
-    },
-    {
-      _id: '3',
-      title: 'Next.js Dynamic Page Builder',
-      category: 'Architecture',
-      description: 'A custom frontend architecture designed to generate high-converting landing pages dynamically.',
-      tech: ['Next.js 15', 'Tailwind CSS', 'Framer Motion'],
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800'
-    }
-  ];
+  const projects = await getFeaturedProjects();
 
   return (
     <section className="py-24">
       <div className="container-custom">
         <div className="mb-14 text-center">
           <span className="mb-3 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
-            Featured Projects
+            Featured Work
           </span>
-          <h2 className="text-4xl font-extrabold md:text-5xl">Selected Work</h2>
+          <h2 className="text-4xl font-extrabold md:text-5xl">Selected Projects</h2>
+          <p className="mx-auto mt-4 max-w-xl text-slate-600 dark:text-slate-400">
+            A curated selection of projects that showcase my skills and experience.
+          </p>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          {projects.length > 0 ? (
-            projects.map((project: any) => (
-              <article key={project._id} className="card overflow-hidden">
-                <div className="relative aspect-[16/10]">
-                  <Image src={project.image} alt={project.title} fill className="object-cover" />
+        {projects.length > 0 ? (
+          <div className="grid gap-6 lg:grid-cols-3">
+            {projects.map((project: any) => (
+              <article
+                key={project._id.toString()}
+                className="card group overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="absolute bottom-4 left-4 right-4 flex gap-2 opacity-0 transition-all duration-300 group-hover:opacity-100">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-slate-900 backdrop-blur transition hover:bg-white"
+                      >
+                        <ExternalLink size={12} /> Live Demo
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-slate-900 backdrop-blur transition hover:bg-white"
+                      >
+                        <Github size={12} /> Code
+                      </a>
+                    )}
+                  </div>
                 </div>
-                <div className="space-y-4 p-6">
-                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{project.category}</div>
-                  <h3 className={`text-2xl font-bold ${project.title === 'neocomerz-storefront-ui' ? 'font-mono tracking-tight text-xl' : ''}`}>{project.title}</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 text-xs text-slate-600 dark:text-slate-400">
+                <div className="space-y-3 p-6">
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                    {project.category}
+                  </div>
+                  <h3 className="text-xl font-bold leading-snug">{project.title}</h3>
+                  <p className="line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
                     {(project.tech || []).slice(0, 4).map((tech: string) => (
-                      <span key={tech} className="rounded-full bg-slate-100 px-3 py-1 dark:bg-slate-800">
+                      <span
+                        key={tech}
+                        className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-400"
+                      >
                         {tech}
                       </span>
                     ))}
                   </div>
                 </div>
               </article>
-            ))
-          ) : (
-            <div className="card p-8 text-center text-slate-600 dark:text-slate-400 lg:col-span-3">
-              Add featured projects in the admin panel to display them here.
-            </div>
-          )}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="card p-12 text-center text-slate-500">
+            <p className="text-lg font-medium">No featured projects yet.</p>
+            <p className="mt-2 text-sm">
+              Mark projects as &quot;Featured&quot; in the{' '}
+              <Link href="/admin/projects" className="text-primary underline">
+                admin panel
+              </Link>{' '}
+              to display them here.
+            </p>
+          </div>
+        )}
 
-        <div className="mt-10 text-center">
+        <div className="mt-12 text-center">
           <Link href="/projects" className="btn-outline">
-            View All Projects
+            View All Projects →
           </Link>
         </div>
       </div>
