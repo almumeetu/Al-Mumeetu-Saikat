@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SessionProvider, signOut } from 'next-auth/react';
@@ -20,8 +21,8 @@ const links = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
   { href: '/admin/blogs', label: 'Blogs', icon: FileText },
   { href: '/admin/projects', label: 'Projects', icon: FolderKanban },
-  { href: '/admin/messages', label: 'Messages', icon: MessageSquare },
-  { href: '/admin/subscribers', label: 'Subscribers', icon: Users },
+  { href: '/admin/messages', label: 'Messages', icon: MessageSquare, badgeKey: 'unreadMessages' as const },
+  { href: '/admin/subscribers', label: 'Subscribers', icon: Users, badgeKey: 'totalSubscribers' as const },
   { href: '/admin/settings', label: 'Settings', icon: Settings },
 ];
 
@@ -31,12 +32,14 @@ function SidebarLink({
   icon: Icon,
   exact,
   pathname,
+  badgeCount,
 }: {
   href: string;
   label: string;
   icon: React.ElementType;
   exact?: boolean;
   pathname: string;
+  badgeCount?: number;
 }) {
   const active = exact ? pathname === href : pathname.startsWith(href);
   return (
@@ -53,13 +56,42 @@ function SidebarLink({
         className={active ? 'text-primary' : 'text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'}
       />
       <span className="flex-1">{label}</span>
-      {active && <ChevronRight size={14} className="text-primary/60" />}
+      {badgeCount && badgeCount > 0 ? (
+        <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white shadow-sm ring-2 ring-white dark:ring-slate-900">
+          {badgeCount}
+        </span>
+      ) : null}
+      {active && !badgeCount && <ChevronRight size={14} className="text-primary/60" />}
     </Link>
   );
 }
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const [stats, setStats] = useState<{ unreadMessages: number; totalSubscribers: number }>({
+    unreadMessages: 0,
+    totalSubscribers: 0,
+  });
+
+  useEffect(() => {
+    if (pathname === '/admin/login') return;
+
+    const fetchNotifications = async () => {
+      try {
+        const res = await fetch('/api/admin/notifications');
+        if (res.ok) {
+          const data = await res.json();
+          setStats(data);
+        }
+      } catch (error) {
+        console.error('Error fetching notifications:', error);
+      }
+    };
+
+    fetchNotifications();
+    const interval = setInterval(fetchNotifications, 10000); // 10s poll
+    return () => clearInterval(interval);
+  }, [pathname]);
 
   // Don't show sidebar on login page
   if (pathname === '/admin/login') {
@@ -92,9 +124,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <p className="mb-2 px-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">
               Navigation
             </p>
-            {links.map((link) => (
-              <SidebarLink key={link.href} {...link} pathname={pathname} />
-            ))}
+            {links.map((link) => {
+              const badgeCount = link.badgeKey ? stats[link.badgeKey] : undefined;
+              return (
+                <SidebarLink
+                  key={link.href}
+                  {...link}
+                  pathname={pathname}
+                  badgeCount={badgeCount}
+                />
+              );
+            })}
           </nav>
 
           {/* Footer */}
