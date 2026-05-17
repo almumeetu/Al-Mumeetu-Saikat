@@ -6,7 +6,7 @@ const ProjectSchema = new Schema(
     slug: { type: String, required: true, unique: true },
     description: { type: String, required: true },
     image: { type: String, required: true },
-    category: { type: String, required: true },
+    category: { type: [String], required: true },
     tech: [String],
     liveUrl: String,
     githubUrl: String,

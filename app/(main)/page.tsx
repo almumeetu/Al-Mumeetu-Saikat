@@ -9,31 +9,50 @@ import { getSiteSettings } from '@/lib/getSiteSettings';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Al Mumeetu Saikat | Full-Stack Developer & WordPress Specialist',
+  title: 'Al Mumeetu Saikat | Full Stack Software Engineer',
   description: 'Portfolio of Md Al Mumeetu Saikat, a Full-Stack Engineer with deep expertise in Next.js, React, and modern backend stacks like PostgreSQL and Supabase.',
   alternates: {
     canonical: '/',
   }
 };
 
-export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
   const settings = await getSiteSettings();
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Md Al Mumeetu Saikat',
-    url: settings.githubUrl ? settings.githubUrl.replace('github.com/', '') : 'https://almumeetusaikat.com',
-    jobTitle: 'Full-Stack Engineer',
-    description: 'I build scalable, fast, and modern web applications with Next.js and React.',
-    sameAs: [
-      settings.githubUrl,
-      settings.linkedinUrl,
-      settings.twitterUrl,
-    ].filter(Boolean),
-  };
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Md Al Mumeetu Saikat',
+      url: process.env.NEXT_PUBLIC_SITE_URL || 'https://almumeetusaikat.com',
+      jobTitle: 'Full-Stack Engineer',
+      description: 'I build scalable, fast, and modern web applications with Next.js and React.',
+      sameAs: [
+        settings.githubUrl,
+        settings.linkedinUrl,
+        settings.twitterUrl,
+      ].filter(Boolean),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'Al Mumeetu Saikat | Portfolio',
+      url: process.env.NEXT_PUBLIC_SITE_URL || 'https://almumeetusaikat.com',
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: process.env.NEXT_PUBLIC_SITE_URL || 'https://almumeetusaikat.com',
+        },
+      ],
+    }
+  ];
 
   return (
     <>

@@ -4,8 +4,13 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import ImageUploader from '@/components/admin/ImageUploader';
+import TechStackPicker from '@/components/admin/TechStackPicker';
+import CategoryPicker from '@/components/admin/CategoryPicker';
 import { Loader2, Save, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+
+const inputCls =
+  'w-full rounded-xl border border-slate-200 bg-transparent px-4 py-3 text-sm outline-none transition focus:border-primary dark:border-slate-700';
 
 export default function EditProjectPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -16,8 +21,8 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
     title: '',
     description: '',
     image: '',
-    category: '',
-    tech: '',
+    categories: [] as string[],
+    tech: [] as string[],
     liveUrl: '',
     githubUrl: '',
     featured: false,
@@ -29,12 +34,18 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
       fetch(`/api/projects/${resolvedId}`)
         .then((r) => r.json())
         .then((project) => {
+          // category may be string (legacy) or array
+          const cats = Array.isArray(project.category)
+            ? project.category
+            : project.category
+            ? [project.category]
+            : [];
           setForm({
             title: project.title || '',
             description: project.description || '',
             image: project.image || '',
-            category: project.category || '',
-            tech: Array.isArray(project.tech) ? project.tech.join(', ') : '',
+            categories: cats,
+            tech: Array.isArray(project.tech) ? project.tech : [],
             liveUrl: project.liveUrl || '',
             githubUrl: project.githubUrl || '',
             featured: Boolean(project.featured),
@@ -45,24 +56,26 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
     });
   }, [params]);
 
-  const field = (key: keyof typeof form) => ({
-    value: form[key] as string,
-    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-      setForm((c) => ({ ...c, [key]: e.target.value })),
-    className:
-      'w-full rounded-xl border border-slate-200 bg-transparent px-4 py-3 text-sm outline-none transition focus:border-primary dark:border-slate-700',
-  });
+  const set = <K extends keyof typeof form>(key: K, value: (typeof form)[K]) =>
+    setForm((c) => ({ ...c, [key]: value }));
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (form.categories.length === 0) { toast.error('Please select at least one category'); return; }
     setLoading(true);
     try {
       const res = await fetch(`/api/projects/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...form,
-          tech: form.tech.split(',').map((t) => t.trim()).filter(Boolean),
+          title: form.title,
+          description: form.description,
+          image: form.image,
+          category: form.categories,
+          tech: form.tech,
+          liveUrl: form.liveUrl,
+          githubUrl: form.githubUrl,
+          featured: form.featured,
         }),
       });
       const json = await res.json();
@@ -104,33 +117,57 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
         <ImageUploader
           label="Project Image *"
           value={form.image}
-          onChange={(url) => setForm((c) => ({ ...c, image: url }))}
+          onChange={(url) => set('image', url)}
         />
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="sm:col-span-2">
             <label className="mb-2 block text-sm font-medium">Title *</label>
-            <input required {...field('title')} placeholder="My Awesome Project" />
+            <input
+              required
+              value={form.title}
+              onChange={(e) => set('title', e.target.value)}
+              placeholder="My Awesome Project"
+              className={inputCls}
+            />
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium">Category *</label>
-            <input required {...field('category')} placeholder="E-commerce, SaaS, Portfolio…" />
+            <label className="mb-2 block text-sm font-medium">Categories *</label>
+            <CategoryPicker
+              value={form.categories}
+              onChange={(v) => set('categories', v)}
+            />
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium">Tech Stack (comma-separated)</label>
-            <input {...field('tech')} placeholder="Next.js, Tailwind CSS, Supabase" />
+            <label className="mb-2 block text-sm font-medium">Tech Stack</label>
+            <TechStackPicker
+              value={form.tech}
+              onChange={(v) => set('tech', v)}
+            />
           </div>
 
           <div>
             <label className="mb-2 block text-sm font-medium">Live URL</label>
-            <input type="url" {...field('liveUrl')} placeholder="https://myproject.com" />
+            <input
+              type="url"
+              value={form.liveUrl}
+              onChange={(e) => set('liveUrl', e.target.value)}
+              placeholder="https://myproject.com"
+              className={inputCls}
+            />
           </div>
 
           <div>
             <label className="mb-2 block text-sm font-medium">GitHub URL</label>
-            <input type="url" {...field('githubUrl')} placeholder="https://github.com/user/repo" />
+            <input
+              type="url"
+              value={form.githubUrl}
+              onChange={(e) => set('githubUrl', e.target.value)}
+              placeholder="https://github.com/user/repo"
+              className={inputCls}
+            />
           </div>
 
           <div className="sm:col-span-2">
@@ -139,9 +176,9 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
               required
               rows={4}
               value={form.description}
-              onChange={(e) => setForm((c) => ({ ...c, description: e.target.value }))}
+              onChange={(e) => set('description', e.target.value)}
               placeholder="Describe what this project does…"
-              className="w-full rounded-xl border border-slate-200 bg-transparent px-4 py-3 text-sm outline-none transition focus:border-primary dark:border-slate-700"
+              className={inputCls + ' resize-none'}
             />
           </div>
         </div>
@@ -150,7 +187,7 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
           <input
             type="checkbox"
             checked={form.featured}
-            onChange={(e) => setForm((c) => ({ ...c, featured: e.target.checked }))}
+            onChange={(e) => set('featured', e.target.checked)}
             className="h-4 w-4 accent-primary"
           />
           Mark as Featured (shown on homepage)

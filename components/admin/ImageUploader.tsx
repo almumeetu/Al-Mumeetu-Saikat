@@ -32,10 +32,12 @@ export default function ImageUploader({ value, onChange, label = 'Image' }: Imag
       formData.append('file', file);
       const res = await fetch('/api/upload', { method: 'POST', body: formData });
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error || 'Upload failed');
+      if (!res.ok) throw new Error(json.error || `Upload failed (${res.status})`);
+      if (!json.url) throw new Error('No URL returned from upload');
       onChange(json.url);
       toast.success('Image uploaded');
     } catch (err: any) {
+      console.error('[ImageUploader]', err);
       toast.error(err.message || 'Upload failed');
     } finally {
       setUploading(false);

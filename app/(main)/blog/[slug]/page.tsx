@@ -12,6 +12,36 @@ type BlogLean = {
   category?: string;
 };
 
+import type { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  await connectDB();
+  const blog = await Blog.findOne({ slug }).lean<BlogLean>();
+
+  if (!blog) {
+    return { title: 'Post Not Found' };
+  }
+
+  return {
+    title: blog.title,
+    description: blog.excerpt,
+    openGraph: {
+      title: blog.title,
+      description: blog.excerpt,
+      type: 'article',
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${slug}`,
+      images: [{ url: blog.coverImage }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: blog.title,
+      description: blog.excerpt,
+      images: [blog.coverImage],
+    },
+  };
+}
+
 export default async function BlogDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   await connectDB();

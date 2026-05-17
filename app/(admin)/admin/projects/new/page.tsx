@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import ImageUploader from '@/components/admin/ImageUploader';
+import TechStackPicker from '@/components/admin/TechStackPicker';
+import CategoryPicker from '@/components/admin/CategoryPicker';
 import { Loader2, Save, ArrowLeft } from 'lucide-react';
 
 const inputCls =
@@ -17,27 +19,34 @@ export default function NewProjectPage() {
     title: '',
     description: '',
     image: '',
-    category: '',
-    tech: '',
+    categories: [] as string[],
+    tech: [] as string[],
     liveUrl: '',
     githubUrl: '',
     featured: false,
   });
 
-  const set = (key: keyof typeof form, value: string | boolean) =>
+  const set = <K extends keyof typeof form>(key: K, value: (typeof form)[K]) =>
     setForm((c) => ({ ...c, [key]: value }));
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.image) { toast.error('Please upload or provide a project image'); return; }
+    if (form.categories.length === 0) { toast.error('Please select at least one category'); return; }
     setLoading(true);
     try {
       const res = await fetch('/api/projects', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...form,
-          tech: form.tech.split(',').map((t) => t.trim()).filter(Boolean),
+          title: form.title,
+          description: form.description,
+          image: form.image,
+          category: form.categories,
+          tech: form.tech,
+          liveUrl: form.liveUrl,
+          githubUrl: form.githubUrl,
+          featured: form.featured,
         }),
       });
       const json = await res.json();
@@ -73,8 +82,15 @@ export default function NewProjectPage() {
           <div className="card p-6 space-y-5">
             <div>
               <label className="mb-2 block text-sm font-medium">Title *</label>
-              <input required value={form.title} onChange={(e) => set('title', e.target.value)} placeholder="My Awesome Project" className={inputCls} />
+              <input
+                required
+                value={form.title}
+                onChange={(e) => set('title', e.target.value)}
+                placeholder="My Awesome Project"
+                className={inputCls}
+              />
             </div>
+
             <div>
               <label className="mb-2 block text-sm font-medium">Description *</label>
               <textarea
@@ -86,23 +102,44 @@ export default function NewProjectPage() {
                 className={inputCls + ' resize-none'}
               />
             </div>
+
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <label className="mb-2 block text-sm font-medium">Category *</label>
-                <input required value={form.category} onChange={(e) => set('category', e.target.value)} placeholder="E-commerce, SaaS, Portfolio…" className={inputCls} />
+                <label className="mb-2 block text-sm font-medium">Categories *</label>
+                <CategoryPicker
+                  value={form.categories}
+                  onChange={(v) => set('categories', v)}
+                />
               </div>
+
               <div>
                 <label className="mb-2 block text-sm font-medium">Tech Stack</label>
-                <input value={form.tech} onChange={(e) => set('tech', e.target.value)} placeholder="Next.js, Tailwind, Supabase" className={inputCls} />
-                <p className="mt-1 text-xs text-slate-500">Comma-separated</p>
+                <TechStackPicker
+                  value={form.tech}
+                  onChange={(v) => set('tech', v)}
+                />
               </div>
+
               <div>
                 <label className="mb-2 block text-sm font-medium">Live URL</label>
-                <input type="url" value={form.liveUrl} onChange={(e) => set('liveUrl', e.target.value)} placeholder="https://myproject.com" className={inputCls} />
+                <input
+                  type="url"
+                  value={form.liveUrl}
+                  onChange={(e) => set('liveUrl', e.target.value)}
+                  placeholder="https://myproject.com"
+                  className={inputCls}
+                />
               </div>
+
               <div>
                 <label className="mb-2 block text-sm font-medium">GitHub URL</label>
-                <input type="url" value={form.githubUrl} onChange={(e) => set('githubUrl', e.target.value)} placeholder="https://github.com/user/repo" className={inputCls} />
+                <input
+                  type="url"
+                  value={form.githubUrl}
+                  onChange={(e) => set('githubUrl', e.target.value)}
+                  placeholder="https://github.com/user/repo"
+                  className={inputCls}
+                />
               </div>
             </div>
           </div>

@@ -115,10 +115,12 @@ export default function AdminProjectsPage() {
                 </div>
                 <p className="mt-0.5 truncate text-sm text-slate-500">{project.description}</p>
                 <div className="mt-1 flex flex-wrap items-center gap-2">
-                  <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs dark:bg-slate-800">
-                    {project.category}
-                  </span>
-                  {project.tech?.slice(0, 3).map((t) => (
+                  {(Array.isArray(project.category) ? project.category : project.category ? [project.category] : []).map((cat: string) => (
+                    <span key={cat} className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">
+                      {cat}
+                    </span>
+                  ))}
+                  {project.tech?.slice(0, 3).map((t: string) => (
                     <span key={t} className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-slate-800">
                       {t}
                     </span>

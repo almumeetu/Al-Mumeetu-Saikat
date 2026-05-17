@@ -3,6 +3,18 @@ import Image from 'next/image';
 import { connectDB } from '@/lib/db';
 import Blog from '@/models/Blog';
 
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Blog | Al Mumeetu Saikat',
+  description: 'Writing about frontend, WordPress, and delivery. A collection of practical notes, project updates, and engineering lessons.',
+  alternates: {
+    canonical: '/blog',
+  }
+};
+
+export const revalidate = 3600;
+
 export default async function BlogPage() {
   let blogs: any[] = [];
   try {

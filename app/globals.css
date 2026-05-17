@@ -52,3 +52,40 @@
 ::-webkit-scrollbar-thumb {
 	@apply rounded-full bg-primary;
 }
+
+/* ── Preloader bar animation ─────────────────────────────── */
+@keyframes preloader-bar {
+  0%   { transform: translateX(-100%); }
+  60%  { transform: translateX(-25%); }
+  100% { transform: translateX(0%); }
+}
+
+.preloader-bar {
+  animation: preloader-bar 1.6s ease-in-out forwards;
+}
+
+/* ── Performance ─────────────────────────────────────────── */
+
+/* Respect user's reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* GPU-accelerate elements that animate frequently */
+.animate-spin,
+.group-hover\:scale-110,
+.hover\:-translate-y-2,
+.hover\:-translate-y-0\.5 {
+  will-change: transform;
+}
+
+/* Defer rendering cost for below-fold sections */
+section + section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
