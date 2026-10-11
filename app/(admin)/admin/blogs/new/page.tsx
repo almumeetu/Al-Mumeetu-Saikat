@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import ImageUploader from '@/components/admin/ImageUploader';
 import BlogContentEditor from '@/components/admin/BlogContentEditor';
 import BlogReferencesEditor from '@/components/admin/BlogReferencesEditor';
-import { createBlogSlug } from '@/lib/blog-slug';
+import { createBlogSlug, MAX_BLOG_SLUG_LENGTH } from '@/lib/blog-slug';
 import { getTodayBlogDateInput, type BlogReference } from '@/lib/blog-metadata';
 import { Loader2, Save, ArrowLeft } from 'lucide-react';
 
@@ -19,6 +19,7 @@ export default function NewBlogPage() {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     title: '',
+    slug: '',
     excerpt: '',
     content: '',
     coverImage: '',
@@ -31,11 +32,13 @@ export default function NewBlogPage() {
 
   const set = <K extends Exclude<keyof typeof form, 'references'>,>(key: K, value: typeof form[K]) =>
     setForm((c) => ({ ...c, [key]: value }));
-  const slugPreview = createBlogSlug(form.title) || 'your-post-title';
+  const slugPreview = createBlogSlug(form.slug.trim() ? form.slug : form.title);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.title.trim()) { toast.error('Title is required'); return; }
+    if (form.slug.trim() && !slugPreview) { toast.error('Enter a valid URL slug'); return; }
+    if (slugPreview.length > MAX_BLOG_SLUG_LENGTH) { toast.error(`URL slug must be ${MAX_BLOG_SLUG_LENGTH} characters or fewer`); return; }
     if (!form.coverImage)   { toast.error('Cover image is required'); return; }
     if (!form.content.replace(/<[^>]*>/g, '').trim()) { toast.error('Content is required'); return; }
     setLoading(true);
@@ -45,6 +48,7 @@ export default function NewBlogPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...form,
+          slug: form.slug.trim() ? slugPreview : '',
           tags: form.tags.split(',').map((t) => t.trim()).filter(Boolean),
         }),
       });
@@ -90,12 +94,12 @@ export default function NewBlogPage() {
               />
             </div>
             <div>
-              <label className="mb-2 block text-sm font-medium">URL slug <span className="font-normal text-slate-500">(auto-generated)</span></label>
+              <label htmlFor="blog-slug" className="mb-2 block text-sm font-medium">Custom URL slug <span className="font-normal text-slate-500">(optional)</span></label>
               <div className="flex overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700">
                 <span className="flex shrink-0 items-center border-r border-slate-200 bg-slate-50 px-3 text-sm text-slate-500 dark:border-slate-700 dark:bg-slate-800">/blog/</span>
-                <input readOnly value={slugPreview} aria-label="Generated blog URL slug" className="w-full min-w-0 bg-slate-50 px-3 py-3 text-sm text-slate-600 outline-none dark:bg-slate-900 dark:text-slate-300" />
+                <input id="blog-slug" value={form.slug} onChange={(e) => set('slug', e.target.value)} placeholder={createBlogSlug(form.title) || 'your-post-title'} autoCapitalize="none" autoCorrect="off" spellCheck={false} className="w-full min-w-0 bg-transparent px-3 py-3 text-sm outline-none" />
               </div>
-              <p className="mt-1 text-xs text-slate-500">The link updates automatically when you change the title.</p>
+              <p className="mt-1 text-xs text-slate-500">Leave blank to use the title. Preview: {slugPreview ? `/blog/${slugPreview}` : 'Enter letters or numbers for a valid slug.'}</p>
             </div>
             <div>
               <label className="mb-2 block text-sm font-medium">Excerpt</label>
