@@ -83,8 +83,8 @@ export default async function AdminDashboardPage() {
       Project.countDocuments(),
       Message.countDocuments(),
       Subscriber.countDocuments(),
-      BlogActivity.countDocuments({ read: false }),
-      BlogActivity.find({}).sort({ createdAt: -1 }).limit(5).lean(),
+      BlogActivity.countDocuments({ type: { $in: ['like', 'comment', 'share'] }, read: false }),
+      BlogActivity.find({ type: { $in: ['like', 'comment', 'share'] } }).sort({ createdAt: -1 }).limit(5).lean(),
     ]);
     values = { blogs, projects, messages, subscribers, activity };
     recentActivity = recent;
