@@ -172,7 +172,7 @@ export default function NewBlogPage() {
                 placeholder="react, nextjs, typescript"
                 className={inputCls}
               />
-              <p className="mt-1 text-xs text-slate-500">Comma-separated</p>
+              <p className="mt-1 text-xs text-slate-500">Separate with commas, or enter #hashtags.</p>
             </div>
           </div>
 

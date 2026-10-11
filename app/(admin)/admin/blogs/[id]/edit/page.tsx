@@ -8,6 +8,7 @@ import ImageUploader from '@/components/admin/ImageUploader';
 import BlogContentEditor from '@/components/admin/BlogContentEditor';
 import BlogReferencesEditor from '@/components/admin/BlogReferencesEditor';
 import { createBlogSlug } from '@/lib/blog-slug';
+import { normalizeBlogTags } from '@/lib/blog-tags';
 import { toBlogDateInput, type BlogReference } from '@/lib/blog-metadata';
 import { Loader2, Save, ArrowLeft } from 'lucide-react';
 
@@ -53,7 +54,7 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
             content:    blog.content    || '',
             coverImage: blog.coverImage || '',
             category:   blog.category   || 'General',
-            tags:       Array.isArray(blog.tags) ? blog.tags.join(', ') : '',
+            tags:       normalizeBlogTags(blog.tags).join(', '),
             published:  Boolean(blog.published),
             publishedAt: toBlogDateInput(blog.publishedAt || blog.createdAt),
             references: Array.isArray(blog.references) ? blog.references : [],
@@ -204,7 +205,7 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
                 placeholder="react, nextjs, typescript"
                 className={inputCls}
               />
-              <p className="mt-1 text-xs text-slate-500">Comma-separated</p>
+              <p className="mt-1 text-xs text-slate-500">Separate with commas, or enter #hashtags.</p>
             </div>
           </div>
 

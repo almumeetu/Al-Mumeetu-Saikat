@@ -6,7 +6,7 @@ const config: Config = {
    theme: {
       extend: {
          fontFamily: {
-            sans: ['var(--font-inter)', 'sans-serif'],
+            sans: ['Inter', '"Noto Sans Bengali"', '"Hind Siliguri"', 'system-ui', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
          },
          fontWeight: {

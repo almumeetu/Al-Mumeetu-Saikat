@@ -1,15 +1,7 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import { Providers } from './providers';
 import type { Metadata, Viewport } from 'next';
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',      // prevent FOIT — text visible immediately with fallback font
-  preload: true,
-});
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -97,7 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 				<link rel="dns-prefetch" href="https://res.cloudinary.com" />
 			</head>
-			<body className={`${inter.variable} font-sans antialiased`}>
+			<body className="font-sans antialiased">
 				<Providers>
 					{children}
 					<Toaster position="top-right" />

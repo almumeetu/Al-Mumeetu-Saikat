@@ -2,6 +2,7 @@ import { connectDB } from '@/lib/db';
 import Blog from '@/models/Blog';
 import { BookOpen, Sparkles } from 'lucide-react';
 import BlogExplorer, { type BlogCardItem } from '@/components/blog/BlogExplorer';
+import { normalizeBlogTags } from '@/lib/blog-tags';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -46,7 +47,7 @@ export default async function BlogPage() {
       excerpt: blog.excerpt,
       coverImage: blog.coverImage,
       category: blog.category?.trim() || 'Personal',
-      tags: Array.isArray(blog.tags) ? blog.tags.filter(Boolean) : [],
+      tags: normalizeBlogTags(blog.tags),
       publishedAt: date.toISOString(),
       readingMinutes: estimateReadingMinutes(blog.content || ''),
     };

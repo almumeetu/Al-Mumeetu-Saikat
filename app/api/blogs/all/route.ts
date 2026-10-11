@@ -8,7 +8,7 @@ export async function GET() {
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  await connectDB();
+  if (!await connectDB()) return NextResponse.json({ error: 'Database unavailable' }, { status: 503 });
   const blogs = await Blog.find({}).sort({ publishedAt: -1, createdAt: -1 }).lean();
   return NextResponse.json(blogs);
 }

@@ -161,39 +161,43 @@ export default function BlogInteractions({
   };
 
   return (
-    <section className="mt-14 overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white/80 shadow-sm dark:border-slate-800 dark:bg-slate-900/60 sm:mt-20" aria-labelledby="conversation-title">
-      <div className="flex flex-col gap-5 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+    <>
+      <nav aria-label="Story actions" className="fixed inset-x-3 bottom-4 z-40 mx-auto flex w-fit max-w-[calc(100vw-1.5rem)] items-center gap-1 rounded-2xl border border-slate-200/90 bg-white/95 p-1.5 shadow-xl shadow-slate-900/15 backdrop-blur-xl dark:border-slate-700 dark:bg-slate-900/95 sm:bottom-6 sm:gap-2 sm:p-2">
+        <button
+          type="button"
+          onClick={toggleLike}
+          disabled={!ready || likeBusy}
+          aria-pressed={liked}
+          aria-label={`Like this story, ${likes} likes`}
+          className={`inline-flex h-10 items-center gap-1.5 rounded-xl px-2.5 text-xs font-semibold transition disabled:cursor-wait disabled:opacity-60 sm:gap-2 sm:px-3 sm:text-sm ${liked
+            ? 'bg-rose-500/10 text-rose-600 dark:text-rose-300'
+            : 'text-slate-700 hover:bg-rose-50 hover:text-rose-600 dark:text-slate-200 dark:hover:bg-rose-500/10 dark:hover:text-rose-300'}`}
+        >
+          <Heart size={16} fill={liked ? 'currentColor' : 'none'} /> <span className="hidden sm:inline">Like</span> <span>{likes}</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => document.getElementById('comments')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+          aria-label={`Comment on this story, ${comments.length} comments`}
+          className="inline-flex h-10 items-center gap-1.5 rounded-xl px-2.5 text-xs font-semibold text-slate-700 transition hover:bg-emerald-50 hover:text-emerald-800 dark:text-slate-200 dark:hover:bg-emerald-500/10 dark:hover:text-emerald-300 sm:gap-2 sm:px-3 sm:text-sm"
+        >
+          <MessageCircle size={16} /> <span className="hidden sm:inline">Comment</span> <span>{comments.length}</span>
+        </button>
+        <button
+          type="button"
+          onClick={shareStory}
+          disabled={!ready || shareBusy}
+          aria-label={`Share this story, ${shares} shares`}
+          className="inline-flex h-10 items-center gap-1.5 rounded-xl bg-emerald-700 px-2.5 text-xs font-semibold text-white transition hover:bg-emerald-800 disabled:cursor-wait disabled:opacity-60 dark:bg-emerald-600 dark:hover:bg-emerald-500 sm:gap-2 sm:px-3 sm:text-sm"
+        >
+          <Share2 size={16} /> <span className="hidden sm:inline">Share</span> <span>{shares}</span>
+        </button>
+      </nav>
+      <section className="mt-14 overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white/80 shadow-sm dark:border-slate-800 dark:bg-slate-900/60 sm:mt-20" aria-labelledby="conversation-title">
+      <div className="p-5 sm:p-7">
         <div>
           <h2 id="conversation-title" className="text-xl font-medium tracking-tight text-slate-950 dark:text-white">Join the conversation</h2>
           <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">If this story helped or resonated, let me know.</p>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            onClick={toggleLike}
-            disabled={!ready || likeBusy}
-            aria-pressed={liked}
-            className={`inline-flex h-10 items-center gap-2 rounded-xl border px-4 text-sm font-medium transition disabled:cursor-wait disabled:opacity-60 ${liked
-              ? 'border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-300'
-              : 'border-slate-200 bg-white text-slate-700 hover:border-rose-500/40 hover:text-rose-600 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:text-rose-300'}`}
-          >
-            <Heart size={16} fill={liked ? 'currentColor' : 'none'} /> Like <span>{likes}</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => document.getElementById('comments')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-            className="inline-flex h-10 items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-700 transition hover:border-emerald-700/40 hover:text-emerald-800 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:text-emerald-300"
-          >
-            <MessageCircle size={16} /> Comment <span>{comments.length}</span>
-          </button>
-          <button
-            type="button"
-            onClick={shareStory}
-            disabled={!ready || shareBusy}
-            className="inline-flex h-10 items-center gap-2 rounded-xl bg-emerald-700 px-4 text-sm font-medium text-white transition hover:bg-emerald-800 disabled:cursor-wait disabled:opacity-60 dark:bg-emerald-600 dark:hover:bg-emerald-500"
-          >
-            <Share2 size={16} /> Share <span>{shares}</span>
-          </button>
         </div>
       </div>
 
@@ -256,6 +260,7 @@ export default function BlogInteractions({
           </form>
         </div>
       </div>
-    </section>
+      </section>
+    </>
   );
 }

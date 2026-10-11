@@ -42,7 +42,7 @@ export async function GET(request: Request, { params }: RouteContext) {
 
   try {
     if (!await connectDB()) return NextResponse.json({ error: 'Activity is temporarily unavailable' }, { status: 503 });
-    const blog = await Blog.findOne({ slug, published: true }).select('_id').lean();
+    const blog = await Blog.findOne({ slug, published: true }).select('_id').lean<{ _id: string }>();
     if (!blog) return NextResponse.json({ error: 'Story not found' }, { status: 404 });
     return NextResponse.json(await getSummary(blog._id, visitorId), {
       headers: { 'Cache-Control': 'no-store' },
@@ -58,7 +58,11 @@ export async function POST(request: Request, { params }: RouteContext) {
 
   try {
     if (!await connectDB()) return NextResponse.json({ error: 'Activity is temporarily unavailable' }, { status: 503 });
-    const blog = await Blog.findOne({ slug, published: true }).select('_id slug title').lean();
+    const blog = await Blog.findOne({ slug, published: true }).select('_id slug title').lean<{
+      _id: string;
+      slug: string;
+      title: string;
+    }>();
     if (!blog) return NextResponse.json({ error: 'Story not found' }, { status: 404 });
 
     const body = await request.json();

@@ -83,7 +83,7 @@
 
 	.blog-content {
 		@apply text-[1.0625rem] leading-[1.95] text-slate-700 dark:text-slate-300;
-		font-family: var(--font-inter), "Noto Sans Bengali", "Hind Siliguri", sans-serif;
+		font-family: Inter, "Noto Sans Bengali", "Hind Siliguri", system-ui, sans-serif;
 		font-weight: 400;
 		overflow-wrap: anywhere;
 	}

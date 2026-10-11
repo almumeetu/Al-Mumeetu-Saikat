@@ -6,6 +6,7 @@ import { connectDB } from '@/lib/db';
 import Blog from '@/models/Blog';
 import BlogActivity from '@/models/BlogActivity';
 import BlogInteractions from '@/components/blog/BlogInteractions';
+import { normalizeBlogTags } from '@/lib/blog-tags';
 
 type BlogLean = {
   _id: string;
@@ -37,7 +38,7 @@ function readingMinutes(content: string) {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const conn = await connectDB();
-  const blog = conn ? await Blog.findOne({ $or: [{ slug }, { previousSlugs: slug }] }).lean<BlogLean>() : null;
+  const blog = conn ? await Blog.findOne({ published: true, $or: [{ slug }, { previousSlugs: slug }] }).lean<BlogLean>() : null;
 
   if (!blog) {
     return { title: 'Story Not Found' };
@@ -66,7 +67,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function BlogDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const conn = await connectDB();
-  const blog = conn ? await Blog.findOne({ $or: [{ slug }, { previousSlugs: slug }] }).lean<BlogLean>() : null;
+  const blog = conn ? await Blog.findOne({ published: true, $or: [{ slug }, { previousSlugs: slug }] }).lean<BlogLean>() : null;
 
   if (!blog) notFound();
   if (blog.slug !== slug) permanentRedirect(`/blog/${blog.slug}`);
@@ -89,6 +90,7 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
     timeZone: 'UTC',
   }).format(date);
   const minutes = readingMinutes(blog.content || '');
+  const tags = normalizeBlogTags(blog.tags);
   const authorName = blog.author || 'Al Mumeetu Saikat';
   const authorInitials = authorName.split(/\s+/).map((part) => part[0]).slice(0, 3).join('').toUpperCase();
 
@@ -131,10 +133,10 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
         <div className="blog-content mx-auto mt-10 max-w-[46rem] sm:mt-14">
           <div dangerouslySetInnerHTML={{ __html: blog.content }} />
 
-          {Array.isArray(blog.tags) && blog.tags.length > 0 && (
+          {tags.length > 0 && (
             <div className="blog-tags mt-12 border-t border-slate-200/80 pt-6 dark:border-slate-800">
               <span className="mr-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">Filed under</span>
-              {blog.tags.map((tag) => <span key={tag}>{tag}</span>)}
+              {tags.map((tag) => <span key={tag}>{tag}</span>)}
             </div>
           )}
         </div>

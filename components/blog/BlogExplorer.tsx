@@ -41,14 +41,14 @@ export default function BlogExplorer({ posts }: { posts: BlogCardItem[] }) {
   const [query, setQuery] = useState('');
 
   const categories = useMemo(
-    () => ['All stories', ...Array.from(new Set(posts.flatMap((post) => [post.category, ...post.tags]).filter(Boolean)))],
+    () => ['All stories', ...Array.from(new Set(posts.map((post) => post.category).filter(Boolean)))],
     [posts],
   );
 
   const visiblePosts = useMemo(() => {
     const normalizedQuery = query.trim().toLocaleLowerCase();
     return posts.filter((post) => {
-      const matchesCategory = activeCategory === 'All stories' || post.category === activeCategory || post.tags.includes(activeCategory);
+      const matchesCategory = activeCategory === 'All stories' || post.category === activeCategory;
       const searchableText = [post.title, post.excerpt, post.category, ...post.tags].join(' ').toLocaleLowerCase();
       return matchesCategory && (!normalizedQuery || searchableText.includes(normalizedQuery));
     });
@@ -79,7 +79,7 @@ export default function BlogExplorer({ posts }: { posts: BlogCardItem[] }) {
         </div>
 
         {categories.length > 1 && (
-          <div className="flex gap-2 overflow-x-auto pb-1" role="group" aria-label="Filter stories by topic">
+          <div className="flex flex-wrap gap-2" role="group" aria-label="Filter stories by category">
             {categories.map((category) => {
               const selected = category === activeCategory;
               return (

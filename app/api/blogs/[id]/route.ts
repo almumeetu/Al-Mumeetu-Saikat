@@ -2,9 +2,11 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { connectDB } from '@/lib/db';
+import { revalidatePath } from 'next/cache';
 import Blog from '@/models/Blog';
 import { createBlogSlug } from '@/lib/blog-slug';
 import { normalizeBlogReferences, parseBlogPublishDate } from '@/lib/blog-metadata';
+import { normalizeBlogTags } from '@/lib/blog-tags';
 
 async function uniqueBlogSlug(title: string, excludeId: string) {
   const base = createBlogSlug(title) || `story-${Date.now()}`;
@@ -22,9 +24,13 @@ async function uniqueBlogSlug(title: string, excludeId: string) {
 }
 
 export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
+  const session = await getServerSession(authOptions);
+  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
   const { id } = await params;
-  await connectDB();
+  if (!await connectDB()) return NextResponse.json({ error: 'Database unavailable' }, { status: 503 });
   const blog = await Blog.findById(id).lean();
+  if (!blog) return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
   return NextResponse.json(blog);
 }
 
@@ -33,7 +39,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const { id } = await params;
-  await connectDB();
+  if (!await connectDB()) return NextResponse.json({ error: 'Database unavailable' }, { status: 503 });
   const data = await req.json();
   const existing = await Blog.findById(id);
   if (!existing) return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
@@ -43,6 +49,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
   const titleChanged = nextTitle !== existing.title;
   let update = {
     ...data,
+    tags: normalizeBlogTags(data.tags),
     slug: existing.slug,
     previousSlugs: existing.previousSlugs || [],
   };
@@ -66,6 +73,10 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
   }
 
   const blog = await Blog.findByIdAndUpdate(id, update, { new: true, runValidators: true });
+  if (!blog) return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
+  revalidatePath('/blog');
+  revalidatePath(`/blog/${existing.slug}`);
+  revalidatePath(`/blog/${blog.slug}`);
   return NextResponse.json(blog);
 }
 
@@ -74,7 +85,11 @@ export async function DELETE(_: Request, { params }: { params: Promise<{ id: str
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const { id } = await params;
-  await connectDB();
-  await Blog.findByIdAndDelete(id);
+  if (!await connectDB()) return NextResponse.json({ error: 'Database unavailable' }, { status: 503 });
+  const blog = await Blog.findByIdAndDelete(id);
+  if (blog) {
+    revalidatePath('/blog');
+    revalidatePath(`/blog/${blog.slug}`);
+  }
   return NextResponse.json({ success: true });
 }
