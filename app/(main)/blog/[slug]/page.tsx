@@ -7,6 +7,7 @@ import Blog from '@/models/Blog';
 import BlogActivity from '@/models/BlogActivity';
 import BlogInteractions from '@/components/blog/BlogInteractions';
 import { normalizeBlogTags } from '@/lib/blog-tags';
+import { renderBlogContent } from '@/lib/blog-content';
 
 type BlogLean = {
   _id: string;
@@ -132,7 +133,7 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
         </figure>
 
         <div className="blog-content mx-auto mt-10 max-w-[46rem] sm:mt-14">
-          <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+          <div dangerouslySetInnerHTML={{ __html: renderBlogContent(blog.content) }} />
 
           {tags.length > 0 && (
             <div className="blog-tags mt-12 border-t border-slate-200/80 pt-6 dark:border-slate-800">

@@ -92,6 +92,18 @@
 		margin: 0 0 1.55em;
 	}
 
+	.blog-journey {
+		@apply my-7 flex w-fit max-w-full flex-wrap items-center justify-center gap-2 rounded-2xl border border-emerald-700/15 bg-emerald-50/70 p-3 text-[0.88em] leading-snug text-slate-800 dark:border-emerald-400/20 dark:bg-emerald-400/[0.06] dark:text-slate-100 sm:gap-3 sm:p-4;
+	}
+
+	.blog-journey__step {
+		@apply inline-flex items-center gap-2 rounded-xl border border-slate-200/80 bg-white/90 px-3 py-2 font-medium shadow-sm dark:border-slate-700 dark:bg-slate-900/90;
+	}
+
+	.blog-journey__arrow {
+		@apply text-emerald-700 dark:text-emerald-300;
+	}
+
 	.blog-content h1,
 	.blog-content h2,
 	.blog-content h3,
