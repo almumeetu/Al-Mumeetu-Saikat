@@ -7,9 +7,11 @@ type RouteContext = { params: Promise<{ slug: string }> };
 const visitorIdPattern = /^[a-zA-Z0-9_-]{16,80}$/;
 
 async function getSummary(blogId: unknown, visitorId?: string) {
-  const [likes, shares, comments, liked] = await Promise.all([
+  const [likes, shares, views, commentCount, comments, liked] = await Promise.all([
     BlogActivity.countDocuments({ blogId, type: 'like', active: true }),
     BlogActivity.countDocuments({ blogId, type: 'share', active: true }),
+    BlogActivity.countDocuments({ blogId, type: 'view', active: true }),
+    BlogActivity.countDocuments({ blogId, type: 'comment', approved: true, active: true }),
     BlogActivity.find({ blogId, type: 'comment', approved: true, active: true })
       .sort({ createdAt: -1 })
       .limit(50)
@@ -23,6 +25,8 @@ async function getSummary(blogId: unknown, visitorId?: string) {
   return {
     likes,
     shares,
+    views,
+    commentCount,
     liked: Boolean(liked),
     comments: comments.map((comment: any) => ({
       id: comment._id.toString(),
@@ -69,6 +73,31 @@ export async function POST(request: Request, { params }: RouteContext) {
     const visitorId = typeof body.visitorId === 'string' ? body.visitorId : '';
     if (!visitorIdPattern.test(visitorId)) {
       return NextResponse.json({ error: 'Please refresh and try again' }, { status: 400 });
+    }
+
+    if (body.type === 'view') {
+      try {
+        await BlogActivity.updateOne(
+          { blogId: blog._id, visitorId, type: 'view' },
+          {
+            $setOnInsert: {
+              blogId: blog._id,
+              blogSlug: blog.slug,
+              blogTitle: blog.title,
+              visitorId,
+              type: 'view',
+              active: true,
+              read: true,
+            },
+          },
+          { upsert: true },
+        );
+      } catch (error: any) {
+        // Concurrent requests from the same browser still count as one reader.
+        if (error?.code !== 11000) throw error;
+      }
+      const views = await BlogActivity.countDocuments({ blogId: blog._id, type: 'view', active: true });
+      return NextResponse.json({ views });
     }
 
     if (body.type === 'like') {

@@ -4,7 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { connectDB } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import Blog from '@/models/Blog';
-import { createBlogSlug } from '@/lib/blog-slug';
+import { blogSlugMatchesTitle, createBlogSlug } from '@/lib/blog-slug';
 import { normalizeBlogReferences, parseBlogPublishDate } from '@/lib/blog-metadata';
 import { normalizeBlogTags } from '@/lib/blog-tags';
 
@@ -47,6 +47,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
   const nextTitle = typeof data.title === 'string' ? data.title.trim() : existing.title;
   if (!nextTitle) return NextResponse.json({ error: 'Title is required' }, { status: 400 });
   const titleChanged = nextTitle !== existing.title;
+  const slugNeedsRepair = !blogSlugMatchesTitle(nextTitle, existing.slug);
   let update = {
     ...data,
     tags: normalizeBlogTags(data.tags),
@@ -63,10 +64,10 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     if (!references) return NextResponse.json({ error: 'Reference links must use valid http or https URLs' }, { status: 400 });
     update = { ...update, references };
   }
-  if (titleChanged) {
+  if (titleChanged || slugNeedsRepair) {
     const slug = await uniqueBlogSlug(nextTitle, id);
     const previousSlugs = Array.from(new Set([
-      ...(existing.previousSlugs || []),
+      ...(existing.previousSlugs || []).filter((previousSlug: string) => previousSlug !== slug),
       ...(existing.slug !== slug ? [existing.slug] : []),
     ]));
     update = { ...update, title: nextTitle, slug, previousSlugs };

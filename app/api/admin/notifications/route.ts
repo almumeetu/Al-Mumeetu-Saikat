@@ -15,7 +15,7 @@ export async function GET() {
     const [unreadMessages, totalSubscribers, unreadBlogActivity] = await Promise.all([
       Message.countDocuments({ read: false }),
       Subscriber.countDocuments({ active: true }),
-      BlogActivity.countDocuments({ read: false }),
+      BlogActivity.countDocuments({ type: { $in: ['like', 'comment', 'share'] }, read: false }),
     ]);
 
     return NextResponse.json({

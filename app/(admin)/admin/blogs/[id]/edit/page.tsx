@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import ImageUploader from '@/components/admin/ImageUploader';
 import BlogContentEditor from '@/components/admin/BlogContentEditor';
 import BlogReferencesEditor from '@/components/admin/BlogReferencesEditor';
-import { createBlogSlug } from '@/lib/blog-slug';
+import { blogSlugMatchesTitle, createBlogSlug } from '@/lib/blog-slug';
 import { normalizeBlogTags } from '@/lib/blog-tags';
 import { toBlogDateInput, type BlogReference } from '@/lib/blog-metadata';
 import { Loader2, Save, ArrowLeft } from 'lucide-react';
@@ -36,7 +36,7 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
 
   const set = <K extends Exclude<keyof typeof form, 'references'>,>(key: K, value: typeof form[K]) =>
     setForm((c) => ({ ...c, [key]: value }));
-  const slugPreview = form.title.trim() === initialTitle
+  const slugPreview = form.title.trim() === initialTitle && blogSlugMatchesTitle(form.title, form.slug)
     ? form.slug
     : createBlogSlug(form.title) || 'your-post-title';
 
@@ -132,7 +132,7 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
                 <span className="flex shrink-0 items-center border-r border-slate-200 bg-slate-50 px-3 text-sm text-slate-500 dark:border-slate-700 dark:bg-slate-800">/blog/</span>
                 <input readOnly value={slugPreview} aria-label="Generated blog URL slug" className="w-full min-w-0 bg-slate-50 px-3 py-3 text-sm text-slate-600 outline-none dark:bg-slate-900 dark:text-slate-300" />
               </div>
-              <p className="mt-1 text-xs text-slate-500">Changing the title updates the link automatically; the old link will keep redirecting.</p>
+              <p className="mt-1 text-xs text-slate-500">The slug follows the title. Saving also repairs older mismatches, and previous links keep redirecting.</p>
             </div>
             <div>
               <label className="mb-2 block text-sm font-medium">Excerpt</label>

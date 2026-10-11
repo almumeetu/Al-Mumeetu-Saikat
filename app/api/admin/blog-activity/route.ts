@@ -14,7 +14,7 @@ export async function GET() {
 
   try {
     if (!await connectDB()) return NextResponse.json({ error: 'Database unavailable' }, { status: 503 });
-    const activities = await BlogActivity.find({})
+    const activities = await BlogActivity.find({ type: { $in: ['like', 'comment', 'share'] } })
       .sort({ createdAt: -1 })
       .limit(100)
       .lean();

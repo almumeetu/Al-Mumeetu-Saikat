@@ -72,9 +72,11 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
   if (!blog) notFound();
   if (blog.slug !== slug) permanentRedirect(`/blog/${blog.slug}`);
 
-  const [initialLikes, initialShares, approvedComments] = await Promise.all([
+  const [initialLikes, initialShares, initialViews, initialCommentCount, approvedComments] = await Promise.all([
     BlogActivity.countDocuments({ blogId: blog._id, type: 'like', active: true }),
     BlogActivity.countDocuments({ blogId: blog._id, type: 'share', active: true }),
+    BlogActivity.countDocuments({ blogId: blog._id, type: 'view', active: true }),
+    BlogActivity.countDocuments({ blogId: blog._id, type: 'comment', approved: true, active: true }),
     BlogActivity.find({ blogId: blog._id, type: 'comment', approved: true, active: true })
       .sort({ createdAt: -1 })
       .limit(50)
@@ -173,6 +175,8 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
             excerpt={blog.excerpt}
             initialLikes={initialLikes}
             initialShares={initialShares}
+            initialViews={initialViews}
+            initialCommentCount={initialCommentCount}
             initialComments={approvedComments.map((comment: any) => ({
               id: comment._id.toString(),
               name: comment.name || 'Reader',
