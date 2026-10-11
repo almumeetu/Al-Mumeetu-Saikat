@@ -19,7 +19,22 @@ dotenv.config({ path: path.resolve(__dirname, '../.env.local') });
 
   // Check 1: Environment Variables
   console.log('1️⃣  Checking environment variables...');
-  const required = ['MONGODB_URI', 'NEXTAUTH_SECRET', 'ADMIN_EMAIL', 'ADMIN_PASSWORD'];
+  const required = [
+    'MONGODB_URI',
+    'NEXTAUTH_SECRET',
+    'NEXTAUTH_URL',
+    'NEXT_PUBLIC_SITE_URL',
+    'ADMIN_EMAIL',
+    'ADMIN_PASSWORD',
+    'CLOUDINARY_CLOUD_NAME',
+    'CLOUDINARY_API_KEY',
+    'CLOUDINARY_API_SECRET',
+    'SMTP_HOST',
+    'SMTP_PORT',
+    'SMTP_USER',
+    'SMTP_PASS',
+    'EMAIL_FROM',
+  ];
   const missing = required.filter(key => !process.env[key]);
 
   if (missing.length === 0) {
@@ -31,14 +46,18 @@ dotenv.config({ path: path.resolve(__dirname, '../.env.local') });
 
   // Check 2: MongoDB Connection
   console.log('2️⃣  Testing MongoDB connection...');
-  try {
-    await mongoose.connect(process.env.MONGODB_URI!, {
-      serverSelectionTimeoutMS: 10000,
-    });
-    console.log('   ✅ MongoDB connected successfully\n');
-    checks.db = true;
-  } catch (error: any) {
-    console.log(`   ❌ Connection failed: ${error.message}\n`);
+  if (!process.env.MONGODB_URI) {
+    console.log('   ⏭️  Skipped because MONGODB_URI is missing\n');
+  } else {
+    try {
+      await mongoose.connect(process.env.MONGODB_URI, {
+        serverSelectionTimeoutMS: 10000,
+      });
+      console.log('   ✅ MongoDB connected successfully\n');
+      checks.db = true;
+    } catch (error: any) {
+      console.log(`   ❌ Connection failed: ${error.message}\n`);
+    }
   }
 
   // Check 3: Models

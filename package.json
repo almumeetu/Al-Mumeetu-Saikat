@@ -15,7 +15,8 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"verify:setup": "node scripts/verify-setup.mjs"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.10.0",
