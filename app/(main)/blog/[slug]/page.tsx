@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import Image from 'next/image';
-import { ArrowLeft, ArrowUpRight, Clock3 } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Clock3, ExternalLink } from 'lucide-react';
 import { connectDB } from '@/lib/db';
 import Blog from '@/models/Blog';
 import BlogActivity from '@/models/BlogActivity';
@@ -11,6 +11,7 @@ type BlogLean = {
   _id: string;
   title: string;
   slug: string;
+  previousSlugs?: string[];
   excerpt: string;
   content: string;
   coverImage: string;
@@ -18,6 +19,8 @@ type BlogLean = {
   tags?: string[];
   author?: string;
   createdAt?: Date | string;
+  publishedAt?: Date | string;
+  references?: { label: string; url: string }[];
 };
 
 function readingMinutes(content: string) {
@@ -34,7 +37,7 @@ function readingMinutes(content: string) {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const conn = await connectDB();
-  const blog = conn ? await Blog.findOne({ slug }).lean<BlogLean>() : null;
+  const blog = conn ? await Blog.findOne({ $or: [{ slug }, { previousSlugs: slug }] }).lean<BlogLean>() : null;
 
   if (!blog) {
     return { title: 'Story Not Found' };
@@ -47,9 +50,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: blog.title,
       description: blog.excerpt,
       type: 'article' as const,
-      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://almumeetusaikat.com'}/blog/${slug}`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://almumeetusaikat.com'}/blog/${blog.slug}`,
       images: [{ url: blog.coverImage }],
     },
+    alternates: { canonical: `/blog/${blog.slug}` },
     twitter: {
       card: 'summary_large_image' as const,
       title: blog.title,
@@ -62,9 +66,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function BlogDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const conn = await connectDB();
-  const blog = conn ? await Blog.findOne({ slug }).lean<BlogLean>() : null;
+  const blog = conn ? await Blog.findOne({ $or: [{ slug }, { previousSlugs: slug }] }).lean<BlogLean>() : null;
 
   if (!blog) notFound();
+  if (blog.slug !== slug) permanentRedirect(`/blog/${blog.slug}`);
 
   const [initialLikes, initialShares, approvedComments] = await Promise.all([
     BlogActivity.countDocuments({ blogId: blog._id, type: 'like', active: true }),
@@ -76,7 +81,7 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
       .lean(),
   ]);
 
-  const date = new Date(blog.createdAt || Date.now());
+  const date = new Date(blog.publishedAt || blog.createdAt || Date.now());
   const publishedAt = new Intl.DateTimeFormat('en', {
     day: 'numeric',
     month: 'long',
@@ -133,6 +138,31 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
             </div>
           )}
         </div>
+
+        {Array.isArray(blog.references) && blog.references.length > 0 && (
+          <section aria-labelledby="blog-references-title" className="mx-auto mt-12 max-w-[46rem] rounded-3xl border border-slate-200/80 bg-white/75 p-6 dark:border-slate-800 dark:bg-slate-900/60 sm:mt-16 sm:p-8">
+            <div className="flex items-start gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600/10 text-emerald-800 dark:bg-emerald-400/10 dark:text-emerald-300"><ExternalLink size={18} /></div>
+              <div>
+                <h2 id="blog-references-title" className="text-lg font-semibold text-slate-950 dark:text-white">References &amp; further reading</h2>
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Sources and links related to this article.</p>
+              </div>
+            </div>
+            <ol className="mt-5 space-y-2">
+              {blog.references.map((reference, index) => (
+                <li key={`${reference.url}-${index}`}>
+                  <a href={reference.url} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between gap-4 rounded-xl border border-slate-200/70 px-4 py-3 text-sm transition hover:border-emerald-700/30 hover:bg-emerald-50/60 dark:border-slate-800 dark:hover:border-emerald-500/30 dark:hover:bg-emerald-500/5">
+                    <span className="flex min-w-0 items-center gap-3">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-semibold text-slate-500 dark:bg-slate-800 dark:text-slate-400">{index + 1}</span>
+                      <span className="truncate font-medium text-slate-800 group-hover:text-emerald-800 dark:text-slate-200 dark:group-hover:text-emerald-300">{reference.label}</span>
+                    </span>
+                    <ExternalLink size={15} className="shrink-0 text-slate-400 transition group-hover:text-emerald-700 dark:group-hover:text-emerald-300" />
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
 
         <div className="mx-auto max-w-5xl">
           <BlogInteractions

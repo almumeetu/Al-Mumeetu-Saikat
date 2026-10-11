@@ -31,14 +31,14 @@ export default async function BlogPage() {
   try {
     const conn = await connectDB();
     if (conn) {
-      blogs = await Blog.find({ published: true }).sort({ createdAt: -1 }).lean();
+      blogs = await Blog.find({ published: true }).sort({ publishedAt: -1, createdAt: -1 }).lean();
     }
   } catch (error) {
     console.error('Failed to fetch blogs:', error);
   }
 
   const posts: BlogCardItem[] = blogs.map((blog) => {
-    const date = new Date(blog.createdAt || Date.now());
+    const date = new Date(blog.publishedAt || blog.createdAt || Date.now());
     return {
       id: blog._id.toString(),
       title: blog.title,

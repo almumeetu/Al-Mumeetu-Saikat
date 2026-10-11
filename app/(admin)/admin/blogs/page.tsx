@@ -15,6 +15,7 @@ interface Blog {
   category: string;
   published: boolean;
   createdAt: string;
+  publishedAt?: string;
 }
 
 export default function AdminBlogsPage() {
@@ -120,7 +121,7 @@ export default function AdminBlogsPage() {
                   <span className="rounded-full bg-slate-100 px-2 py-0.5 dark:bg-slate-800">
                     {blog.category}
                   </span>
-                  <span>{new Date(blog.createdAt).toLocaleDateString()}</span>
+                  <span>{new Intl.DateTimeFormat('en', { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(blog.publishedAt || blog.createdAt))}</span>
                 </div>
               </div>
 
