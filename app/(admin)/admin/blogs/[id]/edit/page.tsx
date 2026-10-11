@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import ImageUploader from '@/components/admin/ImageUploader';
+import BlogContentEditor from '@/components/admin/BlogContentEditor';
 import { Loader2, Save, ArrowLeft } from 'lucide-react';
 
 const inputCls =
@@ -51,6 +52,7 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!form.content.replace(/<[^>]*>/g, '').trim()) { toast.error('Content is required'); return; }
     setLoading(true);
     try {
       const res = await fetch(`/api/blogs/${id}`, {
@@ -120,14 +122,8 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
             </div>
             <div>
               <label className="mb-2 block text-sm font-medium">Content *</label>
-              <textarea
-                required
-                rows={16}
-                value={form.content}
-                onChange={(e) => set('content', e.target.value)}
-                placeholder="Write your blog content here… (Markdown supported)"
-                className={inputCls + ' resize-y font-mono text-xs leading-relaxed'}
-              />
+              <BlogContentEditor value={form.content} onChange={(value) => set('content', value)} />
+              <p className="mt-2 text-xs leading-5 text-slate-500">Use headings, lists, quotes, and links to give your story a clear structure.</p>
             </div>
           </div>
         </div>
