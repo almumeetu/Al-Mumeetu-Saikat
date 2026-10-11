@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { connectDB } from '@/lib/db';
 import Message from '@/models/Message';
 import Subscriber from '@/models/Subscriber';
+import BlogActivity from '@/models/BlogActivity';
 
 export async function GET() {
   const session = await getServerSession(authOptions);
@@ -11,14 +12,16 @@ export async function GET() {
 
   try {
     await connectDB();
-    const [unreadMessages, totalSubscribers] = await Promise.all([
+    const [unreadMessages, totalSubscribers, unreadBlogActivity] = await Promise.all([
       Message.countDocuments({ read: false }),
       Subscriber.countDocuments({ active: true }),
+      BlogActivity.countDocuments({ read: false }),
     ]);
 
     return NextResponse.json({
       unreadMessages,
       totalSubscribers,
+      unreadBlogActivity,
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

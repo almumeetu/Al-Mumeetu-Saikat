@@ -4,8 +4,11 @@ import Image from 'next/image';
 import { ArrowLeft, ArrowUpRight, Clock3 } from 'lucide-react';
 import { connectDB } from '@/lib/db';
 import Blog from '@/models/Blog';
+import BlogActivity from '@/models/BlogActivity';
+import BlogInteractions from '@/components/blog/BlogInteractions';
 
 type BlogLean = {
+  _id: string;
   title: string;
   slug: string;
   excerpt: string;
@@ -63,6 +66,16 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
 
   if (!blog) notFound();
 
+  const [initialLikes, initialShares, approvedComments] = await Promise.all([
+    BlogActivity.countDocuments({ blogId: blog._id, type: 'like', active: true }),
+    BlogActivity.countDocuments({ blogId: blog._id, type: 'share', active: true }),
+    BlogActivity.find({ blogId: blog._id, type: 'comment', approved: true, active: true })
+      .sort({ createdAt: -1 })
+      .limit(50)
+      .select('name message createdAt')
+      .lean(),
+  ]);
+
   const date = new Date(blog.createdAt || Date.now());
   const publishedAt = new Intl.DateTimeFormat('en', {
     day: 'numeric',
@@ -119,6 +132,22 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
               {blog.tags.map((tag) => <span key={tag}>{tag}</span>)}
             </div>
           )}
+        </div>
+
+        <div className="mx-auto max-w-5xl">
+          <BlogInteractions
+            slug={blog.slug}
+            title={blog.title}
+            excerpt={blog.excerpt}
+            initialLikes={initialLikes}
+            initialShares={initialShares}
+            initialComments={approvedComments.map((comment: any) => ({
+              id: comment._id.toString(),
+              name: comment.name || 'Reader',
+              message: comment.message || '',
+              createdAt: new Date(comment.createdAt).toISOString(),
+            }))}
+          />
         </div>
 
         <footer className="mx-auto mt-16 flex max-w-[46rem] flex-col gap-5 rounded-3xl border border-slate-200/80 bg-white/75 p-6 dark:border-slate-800 dark:bg-slate-900/60 sm:mt-20 sm:flex-row sm:items-center sm:justify-between sm:p-8">

@@ -7,6 +7,7 @@ import { SessionProvider, signOut } from 'next-auth/react';
 import {
   LayoutDashboard,
   FileText,
+  Bell,
   FolderKanban,
   MessageSquare,
   Users,
@@ -20,6 +21,7 @@ import {
 const links = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
   { href: '/admin/blogs', label: 'Blogs', icon: FileText },
+  { href: '/admin/blog-activity', label: 'Blog Activity', icon: Bell, badgeKey: 'unreadBlogActivity' as const },
   { href: '/admin/projects', label: 'Projects', icon: FolderKanban },
   { href: '/admin/messages', label: 'Messages', icon: MessageSquare, badgeKey: 'unreadMessages' as const },
   { href: '/admin/subscribers', label: 'Subscribers', icon: Users, badgeKey: 'totalSubscribers' as const },
@@ -68,9 +70,10 @@ function SidebarLink({
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const [stats, setStats] = useState<{ unreadMessages: number; totalSubscribers: number }>({
+  const [stats, setStats] = useState<{ unreadMessages: number; totalSubscribers: number; unreadBlogActivity: number }>({
     unreadMessages: 0,
     totalSubscribers: 0,
+    unreadBlogActivity: 0,
   });
 
   useEffect(() => {
