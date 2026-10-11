@@ -88,7 +88,7 @@ export default function AdminBlogsPage() {
           {blogs.map((blog) => (
             <div
               key={blog._id}
-              className="card flex flex-wrap items-center gap-4 p-4 transition-all hover:shadow-md"
+              className="card grid min-w-0 grid-cols-[auto,minmax(0,1fr)] gap-4 p-4 transition-all hover:shadow-md sm:grid-cols-[6rem,minmax(0,1fr),auto] sm:items-center"
             >
               {/* Cover */}
               {blog.coverImage ? (
@@ -103,8 +103,8 @@ export default function AdminBlogsPage() {
 
               {/* Info */}
               <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-2">
-                  <h2 className="truncate font-medium">{blog.title}</h2>
+                <div className="flex min-w-0 flex-wrap items-center gap-2">
+                  <h2 className="min-w-0 flex-1 truncate font-medium">{blog.title}</h2>
                   <span
                     className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
                       blog.published
@@ -115,7 +115,7 @@ export default function AdminBlogsPage() {
                     {blog.published ? 'Published' : 'Draft'}
                   </span>
                 </div>
-                <p className="mt-0.5 truncate text-sm text-slate-500">{blog.excerpt}</p>
+                <p className="mt-0.5 min-w-0 truncate text-sm text-slate-500">{blog.excerpt}</p>
                 <div className="mt-1 flex items-center gap-3 text-xs text-slate-400">
                   <span className="rounded-full bg-slate-100 px-2 py-0.5 dark:bg-slate-800">
                     {blog.category}
@@ -125,27 +125,31 @@ export default function AdminBlogsPage() {
               </div>
 
               {/* Actions */}
-              <div className="flex shrink-0 items-center gap-1">
+              <div className="col-span-2 flex items-center justify-end gap-1 sm:col-span-1">
                 <Link
                   href={`/blog/${blog.slug}`}
                   target="_blank"
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200"
                   title="View post"
+                  aria-label={`View ${blog.title}`}
                 >
                   <Eye size={16} />
                 </Link>
                 <Link
                   href={`/admin/blogs/${blog._id}/edit`}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 transition hover:bg-primary/10 hover:text-primary"
+                  className="inline-flex h-9 items-center justify-center gap-2 rounded-lg border border-primary/20 bg-primary/5 px-3 text-sm font-medium text-primary transition hover:bg-primary/10 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300 dark:hover:bg-emerald-500/15"
                   title="Edit post"
+                  aria-label={`Edit ${blog.title}`}
                 >
                   <Pencil size={16} />
+                  <span>Edit</span>
                 </Link>
                 <button
                   onClick={() => handleDelete(blog._id, blog.title)}
                   disabled={deleting === blog._id}
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 transition hover:bg-red-50 hover:text-red-500 disabled:opacity-50 dark:hover:bg-red-500/10"
                   title="Delete post"
+                  aria-label={`Delete ${blog.title}`}
                 >
                   {deleting === blog._id ? (
                     <Loader2 size={16} className="animate-spin" />

@@ -158,7 +158,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </aside>
 
         {/* ── Main Content ─────────────────────────────────────── */}
-        <div className="flex flex-1 flex-col pl-64">
+        <div className="flex min-w-0 flex-1 flex-col pl-64">
           {/* Top bar */}
           <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200/80 bg-white/80 px-8 backdrop-blur-xl dark:border-slate-800/80 dark:bg-slate-900/80">
             <div className="flex items-center gap-2 text-sm text-slate-500">
@@ -179,7 +179,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
           </header>
 
-          <main className="flex-1 p-8">{children}</main>
+          <main className="min-w-0 flex-1 p-8">{children}</main>
         </div>
       </div>
     </SessionProvider>
