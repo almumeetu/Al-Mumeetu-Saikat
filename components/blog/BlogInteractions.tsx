@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
-import { Eye, Heart, MessageCircle, Send, Share2 } from 'lucide-react';
+import { Heart, MessageCircle, Send, Share2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 type CommentItem = {
@@ -15,7 +15,6 @@ type CommentItem = {
 type ActivitySummary = {
   likes: number;
   shares: number;
-  views: number;
   commentCount: number;
   liked: boolean;
   comments: CommentItem[];
@@ -37,7 +36,6 @@ export default function BlogInteractions({
   excerpt,
   initialLikes = 0,
   initialShares = 0,
-  initialViews = 0,
   initialComments = [],
   initialCommentCount,
 }: {
@@ -46,14 +44,12 @@ export default function BlogInteractions({
   excerpt: string;
   initialLikes?: number;
   initialShares?: number;
-  initialViews?: number;
   initialCommentCount?: number;
   initialComments?: CommentItem[];
 }) {
   const [visitorId, setVisitorId] = useState('');
   const [likes, setLikes] = useState(initialLikes);
   const [shares, setShares] = useState(initialShares);
-  const [views, setViews] = useState(initialViews);
   const [comments, setComments] = useState<CommentItem[]>(initialComments);
   const [commentCount, setCommentCount] = useState(initialCommentCount ?? initialComments.length);
   const [liked, setLiked] = useState(false);
@@ -89,11 +85,6 @@ export default function BlogInteractions({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type: 'view', visitorId: id }),
       })
-        .then(async (response) => {
-          if (!response.ok) return;
-          const data = await response.json() as { views?: number };
-          if (active && typeof data.views === 'number') setViews(data.views);
-        })
         .catch(() => undefined);
       Promise.all([activityRequest, viewRequest]).finally(() => {
         if (active) setReady(true);
@@ -181,7 +172,6 @@ export default function BlogInteractions({
   };
 
   const stats = [
-    { label: 'Unique readers', value: views, icon: Eye, color: 'text-sky-700 dark:text-sky-300', iconBg: 'bg-sky-500/10' },
     { label: 'Likes', value: likes, icon: Heart, color: 'text-rose-600 dark:text-rose-300', iconBg: 'bg-rose-500/10' },
     { label: 'Comments', value: commentCount, icon: MessageCircle, color: 'text-violet-700 dark:text-violet-300', iconBg: 'bg-violet-500/10' },
     { label: 'Shares', value: shares, icon: Share2, color: 'text-emerald-700 dark:text-emerald-300', iconBg: 'bg-emerald-500/10' },
@@ -195,9 +185,9 @@ export default function BlogInteractions({
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-800 dark:text-emerald-300">Reader activity</p>
             <h2 className="mt-1 text-xl font-semibold tracking-tight text-slate-950 dark:text-white">This story is reaching people</h2>
           </div>
-          <p className="text-sm text-slate-600 dark:text-slate-400">One reader is counted once per browser.</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400">Thanks for reading and joining the conversation.</p>
         </div>
-        <dl className="mt-5 grid grid-cols-2 gap-3 sm:mt-6 sm:grid-cols-4 sm:gap-4">
+        <dl className="mt-5 grid grid-cols-3 gap-3 sm:mt-6 sm:gap-4">
           {stats.map(({ label, value, icon: Icon, color, iconBg }) => (
             <div key={label} className="rounded-2xl border border-white/80 bg-white/75 p-4 shadow-sm dark:border-slate-700/70 dark:bg-slate-950/45 sm:p-5">
               <div className={`flex h-9 w-9 items-center justify-center rounded-xl ${iconBg} ${color}`}><Icon size={17} /></div>

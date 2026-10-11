@@ -7,10 +7,9 @@ type RouteContext = { params: Promise<{ slug: string }> };
 const visitorIdPattern = /^[a-zA-Z0-9_-]{16,80}$/;
 
 async function getSummary(blogId: unknown, visitorId?: string) {
-  const [likes, shares, views, commentCount, comments, liked] = await Promise.all([
+  const [likes, shares, commentCount, comments, liked] = await Promise.all([
     BlogActivity.countDocuments({ blogId, type: 'like', active: true }),
     BlogActivity.countDocuments({ blogId, type: 'share', active: true }),
-    BlogActivity.countDocuments({ blogId, type: 'view', active: true }),
     BlogActivity.countDocuments({ blogId, type: 'comment', approved: true, active: true }),
     BlogActivity.find({ blogId, type: 'comment', approved: true, active: true })
       .sort({ createdAt: -1 })
@@ -25,7 +24,6 @@ async function getSummary(blogId: unknown, visitorId?: string) {
   return {
     likes,
     shares,
-    views,
     commentCount,
     liked: Boolean(liked),
     comments: comments.map((comment: any) => ({
@@ -96,8 +94,7 @@ export async function POST(request: Request, { params }: RouteContext) {
         // Concurrent requests from the same browser still count as one reader.
         if (error?.code !== 11000) throw error;
       }
-      const views = await BlogActivity.countDocuments({ blogId: blog._id, type: 'view', active: true });
-      return NextResponse.json({ views });
+      return NextResponse.json({ ok: true });
     }
 
     if (body.type === 'like') {

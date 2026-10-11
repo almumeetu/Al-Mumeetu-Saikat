@@ -16,6 +16,7 @@ interface Blog {
   published: boolean;
   createdAt: string;
   publishedAt?: string;
+  uniqueReaders?: number;
 }
 
 export default function AdminBlogsPage() {
@@ -122,6 +123,9 @@ export default function AdminBlogsPage() {
                     {blog.category}
                   </span>
                   <span>{new Intl.DateTimeFormat('en', { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(blog.publishedAt || blog.createdAt))}</span>
+                  <span className="inline-flex items-center gap-1 rounded-full bg-sky-500/10 px-2 py-0.5 font-medium text-sky-700 dark:text-sky-300">
+                    <Eye size={12} /> {new Intl.NumberFormat('en').format(blog.uniqueReaders || 0)} readers
+                  </span>
                 </div>
               </div>
 
