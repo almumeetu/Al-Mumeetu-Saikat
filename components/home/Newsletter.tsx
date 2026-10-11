@@ -68,7 +68,7 @@ export default function Newsletter() {
                 Let's stay connected.
               </h2>
               <p className="text-lg text-white/70">
-                Join my newsletter to receive the latest articles, tutorials, and insights on modern web development straight to your inbox.
+                Tell me what you are building, where it is stuck, and what a successful launch looks like. I will get back to you with a clear next step.
               </p>
               <div className="mt-8 flex items-center gap-3 text-sm font-medium text-white/50">
                 <Sparkles className="h-4 w-4 text-primary" />
@@ -83,7 +83,7 @@ export default function Newsletter() {
                 className="relative flex flex-col gap-4 rounded-3xl bg-slate-900/80 p-8 ring-1 ring-white/10 backdrop-blur-xl"
               >
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium text-white/80">Email Address</label>
+                  <label htmlFor="email" className="text-sm font-medium text-white/80">Your work email</label>
                   <input
                     id="email"
                     {...register('email')}
@@ -97,7 +97,7 @@ export default function Newsletter() {
                   disabled={loading}
                   className="group mt-2 flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-6 py-4 font-bold text-slate-900 transition hover:bg-slate-100 disabled:opacity-70"
                 >
-                  {loading ? 'Subscribing...' : 'Subscribe Now'}
+                  {loading ? 'Sending...' : 'Start a conversation'}
                   {!loading && <Send className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
                 </button>
               </form>

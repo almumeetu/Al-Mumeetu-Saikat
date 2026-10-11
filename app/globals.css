@@ -36,6 +36,10 @@
 		@apply inline-flex items-center gap-2 rounded-full border-2 border-slate-300 px-6 py-3 font-semibold transition-all hover:border-primary hover:text-primary dark:border-slate-700;
 	}
 
+	.eyebrow {
+		@apply inline-flex rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-primary;
+	}
+
 	.card {
 		@apply rounded-2xl border border-slate-200/50 bg-white/70 shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-md transition-all dark:border-slate-800/50 dark:bg-slate-900/50 dark:shadow-[0_8px_30px_rgb(0,0,0,0.12)];
 	}

@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
-import { ExternalLink, Github, Sparkles } from 'lucide-react';
+import { ArrowUpRight, ExternalLink, Github, Sparkles } from 'lucide-react';
 import { TECH_LIST } from '@/components/admin/TechStackPicker';
 
 interface Project {
@@ -174,6 +174,9 @@ export default function ProjectsFilter({ projects }: Props) {
             <p className="text-xl font-bold text-slate-700 dark:text-slate-300">
               No projects in this category yet.
             </p>
+            <a href="/contact" className="mt-4 inline-flex items-center gap-2 font-semibold text-primary hover:underline">
+              Ask about relevant work <ArrowUpRight size={16} />
+            </a>
           </div>
         )}
       </div>

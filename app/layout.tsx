@@ -23,17 +23,17 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
 	metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
 	title: {
-		default: 'Al Mumeetu Saikat | Full Stack Software Engineer',
+		default: 'Al Mumeetu Saikat | React & Next.js Software Engineer',
 		template: '%s | Al Mumeetu Saikat',
 	},
 	description:
-		'Professional Full Stack Software Engineer building fast, accessible, scalable, and high-performance web applications with React, Next.js, and modern backend technologies.',
+		'React and Next.js software engineer building reliable e-commerce platforms, business systems, and high-performance web experiences for ambitious teams.',
 	keywords: ['Al Mumeetu Saikat', 'Full Stack Software Engineer', 'Software Engineer', 'Next.js', 'React', 'Node.js', 'PostgreSQL', 'Remote Work'],
 	authors: [{ name: 'Al Mumeetu Saikat' }],
 	openGraph: {
 		type: 'website',
 		title: 'Al Mumeetu Saikat | Portfolio',
-		description: 'Full Stack Software Engineer building scalable modern web apps.',
+		description: 'React and Next.js software engineer building reliable digital products for ambitious teams.',
 	},
 	robots: { index: true, follow: true },
 };

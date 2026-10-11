@@ -1,4 +1,5 @@
 import Hero from '@/components/home/Hero';
+import TrustBar from '@/components/home/TrustBar';
 import About from '@/components/home/About';
 import Services from '@/components/home/Services';
 import Skills from '@/components/home/Skills';
@@ -9,8 +10,8 @@ import { getSiteSettings } from '@/lib/getSiteSettings';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Al Mumeetu Saikat | Full Stack Software Engineer',
-  description: 'Portfolio of Md Al Mumeetu Saikat, a Full-Stack Engineer with deep expertise in Next.js, React, and modern backend stacks like PostgreSQL and Supabase.',
+  title: 'Al Mumeetu Saikat | React & Next.js Software Engineer',
+  description: 'Md Al Mumeetu Saikat is a React and Next.js software engineer building reliable e-commerce platforms, business systems, and high-performance web experiences.',
   alternates: {
     canonical: '/',
   }
@@ -61,6 +62,7 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Hero s={settings} />
+      <TrustBar />
       <About s={settings} />
       <Services s={settings} />
       <Skills s={settings} />

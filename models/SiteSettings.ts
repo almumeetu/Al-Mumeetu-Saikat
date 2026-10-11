@@ -6,17 +6,17 @@ const SiteSettingsSchema = new Schema(
 
     // ── Hero / Personal Info ──────────────────────────────
     heroName: { type: String, default: 'Md Al Mumeetu (Al Mumeetu Saikat)' },
-    heroTagline: { type: String, default: 'Full Stack Software Engineer | MERN Stack Specialist' },
+    heroTagline: { type: String, default: 'Software Engineer | React & Next.js Specialist | Full-Stack Developer' },
     heroBio: {
       type: String,
       default:
-        'Building high-performance e-commerce architectures and modern web applications with a focus on speed, scalability, and seamless user experiences.',
+        'Frontend-focused software developer with 4+ years of experience building production web applications, ERP systems, e-commerce platforms, POS solutions, and business workflows.',
     },
     avatarUrl: { type: String, default: '' },
 
     // ── Social Links ──────────────────────────────────────
-    githubUrl: { type: String, default: '' },
-    linkedinUrl: { type: String, default: '' },
+    githubUrl: { type: String, default: 'https://github.com/almumeetu' },
+    linkedinUrl: { type: String, default: 'https://www.linkedin.com/in/almumeetu/' },
     twitterUrl: { type: String, default: '' },
     upworkUrl: { type: String, default: '' },
     email: { type: String, default: 'almumeetu@gmail.com' },
@@ -24,36 +24,36 @@ const SiteSettingsSchema = new Schema(
     // ── About ─────────────────────────────────────────────
     aboutHeadline: {
       type: String,
-      default: 'I build scalable, fast, and modern web applications.',
+      default: 'I build reliable products with modern frontend engineering.',
     },
     aboutBio: {
       type: String,
       default:
-        'I am a Full-Stack Engineer with deep expertise in Next.js, React, and modern backend stacks like PostgreSQL, SQLite, and Supabase.',
+        'I am a frontend-focused software developer specializing in React, Next.js, TypeScript, WordPress, and WooCommerce, with practical experience across REST APIs, Prisma, PostgreSQL, Supabase, and Docker.',
     },
     aboutBio2: {
       type: String,
       default:
-        'I completed my HSC in 2021 and am currently preparing for a Bachelor\'s degree in CSE alongside the IELTS exam.',
+        'I translate requirements into scalable product features, efficient workflows, and production-ready delivery while continuing my Bachelor of Science in Computer Science and Engineering at World University of Bangladesh.',
     },
 
     // ── Stats ─────────────────────────────────────────────
-    statYearsExp: { type: String, default: '5+' },
-    statProjects: { type: String, default: '250+' },
-    statSatisfaction: { type: String, default: '100%' },
+    statYearsExp: { type: String, default: '4+' },
+    statProjects: { type: String, default: '120+' },
+    statSatisfaction: { type: String, default: '200+' },
 
     // ── Skills (stored as JSON string arrays) ─────────────
     skillsFrontend: {
       type: [String],
-      default: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'Bootstrap 5', 'SASS'],
+      default: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'JavaScript', 'HTML5', 'CSS3', 'SCSS', 'Bootstrap'],
     },
     skillsBackend: {
       type: [String],
-      default: ['PostgreSQL', 'Supabase', 'SQLite', 'Prisma/Drizzle ORM'],
+      default: ['Node.js', 'Express.js', 'REST APIs', 'Prisma ORM', 'PostgreSQL', 'Supabase', 'MySQL'],
     },
     skillsDevops: {
       type: [String],
-      default: ['Docker', 'GitLab CI/CD', 'pnpm', 'Linux Server Deployment'],
+      default: ['Git', 'GitHub', 'Docker', 'Docker Compose', 'Vercel', 'GitHub Actions', 'Postman', 'Jira', 'Agile/Scrum'],
     },
 
     // ── Experience ────────────────────────────────────────
@@ -68,22 +68,25 @@ const SiteSettingsSchema = new Schema(
       ],
       default: [
         {
-          year: 'April 2026 - Present',
-          title: 'AI Feedback Engineer @ Outlier / Scale AI',
+          year: 'Jan 2024 – Present',
+          title: 'Associate Software Developer',
+          company: 'Softzino Technologies · Dhaka',
           description:
-            'Evaluating AI model logic and technical accuracy for coding projects, ensuring high-quality outputs for advanced AI systems.',
+            'Develop and maintain production e-commerce and Point-of-Sale interfaces using Next.js, React, and TypeScript. Build reusable responsive components, integrate REST APIs and relational data with Prisma, PostgreSQL, and Supabase, and deliver features through Docker, Git, code review, and Agile workflows.',
         },
         {
-          year: '2023 - Present',
-          title: 'Associate Software Developer @ Softzino Technologies',
+          year: 'Nov 2022 – Dec 2023',
+          title: 'Frontend Developer / Web Designer',
+          company: 'WebDev Software Solutions',
           description:
-            'Focusing on e-commerce themes, custom page builders, and headless architecture to deliver scalable and performant web solutions.',
+            'Developed 120+ responsive, cross-browser websites using HTML5, CSS3, JavaScript, SCSS, and Bootstrap. Customized WordPress themes, plugins, and WooCommerce sites while collaborating in Git/GitHub-based sprint teams.',
         },
         {
-          year: '2020 - 2023',
-          title: 'WordPress & Frontend Specialist',
+          year: 'Aug 2022 – Oct 2022',
+          title: 'Web Designer Intern',
+          company: 'Bdevs · Mirpur DOHS, Dhaka',
           description:
-            'Delivered robust client websites, landing pages, and custom WordPress builds with a focus on speed and maintainability.',
+            'Built responsive components and marketing landing pages with senior engineers, checking cross-browser consistency, breakpoints, and accessibility.',
         },
       ],
     },

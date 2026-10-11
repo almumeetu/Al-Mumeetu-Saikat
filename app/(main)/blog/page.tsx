@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { connectDB } from '@/lib/db';
 import Blog from '@/models/Blog';
+import { ArrowUpRight, BookOpen } from 'lucide-react';
 
 import type { Metadata } from 'next';
 
@@ -28,12 +29,12 @@ export default async function BlogPage() {
     <section className="py-20">
       <div className="container-custom space-y-12">
         <div className="max-w-3xl space-y-5">
-          <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
-            Blog
+          <span className="eyebrow">
+            <BookOpen size={14} /> Notes &amp; insights
           </span>
-          <h1 className="text-4xl font-extrabold md:text-6xl">Writing about frontend, WordPress, and delivery.</h1>
+          <h1 className="text-4xl font-black tracking-tight md:text-6xl">Practical notes from building for the web.</h1>
           <p className="text-lg text-slate-600 dark:text-slate-400">
-            A collection of practical notes, project updates, and engineering lessons.
+            Short, useful writing on frontend engineering, WordPress, product delivery, and lessons from real projects.
           </p>
         </div>
 
@@ -56,7 +57,9 @@ export default async function BlogPage() {
             ))
           ) : (
             <div className="card p-8 text-slate-600 dark:text-slate-400 lg:col-span-3">
-              No blog posts yet. Add one from the admin area.
+              <p className="text-lg font-semibold text-slate-900 dark:text-white">New articles are on the way.</p>
+              <p className="mt-2">In the meantime, explore the project work or start a conversation.</p>
+              <a href="/contact" className="mt-4 inline-flex items-center gap-2 font-semibold text-primary hover:underline">Work with me <ArrowUpRight size={16} /></a>
             </div>
           )}
         </div>

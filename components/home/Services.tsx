@@ -58,7 +58,7 @@ export default function Services({ s }: { s: SiteSettingsData }) {
             viewport={{ once: true }}
             className="mb-4 inline-block rounded-full bg-primary/10 px-5 py-2 text-sm font-bold tracking-wide text-primary backdrop-blur-md"
           >
-            My Specializations
+            How I can help
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -67,7 +67,7 @@ export default function Services({ s }: { s: SiteSettingsData }) {
             transition={{ delay: 0.1 }}
             className="text-4xl font-extrabold tracking-tight md:text-6xl"
           >
-            What I Do Best
+            Product engineering with business impact
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -76,7 +76,7 @@ export default function Services({ s }: { s: SiteSettingsData }) {
             transition={{ delay: 0.2 }}
             className="mx-auto mt-6 max-w-2xl text-lg text-slate-600 dark:text-slate-400"
           >
-            From concept to deployment — I cover the full spectrum of modern web development, delivering scalable and high-performance solutions.
+            Practical engineering support for teams that value clarity, performance, and dependable delivery from the first conversation to production.
           </motion.p>
         </div>
 

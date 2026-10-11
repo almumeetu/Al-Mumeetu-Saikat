@@ -26,47 +26,47 @@ export type SiteSettingsData = {
 
 const DEFAULTS: SiteSettingsData = {
   heroName: 'Md Al Mumeetu (Al Mumeetu Saikat)',
-  heroTagline: 'Full Stack Software Engineer | MERN Stack Specialist',
+  heroTagline: 'Software Engineer | React & Next.js Specialist | Full-Stack Developer',
   heroBio:
-    'Building high-performance e-commerce architectures and modern web applications with a focus on speed, scalability, and seamless user experiences.',
+    'Frontend-focused software developer with 4+ years of experience building production web applications, ERP systems, e-commerce platforms, POS solutions, and business workflows.',
   avatarUrl: '',
-  githubUrl: '#',
-  linkedinUrl: '#',
+  githubUrl: 'https://github.com/almumeetu',
+  linkedinUrl: 'https://www.linkedin.com/in/almumeetu/',
   twitterUrl: '#',
   upworkUrl: '#',
   email: 'almumeetu@gmail.com',
-  aboutHeadline: 'I build scalable, fast, and modern web applications.',
+  aboutHeadline: 'I build reliable products with modern frontend engineering.',
   aboutBio:
-    'I am a Full-Stack Engineer with deep expertise in Next.js, React, and modern backend stacks like PostgreSQL, SQLite, and Supabase.',
+    'I am a frontend-focused software developer specializing in React, Next.js, TypeScript, WordPress, and WooCommerce, with practical experience across REST APIs, Prisma, PostgreSQL, Supabase, and Docker.',
   aboutBio2:
-    "I completed my HSC in 2021 and am currently preparing for a Bachelor's degree in Computer Science and Engineering (CSE) alongside the IELTS exam.",
-  statYearsExp: '5+',
-  statProjects: '250+',
-  statSatisfaction: '100%',
-  skillsFrontend: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS'],
-  skillsBackend: ['PostgreSQL', 'Supabase', 'SQLite', 'Prisma/Drizzle ORM'],
-  skillsDevops: ['Docker', 'GitLab CI/CD', 'pnpm', 'Linux Server Deployment'],
+    "I translate requirements into scalable product features, efficient workflows, and production-ready delivery while continuing my Bachelor of Science in Computer Science and Engineering at World University of Bangladesh.",
+  statYearsExp: '4+',
+  statProjects: '120+',
+  statSatisfaction: '200+',
+  skillsFrontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'JavaScript', 'HTML5', 'CSS3', 'SCSS', 'Bootstrap'],
+  skillsBackend: ['Node.js', 'Express.js', 'REST APIs', 'Prisma ORM', 'PostgreSQL', 'Supabase', 'MySQL'],
+  skillsDevops: ['Git', 'GitHub', 'Docker', 'Docker Compose', 'Vercel', 'GitHub Actions', 'Postman', 'Jira', 'Agile/Scrum'],
   experience: [
     {
       year: 'Jan 2024 – Present',
       title: 'Associate Software Developer',
-      company: 'Softzino Technologies, Dhaka',
+      company: 'Softzino Technologies · Dhaka',
       description:
-        'Currently working on **E-Commerce Project**, focusing on modern front-end development using Next.js and Tailwind CSS.',
+        'Develop and maintain production e-commerce and Point-of-Sale interfaces using **Next.js**, **React**, and **TypeScript**. Build reusable responsive components, integrate REST APIs and relational data with **Prisma**, **PostgreSQL**, and **Supabase**, and deliver features through Docker, Git, code review, and Agile workflows.',
     },
     {
-      year: 'Aug 2023 - Oct 2024',
-      title: 'Online Tutor on demand',
-      company: 'SSPTV, West Bengal, India',
+      year: 'Nov 2022 – Dec 2023',
+      title: 'Frontend Developer / Web Designer',
+      company: 'WebDev Software Solutions',
       description:
-        'Delivering web development instruction for a training center, educating students in HTML, CSS, SASS, Bootstrap, JavaScript, and jQuery.',
+        'Developed **120+ responsive**, cross-browser websites using HTML5, CSS3, JavaScript, SCSS, and Bootstrap. Customized WordPress themes, plugins, and WooCommerce sites while collaborating in Git/GitHub-based sprint teams.',
     },
     {
-      year: 'Jan 2023 - Present',
-      title: 'Web Designer/Developer',
-      company: 'Upwork.com',
+      year: 'Aug 2022 – Oct 2022',
+      title: 'Web Designer Intern',
+      company: 'Bdevs · Mirpur DOHS, Dhaka',
       description:
-        'Developed websites using HTML, CSS, SCSS, Bootstrap, JS and jQuery. Communicating effectively with clients globally.',
+        'Built responsive components and marketing landing pages with senior engineers, checking cross-browser consistency, breakpoints, and accessibility.',
     },
   ],
   services: [
@@ -89,7 +89,12 @@ export async function getSiteSettings(): Promise<SiteSettingsData> {
       const created = await SiteSettings.create({ _id: 'singleton' });
       return { ...DEFAULTS, ...created.toObject() };
     }
-    return { ...DEFAULTS, ...doc };
+    return {
+      ...DEFAULTS,
+      ...doc,
+      githubUrl: doc.githubUrl || DEFAULTS.githubUrl,
+      linkedinUrl: doc.linkedinUrl || DEFAULTS.linkedinUrl,
+    };
   } catch {
     return DEFAULTS;
   }

@@ -1,11 +1,12 @@
 import Link from 'next/link';
-import { Github, Linkedin, Mail, Twitter, Briefcase } from 'lucide-react';
+import { Github, Linkedin, Mail, Twitter, Briefcase, FileText } from 'lucide-react';
 import { getSiteSettings } from '@/lib/getSiteSettings';
 
 const footerLinks = [
   { href: '/about',    label: 'About' },
   { href: '/#services',label: 'Services' },
   { href: '/projects', label: 'Projects' },
+  { href: 'https://almumeetu.github.io/CV/', label: 'CV' },
   { href: '/blog',     label: 'Blog' },
   { href: '/contact',  label: 'Contact' },
 ];
@@ -31,6 +32,23 @@ export default async function Footer() {
           <p className="max-w-md text-sm text-slate-600 dark:text-slate-400">
             {s.heroBio || 'Building fast, polished web experiences for global brands, startups, and modern teams.'}
           </p>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="https://almumeetu.github.io/CV/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-primary/90"
+            >
+              <FileText size={15} /> View CV
+            </a>
+            <a
+              href="/cv/Al-Mumeetu-Saikat-CV.pdf"
+              download
+              className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:border-primary hover:text-primary dark:border-slate-700 dark:text-slate-300"
+            >
+              Download PDF
+            </a>
+          </div>
           {socials.length > 0 && (
             <div className="flex gap-3">
               {socials.map(({ icon: Icon, href, label }) => (
@@ -54,9 +72,15 @@ export default async function Footer() {
           <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
             {footerLinks.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="transition hover:text-primary">
-                  {link.label}
-                </Link>
+                {link.href.startsWith('http') ? (
+                  <a href={link.href} target="_blank" rel="noopener noreferrer" className="transition hover:text-primary">
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link href={link.href} className="transition hover:text-primary">
+                    {link.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

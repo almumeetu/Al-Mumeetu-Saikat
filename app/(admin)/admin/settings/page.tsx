@@ -265,7 +265,7 @@ export default function AdminSettingsPage() {
               [
                 ['Years of Experience', 'statYearsExp'],
                 ['Projects Delivered',  'statProjects'],
-                ['Client Satisfaction', 'statSatisfaction'],
+                ['UI Challenges Solved', 'statSatisfaction'],
               ] as [string, keyof Settings][]
             ).map(([label, key]) => (
               <Field key={key} label={label}>

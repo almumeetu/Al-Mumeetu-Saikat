@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
-import { Moon, Sun, Menu, X, Briefcase } from 'lucide-react';
+import { Moon, Sun, Menu, X, Briefcase, FileText } from 'lucide-react';
 
 const links = [
   { href: '/',         label: 'Home' },
@@ -86,6 +86,14 @@ export default function Navbar() {
               </span>
               <span className="gradient-text hidden sm:block">.Mumeetu</span>
             </Link>
+            <a
+              href="https://almumeetu.github.io/CV/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-semibold text-slate-600 transition hover:text-primary dark:text-slate-400 md:flex"
+            >
+              <FileText size={13} /> CV
+            </a>
 
             {/* Desktop nav */}
             <nav aria-label="Main navigation" className="hidden md:block">

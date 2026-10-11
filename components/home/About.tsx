@@ -6,7 +6,7 @@ import Link from 'next/link';
 import type { SiteSettingsData } from '@/lib/getSiteSettings';
 
 const STAT_ICONS = ['📅', '🚀', '⭐'] as const;
-const STAT_LABELS = ['Years Experience', 'Projects Delivered', 'Client Satisfaction'] as const;
+const STAT_LABELS = ['Years Experience', 'Responsive Websites', 'UI Challenges Solved'] as const;
 
 export default function About({ s }: { s: SiteSettingsData }) {
   const stats = useMemo(
