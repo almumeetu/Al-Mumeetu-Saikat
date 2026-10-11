@@ -62,7 +62,7 @@ export default function NewBlogPage() {
           <ArrowLeft size={16} />
         </Link>
         <div>
-          <h1 className="text-2xl font-extrabold">New Blog Post</h1>
+          <h1 className="text-2xl font-medium">New Blog Post</h1>
           <p className="text-sm text-slate-500">Create and publish a new article</p>
         </div>
       </div>

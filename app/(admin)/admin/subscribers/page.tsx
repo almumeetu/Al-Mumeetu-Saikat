@@ -51,7 +51,7 @@ export default function AdminSubscribersPage() {
     <section className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold">Subscribers</h1>
+          <h1 className="text-2xl font-medium">Subscribers</h1>
           <p className="mt-0.5 text-sm text-slate-500">
             {subscribers.length} total · {active} active
           </p>

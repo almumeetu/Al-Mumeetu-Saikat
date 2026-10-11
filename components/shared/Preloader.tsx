@@ -7,9 +7,24 @@ export default function Preloader() {
   const [fadeOut, setFadeOut]   = useState(false);
 
   useEffect(() => {
+    // In local development, bypass preloader completely for maximum speed
+    if (process.env.NODE_ENV === 'development') {
+      return;
+    }
+
+    // Only show once per user session
+    try {
+      if (sessionStorage.getItem('saikat_preloader_seen')) {
+        return;
+      }
+      sessionStorage.setItem('saikat_preloader_seen', '1');
+    } catch {
+      // sessionStorage unavailable
+    }
+
     setVisible(true);
-    const t1 = setTimeout(() => setFadeOut(true),  1800);
-    const t2 = setTimeout(() => setVisible(false), 2400);
+    const t1 = setTimeout(() => setFadeOut(true), 350);
+    const t2 = setTimeout(() => setVisible(false), 550);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
 
@@ -18,7 +33,8 @@ export default function Preloader() {
   return (
     <div
       aria-hidden="true"
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white dark:bg-slate-950 transition-opacity duration-500 ${
+      onClick={() => setVisible(false)}
+      className={`fixed inset-0 z-[9999] cursor-pointer flex flex-col items-center justify-center bg-white dark:bg-slate-950 transition-opacity duration-300 ${
         fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
     >
@@ -57,14 +73,14 @@ export default function Preloader() {
 
           {/* Center initials */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="bg-gradient-to-br from-primary to-secondary bg-clip-text text-xl font-extrabold text-transparent select-none">
+            <span className="bg-gradient-to-br from-primary to-secondary bg-clip-text text-xl font-medium text-transparent select-none">
               AL
             </span>
           </div>
         </div>
 
         {/* Name */}
-        <p className="text-sm font-semibold tracking-[0.25em] text-slate-400 uppercase">
+        <p className="text-sm font-medium tracking-[0.25em] text-slate-400 uppercase">
           Al Mumeetu Saikat
         </p>
 

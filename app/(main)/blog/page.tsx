@@ -19,8 +19,10 @@ export const revalidate = 3600;
 export default async function BlogPage() {
   let blogs: any[] = [];
   try {
-    await connectDB();
-    blogs = await Blog.find({ published: true }).sort({ createdAt: -1 }).lean();
+    const conn = await connectDB();
+    if (conn) {
+      blogs = await Blog.find({ published: true }).sort({ createdAt: -1 }).lean();
+    }
   } catch (error) {
     console.error('Failed to fetch blogs:', error);
   }
@@ -32,7 +34,7 @@ export default async function BlogPage() {
           <span className="eyebrow">
             <BookOpen size={14} /> Notes &amp; insights
           </span>
-          <h1 className="text-4xl font-black tracking-tight md:text-6xl">Practical notes from building for the web.</h1>
+          <h1 className="text-3xl font-medium tracking-tight md:text-5xl">Practical notes from building for the web.</h1>
           <p className="text-lg text-slate-600 dark:text-slate-400">
             Short, useful writing on frontend engineering, WordPress, product delivery, and lessons from real projects.
           </p>
@@ -46,10 +48,10 @@ export default async function BlogPage() {
                   <Image src={blog.coverImage} alt={blog.title} fill className="object-cover" />
                 </div>
                 <div className="space-y-4 p-6">
-                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{blog.category}</div>
-                  <h2 className="text-2xl font-bold">{blog.title}</h2>
+                  <div className="text-xs font-medium uppercase tracking-[0.18em] text-primary">{blog.category}</div>
+                  <h2 className="text-2xl font-medium">{blog.title}</h2>
                   <p className="text-sm text-slate-600 dark:text-slate-400">{blog.excerpt}</p>
-                  <Link href={`/blog/${blog.slug}`} className="font-semibold text-primary transition hover:underline">
+                  <Link href={`/blog/${blog.slug}`} className="font-medium text-primary transition hover:underline">
                     Read more
                   </Link>
                 </div>
@@ -57,9 +59,9 @@ export default async function BlogPage() {
             ))
           ) : (
             <div className="card p-8 text-slate-600 dark:text-slate-400 lg:col-span-3">
-              <p className="text-lg font-semibold text-slate-900 dark:text-white">New articles are on the way.</p>
+              <p className="text-lg font-medium text-slate-900 dark:text-white">New articles are on the way.</p>
               <p className="mt-2">In the meantime, explore the project work or start a conversation.</p>
-              <a href="/contact" className="mt-4 inline-flex items-center gap-2 font-semibold text-primary hover:underline">Work with me <ArrowUpRight size={16} /></a>
+              <a href="/contact" className="mt-4 inline-flex items-center gap-2 font-medium text-primary hover:underline">Work with me <ArrowUpRight size={16} /></a>
             </div>
           )}
         </div>

@@ -1,40 +1,21 @@
-'use client';
+import { BriefcaseBusiness, Code2, Globe2 } from 'lucide-react';
 
-import { motion } from 'framer-motion';
-import { CheckCircle2, Code2, Globe2, ShieldCheck } from 'lucide-react';
-
-const signals = [
-  { icon: Code2, value: '120+', label: 'responsive websites delivered' },
-  { icon: Globe2, value: '4+', label: 'years building for global clients' },
-  { icon: ShieldCheck, value: 'Production-ready', label: 'clean, maintainable delivery' },
+const PROOF = [
+  { icon: BriefcaseBusiness, value: '4+ years', label: 'shipping production software' },
+  { icon: Code2, value: 'React + Next.js', label: 'frontend-first engineering' },
+  { icon: Globe2, value: 'Remote ready', label: 'clear, async collaboration' },
 ];
 
 export default function TrustBar() {
   return (
-    <section className="relative z-10 -mt-10 pb-6">
-      <div className="container-custom">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="grid overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5 dark:border-slate-800 dark:bg-slate-900 sm:grid-cols-3"
-        >
-          {signals.map(({ icon: Icon, value, label }, index) => (
-            <div
-              key={value}
-              className={`flex items-center gap-4 px-6 py-5 ${index > 0 ? 'border-t border-slate-100 dark:border-slate-800 sm:border-l sm:border-t-0' : ''}`}
-            >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <Icon size={19} />
-              </div>
-              <div>
-                <p className="font-bold text-slate-900 dark:text-white">{value}</p>
-                <p className="text-xs leading-5 text-slate-500 dark:text-slate-400">{label}</p>
-              </div>
-              <CheckCircle2 className="ml-auto hidden h-4 w-4 text-emerald-500 sm:block" />
-            </div>
-          ))}
-        </motion.div>
+    <section className="border-b border-slate-200/80 bg-white dark:border-slate-800 dark:bg-[#0d1011]">
+      <div className="container-custom grid divide-y divide-slate-200/80 sm:grid-cols-3 sm:divide-x sm:divide-y-0 dark:divide-slate-800">
+        {PROOF.map(({ icon: Icon, value, label }) => (
+          <div key={value} className="flex items-center gap-4 px-0 py-6 sm:px-7 lg:px-10">
+            <Icon size={19} className="shrink-0 text-emerald-700 dark:text-emerald-400" />
+            <div><p className="text-sm font-medium text-slate-900 dark:text-white">{value}</p><p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">{label}</p></div>
+          </div>
+        ))}
       </div>
     </section>
   );

@@ -81,7 +81,7 @@ export default async function AdminDashboardPage() {
     <section className="space-y-8">
       {/* Header */}
       <div className="space-y-1">
-        <h1 className="text-3xl font-extrabold">Dashboard</h1>
+        <h1 className="text-3xl font-medium">Dashboard</h1>
         <p className="text-slate-500 dark:text-slate-400">
           Welcome back. Here&apos;s what&apos;s happening with your portfolio.
         </p>
@@ -104,7 +104,7 @@ export default async function AdminDashboardPage() {
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{stat.label}</p>
-                <p className="mt-0.5 text-3xl font-extrabold gradient-text">{values[stat.key]}</p>
+                <p className="mt-0.5 text-3xl font-medium gradient-text">{values[stat.key]}</p>
               </div>
               <ArrowRight
                 size={16}
@@ -117,7 +117,7 @@ export default async function AdminDashboardPage() {
 
       {/* Quick Actions */}
       <div className="card p-6">
-        <h2 className="mb-4 text-lg font-bold">Quick Actions</h2>
+        <h2 className="mb-4 text-lg font-medium">Quick Actions</h2>
         <div className="flex flex-wrap gap-3">
           {quickActions.map(({ label, href, icon: Icon }) => (
             <Link

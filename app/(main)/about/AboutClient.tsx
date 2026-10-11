@@ -41,7 +41,7 @@ export default function AboutClient() {
         >
           <div>
             <span className="eyebrow">About me</span>
-            <h1 className="mt-5 max-w-4xl text-4xl font-black tracking-[-0.04em] text-slate-950 dark:text-white md:text-6xl">
+            <h1 className="mt-5 max-w-4xl text-3xl font-medium tracking-[-0.04em] text-slate-950 dark:text-white md:text-5xl">
               An engineer who makes complex products feel simple.
             </h1>
           </div>
@@ -69,16 +69,16 @@ export default function AboutClient() {
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
             <div className="absolute bottom-7 left-7 right-7 flex flex-wrap items-end justify-between gap-5 text-white">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">Based in</p>
-                <p className="mt-2 flex items-center gap-2 text-lg font-semibold"><MapPin size={17} /> Dhaka, Bangladesh</p>
+                <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/60">Based in</p>
+                <p className="mt-2 flex items-center gap-2 text-lg font-medium"><MapPin size={17} /> Dhaka, Bangladesh</p>
               </div>
-              <span className="rounded-full border border-emerald-300/30 bg-emerald-400/15 px-4 py-2 text-sm font-semibold text-emerald-200">Open to the right opportunity</span>
+              <span className="rounded-full border border-emerald-300/30 bg-emerald-400/15 px-4 py-2 text-sm font-medium text-emerald-200">Open to the right opportunity</span>
             </div>
           </div>
 
           <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:p-10">
-            <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">What I bring</p>
-            <p className="mt-5 text-xl font-semibold leading-8 text-slate-900 dark:text-white">
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-primary">What I bring</p>
+            <p className="mt-5 text-xl font-medium leading-8 text-slate-900 dark:text-white">
               Frontend depth with practical full-stack awareness.
             </p>
             <p className="mt-5 leading-7 text-slate-600 dark:text-slate-400">
@@ -86,7 +86,7 @@ export default function AboutClient() {
             </p>
             <div className="mt-7 space-y-3 border-t border-slate-100 pt-6 dark:border-slate-800">
               {['Production-focused engineering', 'Comfortable with global collaboration', 'Clear documentation and handoff'].map((item) => (
-                <p key={item} className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
+                <p key={item} className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
                   <CheckCircle2 size={16} className="text-emerald-500" /> {item}
                 </p>
               ))}
@@ -105,7 +105,7 @@ export default function AboutClient() {
               className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900"
             >
               <Icon size={21} className="text-primary" />
-              <p className="mt-5 text-4xl font-black tracking-tight text-slate-950 dark:text-white">{value}</p>
+              <p className="mt-5 text-4xl font-medium tracking-tight text-slate-950 dark:text-white">{value}</p>
               <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{label}</p>
             </motion.div>
           ))}
@@ -114,20 +114,20 @@ export default function AboutClient() {
         <div className="grid gap-12 lg:grid-cols-[0.8fr,1.2fr]">
           <div>
             <span className="eyebrow">How I work</span>
-            <h2 className="mt-4 text-3xl font-black tracking-tight md:text-4xl">Built for teams that care about the outcome.</h2>
+            <h2 className="mt-4 text-3xl font-medium tracking-tight md:text-4xl">Built for teams that care about the outcome.</h2>
             <p className="mt-5 leading-7 text-slate-600 dark:text-slate-400">
               Whether you are hiring for a product team or looking for a delivery partner, I bring structure, ownership, and thoughtful execution to every stage.
             </p>
-            <a href="/cv/Al-Mumeetu-Saikat-CV.pdf" download className="mt-7 inline-flex items-center gap-2 font-semibold text-primary hover:underline">
+            <a href="/cv/Al-Mumeetu-Saikat-CV.pdf" download className="mt-7 inline-flex items-center gap-2 font-medium text-primary hover:underline">
               <Download size={16} /> Download CV
             </a>
           </div>
           <div className="grid gap-4">
             {principles.map(([title, description], index) => (
               <motion.div key={title} whileInView={{ opacity: 1, x: 0 }} initial={{ opacity: 0, x: 20 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }} className="flex gap-5 rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">0{index + 1}</span>
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-medium text-primary">0{index + 1}</span>
                 <div>
-                  <h3 className="font-bold text-slate-900 dark:text-white">{title}</h3>
+                  <h3 className="font-medium text-slate-900 dark:text-white">{title}</h3>
                   <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">{description}</p>
                 </div>
               </motion.div>
@@ -138,16 +138,16 @@ export default function AboutClient() {
         <div className="grid gap-6 md:grid-cols-2">
           <div className="rounded-2xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900">
             <GraduationCap className="text-primary" />
-            <h2 className="mt-5 text-2xl font-bold">Education</h2>
-            <p className="mt-4 font-semibold">Bachelor of Science in Computer Science &amp; Engineering</p>
+            <h2 className="mt-5 text-2xl font-medium">Education</h2>
+            <p className="mt-4 font-medium">Bachelor of Science in Computer Science &amp; Engineering</p>
             <p className="mt-1 text-sm text-primary">World University of Bangladesh · Ongoing</p>
             <p className="mt-6 text-sm leading-6 text-slate-600 dark:text-slate-400">Higher Secondary Certificate (HSC), Science — Jahangirpur Government College, Naogaon.</p>
           </div>
           <div className="rounded-2xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900">
             <Handshake className="text-primary" />
-            <h2 className="mt-5 text-2xl font-bold">Ready to collaborate?</h2>
+            <h2 className="mt-5 text-2xl font-medium">Ready to collaborate?</h2>
             <p className="mt-4 leading-7 text-slate-600 dark:text-slate-400">Share your goals, timeline, and current challenge. I&apos;ll help you understand the best next step.</p>
-            <Link href="/contact" className="mt-6 inline-flex items-center gap-2 font-semibold text-primary hover:underline">Get in touch <ArrowUpRight size={16} /></Link>
+            <Link href="/contact" className="mt-6 inline-flex items-center gap-2 font-medium text-primary hover:underline">Get in touch <ArrowUpRight size={16} /></Link>
           </div>
         </div>
       </div>

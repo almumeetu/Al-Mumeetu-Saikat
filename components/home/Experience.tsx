@@ -1,90 +1,213 @@
 'use client';
 
-import { SiteSettingsData } from "@/lib/getSiteSettings";
-import { motion } from "framer-motion";
-import { Briefcase, Calendar } from "lucide-react";
+import { motion } from 'framer-motion';
+import { ArrowUpRight, Building2, Calendar } from 'lucide-react';
+import type { SiteSettingsData } from '@/lib/getSiteSettings';
 
-export default function Experience({ s }: { s: SiteSettingsData }) {
-  const experiences = s.experience || [];
+interface ExperienceItem {
+  date: string;
+  role: string;
+  company: string;
+  text: string;
+  points?: string[];
+  tags: string[];
+}
+
+const DEFAULT_EXPERIENCE: ExperienceItem[] = [
+  {
+    date: 'Jan 2024 — Present',
+    role: 'Associate Software Developer',
+    company: 'Softzino Technologies · Dhaka, Bangladesh',
+    text: 'Develop and maintain production e-commerce and Point-of-Sale interfaces using Next.js, React, and TypeScript with focus on stability, performance, and client satisfaction.',
+    points: [
+      'Develop and maintain production e-commerce and Point-of-Sale interfaces using Next.js, React, and TypeScript.',
+      'Build reusable responsive components, commerce workflows, and client-side interactions from product requirements and designs.',
+      'Integrate REST APIs and relational data using Prisma ORM, PostgreSQL, and Supabase, including inventory-related operations.',
+      'Collaborate directly with clients and stakeholders to gather requirements, discuss solutions, manage feedback, and deliver production-ready features.',
+      'Use Docker, Git, code review, and collaborative Agile workflows to deliver production features, fixes, and improvements.',
+      'Deliver tailored WordPress/WooCommerce solutions for international clients, including custom Elementor widgets and frontend fixes.',
+    ],
+    tags: [
+      'Next.js',
+      'React',
+      'TypeScript',
+      'Prisma ORM',
+      'PostgreSQL',
+      'Supabase',
+      'Docker',
+      'WordPress',
+      'WooCommerce',
+      'Tailwind CSS',
+    ],
+  },
+  {
+    date: 'Nov 2022 — Dec 2023',
+    role: 'Frontend Developer / Web Designer',
+    company: 'WebDev Software Solutions',
+    text: 'Delivered 120+ responsive, cross-browser websites and client portals while customizing WordPress and WooCommerce experiences for international businesses.',
+    points: [
+      'Engineered responsive, cross-browser web interfaces and client portals adhering to performance and accessibility standards.',
+      'Customized WordPress themes and WooCommerce stores, integrating custom features, plugins, and third-party APIs.',
+      'Collaborated within Git/GitHub sprint teams to deliver client deliverables on schedule.',
+    ],
+    tags: ['JavaScript', 'HTML5', 'CSS3', 'SCSS', 'WordPress', 'WooCommerce', 'Bootstrap'],
+  },
+  {
+    date: 'Aug 2022 — Oct 2022',
+    role: 'Web Designer Intern',
+    company: 'Bdevs · Dhaka, Bangladesh',
+    text: 'Worked with senior engineers on responsive marketing layouts, reusable UI modules, device breakpoints, and cross-browser quality.',
+    points: [
+      'Built responsive layout modules and interactive landing pages across varying device viewports.',
+      'Conducted cross-browser compatibility testing and resolved UI rendering discrepancies.',
+      'Translated Figma designs into clean, semantic markup and interactive components.',
+    ],
+    tags: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design', 'Figma'],
+  },
+];
+
+function parseExperience(text?: string, fallbackPoints?: string[]) {
+  if (!text) return { summary: '', points: fallbackPoints || [] };
+  const lines = text.split('\n').map((l) => l.trim()).filter(Boolean);
+  if (lines.length <= 1 && fallbackPoints && fallbackPoints.length > 0) {
+    return { summary: text, points: fallbackPoints };
+  }
+  const points: string[] = [];
+  let summary = '';
+  lines.forEach((line) => {
+    if (line.startsWith('•') || line.startsWith('-') || line.startsWith('*')) {
+      points.push(line.replace(/^[•\-\*]\s*/, ''));
+    } else if (!summary) {
+      summary = line;
+    } else {
+      points.push(line);
+    }
+  });
+  return {
+    summary: summary || text,
+    points: points.length > 0 ? points : (fallbackPoints || []),
+  };
+}
+
+export default function Experience({ s }: { s?: SiteSettingsData }) {
+  const experiences: ExperienceItem[] =
+    s?.experience && s.experience.length > 0
+      ? s.experience.map((item, idx) => {
+          const fallback = DEFAULT_EXPERIENCE[idx] || DEFAULT_EXPERIENCE[0];
+          const parsed = parseExperience(item.description, fallback?.points);
+          return {
+            date: item.year || fallback.date || 'Recent',
+            role: item.title || fallback.role || 'Software Engineer',
+            company: item.company || fallback.company || 'Technology Company',
+            text: parsed.summary || fallback.text,
+            points: parsed.points && parsed.points.length > 0 ? parsed.points : fallback.points,
+            tags: fallback.tags || [
+              'React',
+              'Next.js',
+              'TypeScript',
+              'Tailwind CSS',
+            ],
+          };
+        })
+      : DEFAULT_EXPERIENCE;
 
   return (
-    <section className="relative bg-slate-50 py-24 dark:bg-slate-900/50 overflow-hidden" id="experience">
-      {/* Background decorations */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
+    <section id="experience" className="section-shell bg-[#f7f8f6] dark:bg-[#101313]">
+      <div className="container-custom">
+        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+          {/* Sticky Left Column */}
+          <div className="relative">
+            <div className="lg:sticky lg:top-32 space-y-6">
+              <div>
+                <p className="section-kicker">04 / Experience</p>
+                <h2 className="section-title mt-4">
+                  Learning by shipping in the real world.
+                </h2>
+                <p className="section-lede">
+                  A track record of working close to products, clients, and the engineering details that make software reliable and trustworthy.
+                </p>
+              </div>
 
-      <div className="container-custom relative z-10">
-        <div className="mb-20 text-center">
-          <motion.span 
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-3 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary backdrop-blur-md"
-          >
-            Experience
-          </motion.span>
-          <motion.h2 
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl font-extrabold md:text-5xl tracking-tight"
-          >
-            Career Journey
-          </motion.h2>
-        </div>
+              <div className="pt-2">
+                <a
+                  href="/cv/Al-Mumeetu-Saikat-CV.pdf"
+                  download
+                  className="group inline-flex items-center gap-2 text-sm font-medium text-emerald-700 transition hover:gap-3 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300"
+                >
+                  <span>View full resume</span>
+                  <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+              </div>
+            </div>
+          </div>
 
-        <div className="relative mx-auto max-w-5xl">
-          {/* Vertical Line */}
-          <div className="absolute left-6 top-0 h-full w-0.5 -translate-x-1/2 bg-gradient-to-b from-primary/50 via-primary/10 to-transparent md:left-1/2" />
-
-          <div className="space-y-12">
-            {experiences.map((exp, index) => {
-              const isEven = index % 2 === 0;
-
+          {/* Right Column: Experience Cards */}
+          <div className="space-y-4">
+            {experiences.map((item, index) => {
+              const { summary, points } = parseExperience(item.text, item.points);
               return (
-                <div key={index} className="relative flex flex-col md:flex-row items-start group">
-                  
-                  {/* Timeline Dot */}
-                  <div className="absolute left-6 md:left-1/2 -translate-x-1/2 top-6 flex h-12 w-12 items-center justify-center rounded-full border-4 border-slate-50 bg-primary shadow-xl dark:border-slate-900 z-10 transition-transform duration-500 group-hover:scale-110">
-                    <Briefcase className="h-5 w-5 text-white" />
-                  </div>
-
-                  {/* Card Container - Alternate Sides */}
-                  <div className={`w-full pl-20 md:w-1/2 md:pl-0 ${isEven ? 'md:pr-16 md:text-right' : 'md:pl-16 md:ml-auto'}`}>
-                    <motion.div
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-50px" }}
-                      transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.1 }}
-                      className="relative rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-900/5 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:ring-primary/20 dark:bg-slate-800/80 dark:ring-white/10 dark:hover:ring-primary/30 backdrop-blur-sm"
-                    >
-                      <div className={`flex items-center gap-2 mb-4 text-left ${isEven ? 'md:justify-end' : ''}`}>
-                        <Calendar className="h-4 w-4 text-primary" />
-                        <span className="text-sm font-bold uppercase tracking-wider text-primary">
-                          {exp.year}
-                        </span>
-                      </div>
-                      
-                      <h3 className="mb-2 text-2xl font-bold text-slate-900 dark:text-white">
-                        {exp.title}
-                      </h3>
-                      
-                      <div className={`mb-5 inline-flex items-center rounded-full bg-slate-100 px-4 py-1.5 text-sm font-medium text-slate-700 dark:bg-slate-700/50 dark:text-slate-300`}>
-                        {exp.company}
-                      </div>
-
-                      <div 
-                        className={`text-slate-600 leading-relaxed dark:text-slate-400 prose prose-sm max-w-none prose-strong:text-primary prose-strong:font-semibold text-left ${isEven ? 'md:text-right' : ''}`}
-                        dangerouslySetInnerHTML={{ 
-                          __html: exp.description
-                            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                            .replace(/\n/g, '<br />') 
-                        }}
+                <motion.article
+                  key={`${item.company}-${index}`}
+                  initial={{ opacity: 0, x: 18 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.08 }}
+                  className="group rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:border-slate-300 hover:shadow-md sm:p-8 dark:border-slate-800 dark:bg-[#0b0d0e] dark:hover:border-slate-700"
+                >
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div className="flex gap-3">
+                      <Building2
+                        size={20}
+                        className="mt-1 shrink-0 text-emerald-700 transition-colors group-hover:text-emerald-600 dark:text-emerald-400"
                       />
-                    </motion.div>
+                      <div>
+                        <h3 className="text-lg font-medium text-slate-950 dark:text-white">
+                          {item.role}
+                        </h3>
+                        <p className="mt-1 text-sm font-medium text-emerald-700 dark:text-emerald-400">
+                          {item.company}
+                        </p>
+                      </div>
+                    </div>
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600 dark:bg-slate-800/80 dark:text-slate-400">
+                      <Calendar size={13} /> {item.date}
+                    </span>
                   </div>
-                </div>
+
+                  <p className="mt-4 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+                    {summary}
+                  </p>
+
+                  {points && points.length > 0 && (
+                    <div className="mt-4 space-y-2.5">
+                      <p className="text-[11px] font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                        Key Responsibilities & Deliverables
+                      </p>
+                      <ul className="space-y-2">
+                        {points.map((point, pIdx) => (
+                          <li
+                            key={pIdx}
+                            className="flex items-start gap-2.5 text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300"
+                          >
+                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-600 dark:bg-emerald-400" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  <div className="mt-6 flex flex-wrap gap-2 border-t border-slate-100 pt-5 dark:border-slate-800/80">
+                    {item.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-md border border-slate-200 bg-slate-50/50 px-2.5 py-1 text-[11px] font-medium text-slate-600 transition-colors hover:border-emerald-300 hover:text-emerald-800 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-emerald-600/60 dark:hover:text-emerald-300"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </motion.article>
               );
             })}
           </div>

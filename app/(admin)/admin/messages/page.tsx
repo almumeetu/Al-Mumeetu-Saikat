@@ -73,7 +73,7 @@ export default function AdminMessagesPage() {
     <section className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold">Messages</h1>
+          <h1 className="text-2xl font-medium">Messages</h1>
           <p className="mt-0.5 text-sm text-slate-500">
             {messages.length} total
             {unread > 0 && (
@@ -108,11 +108,11 @@ export default function AdminMessagesPage() {
             >
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div className="flex items-start gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-sm font-bold text-white">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-sm font-medium text-white">
                     {msg.name.charAt(0).toUpperCase()}
                   </div>
                   <div>
-                    <h2 className="font-bold">{msg.name}</h2>
+                    <h2 className="font-medium">{msg.name}</h2>
                     <a
                       href={`mailto:${msg.email}`}
                       className="text-sm text-slate-500 hover:text-primary"

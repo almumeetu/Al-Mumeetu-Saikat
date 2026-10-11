@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { ChevronDown, X, Search } from 'lucide-react';
+import { ChevronDown, X, Search, Bot } from 'lucide-react';
 import {
   SiReact, SiNextdotjs, SiTypescript, SiJavascript, SiTailwindcss,
   SiNodedotjs, SiMongodb, SiPostgresql, SiMysql, SiRedis,
@@ -12,7 +12,7 @@ import {
   SiSass, SiVuedotjs, SiNuxt, SiSvelte, SiAstro,
   SiRemix, SiVite, SiWebpack, SiJest, SiCypress,
   SiStorybook, SiRedux, SiRecoil, SiPrisma as SiDrizzle,
-  SiSocketdotio, SiTrpc, SiOpenai, SiHtml5, SiCss,
+  SiSocketdotio, SiTrpc, SiHtml5, SiCss,
 } from 'react-icons/si';
 import { IconType } from 'react-icons';
 
@@ -69,7 +69,7 @@ export const TECH_LIST: TechItem[] = [
   { label: 'Zustand',      icon: SiRecoil,      color: 'bg-amber-600/15',    textColor: 'text-amber-600' },
   { label: 'tRPC',         icon: SiTrpc,        color: 'bg-blue-600/15',     textColor: 'text-blue-600' },
   { label: 'Socket.io',    icon: SiSocketdotio, color: 'bg-slate-700/15',    textColor: 'text-slate-700 dark:text-slate-300' },
-  { label: 'OpenAI',       icon: SiOpenai,      color: 'bg-emerald-600/15',  textColor: 'text-emerald-600' },
+  { label: 'OpenAI',       icon: Bot as any,    color: 'bg-emerald-600/15',  textColor: 'text-emerald-600' },
   { label: 'HTML5',        icon: SiHtml5,       color: 'bg-orange-500/15',   textColor: 'text-orange-500' },
   { label: 'CSS3',         icon: SiCss,         color: 'bg-blue-500/15',     textColor: 'text-blue-500' },
 ];

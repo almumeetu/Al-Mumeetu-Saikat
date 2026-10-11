@@ -56,7 +56,7 @@ export default function AdminBlogsPage() {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold">Blog Posts</h1>
+          <h1 className="text-2xl font-medium">Blog Posts</h1>
           <p className="mt-0.5 text-sm text-slate-500">{blogs.length} total posts</p>
         </div>
         <Link href="/admin/blogs/new" className="btn-primary">
@@ -104,9 +104,9 @@ export default function AdminBlogsPage() {
               {/* Info */}
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h2 className="truncate font-bold">{blog.title}</h2>
+                  <h2 className="truncate font-medium">{blog.title}</h2>
                   <span
-                    className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                    className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
                       blog.published
                         ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400'
                         : 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400'

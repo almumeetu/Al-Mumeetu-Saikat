@@ -49,7 +49,7 @@ export default function ProjectsFilter({ projects }: Props) {
           <button
             key={cat}
             onClick={() => setActive(cat)}
-            className={`rounded-full px-5 py-2 text-sm font-semibold transition-all duration-200 ${
+            className={`rounded-full px-5 py-2 text-sm font-medium transition-all duration-200 ${
               active === cat
                 ? 'bg-primary text-white shadow-md shadow-primary/30'
                 : 'bg-white text-slate-600 ring-1 ring-slate-900/10 hover:bg-primary/10 hover:text-primary dark:bg-slate-800 dark:text-slate-300 dark:ring-white/10 dark:hover:bg-primary/20'
@@ -57,7 +57,7 @@ export default function ProjectsFilter({ projects }: Props) {
           >
             {cat}
             {cat !== 'All' && (
-              <span className={`ml-1.5 rounded-full px-1.5 py-0.5 text-[10px] font-bold ${
+              <span className={`ml-1.5 rounded-full px-1.5 py-0.5 text-[10px] font-medium ${
                 active === cat ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500 dark:bg-slate-700 dark:text-slate-400'
               }`}>
                 {projects.filter((p) => getCategories(p.category).includes(cat)).length}
@@ -94,7 +94,7 @@ export default function ProjectsFilter({ projects }: Props) {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex flex-1 items-center justify-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-bold text-slate-900 transition hover:bg-primary hover:text-white"
+                        className="flex flex-1 items-center justify-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-medium text-slate-900 transition hover:bg-primary hover:text-white"
                       >
                         <ExternalLink size={16} /> Live Demo
                       </a>
@@ -104,7 +104,7 @@ export default function ProjectsFilter({ projects }: Props) {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex flex-1 items-center justify-center gap-2 rounded-full bg-slate-900 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-primary"
+                        className="flex flex-1 items-center justify-center gap-2 rounded-full bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-primary"
                       >
                         <Github size={16} /> Code
                       </a>
@@ -118,19 +118,43 @@ export default function ProjectsFilter({ projects }: Props) {
                     {cats.map((cat) => (
                       <span
                         key={cat}
-                        className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-bold uppercase tracking-widest text-primary"
+                        className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium uppercase tracking-widest text-primary"
                       >
                         {cat}
                       </span>
                     ))}
                   </div>
 
-                  <h3 className="mb-3 text-2xl font-bold text-slate-900 dark:text-white leading-tight">
+                  <h3 className="mb-3 text-2xl font-medium text-slate-900 dark:text-white leading-tight">
                     {project.title}
                   </h3>
-                  <p className="mb-6 flex-1 text-slate-600 dark:text-slate-400 line-clamp-3">
+                  <p className="mb-4 flex-1 text-slate-600 dark:text-slate-400 line-clamp-3">
                     {project.description}
                   </p>
+
+                  {/* Mobile Direct Action Buttons */}
+                  <div className="mb-5 flex items-center gap-2 sm:hidden">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 text-center py-2.5 px-3 rounded-xl bg-primary text-white text-xs font-medium flex items-center justify-center gap-1.5 shadow-xs"
+                      >
+                        <ExternalLink size={13} /> Live Demo
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="py-2.5 px-3.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-medium flex items-center justify-center gap-1.5"
+                      >
+                        <Github size={13} /> Code
+                      </a>
+                    )}
+                  </div>
 
                   {/* Tech stack with icons */}
                   <div className="flex flex-wrap gap-1.5">
@@ -141,7 +165,7 @@ export default function ProjectsFilter({ projects }: Props) {
                         return (
                           <span
                             key={techLabel}
-                            className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${techItem.color} ${techItem.textColor}`}
+                            className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${techItem.color} ${techItem.textColor}`}
                           >
                             <Icon size={11} />
                             {techLabel}
@@ -152,14 +176,14 @@ export default function ProjectsFilter({ projects }: Props) {
                       return (
                         <span
                           key={techLabel}
-                          className="rounded-full bg-slate-100 dark:bg-slate-700/50 px-3 py-1 text-xs font-semibold text-slate-600 dark:text-slate-300"
+                          className="rounded-full bg-slate-100 dark:bg-slate-700/50 px-3 py-1 text-xs font-medium text-slate-600 dark:text-slate-300"
                         >
                           {techLabel}
                         </span>
                       );
                     })}
                     {(project.tech || []).length > 5 && (
-                      <span className="rounded-full bg-slate-100 dark:bg-slate-700/50 px-3 py-1 text-xs font-semibold text-slate-500">
+                      <span className="rounded-full bg-slate-100 dark:bg-slate-700/50 px-3 py-1 text-xs font-medium text-slate-500">
                         +{project.tech.length - 5}
                       </span>
                     )}
@@ -171,10 +195,10 @@ export default function ProjectsFilter({ projects }: Props) {
         ) : (
           <div className="rounded-[2rem] bg-white p-16 text-center text-slate-500 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-800/80 dark:ring-white/10 backdrop-blur-xl lg:col-span-3">
             <Sparkles className="mx-auto mb-4 h-12 w-12 text-slate-400 opacity-50" />
-            <p className="text-xl font-bold text-slate-700 dark:text-slate-300">
+            <p className="text-xl font-medium text-slate-700 dark:text-slate-300">
               No projects in this category yet.
             </p>
-            <a href="/contact" className="mt-4 inline-flex items-center gap-2 font-semibold text-primary hover:underline">
+            <a href="/contact" className="mt-4 inline-flex items-center gap-2 font-medium text-primary hover:underline">
               Ask about relevant work <ArrowUpRight size={16} />
             </a>
           </div>

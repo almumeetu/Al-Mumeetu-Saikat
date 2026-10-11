@@ -71,7 +71,7 @@ export default function NewProjectPage() {
           <ArrowLeft size={16} />
         </Link>
         <div>
-          <h1 className="text-2xl font-extrabold">New Project</h1>
+          <h1 className="text-2xl font-medium">New Project</h1>
           <p className="text-sm text-slate-500">Add a project to your portfolio</p>
         </div>
       </div>

@@ -42,38 +42,34 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Dynamic blog posts
+  // Dynamic blog posts & project pages if DB connected
   let blogEntries: MetadataRoute.Sitemap = [];
-  try {
-    await connectDB();
-    const blogs = await Blog.find({ published: true })
-      .select('slug updatedAt')
-      .lean<{ slug: string; updatedAt: Date }[]>();
-    blogEntries = blogs.map((b) => ({
-      url: `${baseUrl}/blog/${b.slug}`,
-      lastModified: b.updatedAt ?? new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    }));
-  } catch (error) {
-    console.error('Sitemap Blog Fetch Error:', error);
-  }
-
-  // Dynamic project pages (if you add individual project pages later)
   let projectEntries: MetadataRoute.Sitemap = [];
   try {
-    await connectDB();
-    const projects = await Project.find({})
-      .select('slug updatedAt')
-      .lean<{ slug: string; updatedAt: Date }[]>();
-    projectEntries = projects.map((p) => ({
-      url: `${baseUrl}/projects/${p.slug}`,
-      lastModified: p.updatedAt ?? new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    }));
+    const conn = await connectDB();
+    if (conn) {
+      const blogs = await Blog.find({ published: true })
+        .select('slug updatedAt')
+        .lean<{ slug: string; updatedAt: Date }[]>();
+      blogEntries = blogs.map((b) => ({
+        url: `${baseUrl}/blog/${b.slug}`,
+        lastModified: b.updatedAt ?? new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+      }));
+
+      const projects = await Project.find({})
+        .select('slug updatedAt')
+        .lean<{ slug: string; updatedAt: Date }[]>();
+      projectEntries = projects.map((p) => ({
+        url: `${baseUrl}/projects/${p.slug}`,
+        lastModified: p.updatedAt ?? new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.6,
+      }));
+    }
   } catch (error) {
-    console.error('Sitemap Project Fetch Error:', error);
+    console.error('Sitemap Fetch Error:', error);
   }
 
   return [...staticPages, ...blogEntries, ...projectEntries];

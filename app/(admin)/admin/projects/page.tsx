@@ -58,7 +58,7 @@ export default function AdminProjectsPage() {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold">Projects</h1>
+          <h1 className="text-2xl font-medium">Projects</h1>
           <p className="mt-0.5 text-sm text-slate-500">{projects.length} total projects</p>
         </div>
         <Link href="/admin/projects/new" className="btn-primary">
@@ -106,9 +106,9 @@ export default function AdminProjectsPage() {
               {/* Info */}
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h2 className="truncate font-bold">{project.title}</h2>
+                  <h2 className="truncate font-medium">{project.title}</h2>
                   {project.featured && (
-                    <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">
+                    <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
                       Featured
                     </span>
                   )}

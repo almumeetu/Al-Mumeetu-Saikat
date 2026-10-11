@@ -34,7 +34,7 @@ export default function AdminLoginPage() {
           <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
             Admin Access
           </span>
-          <h1 className="text-3xl font-extrabold">Sign in</h1>
+          <h1 className="text-3xl font-medium">Sign in</h1>
         </div>
 
         <form onSubmit={onSubmit} className="space-y-4">

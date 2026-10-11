@@ -47,7 +47,7 @@ export default function ContactClient() {
           <span className="eyebrow">
             Start a conversation
           </span>
-          <h1 className="mt-5 text-4xl font-black tracking-tight md:text-6xl">Have a product, problem, or opportunity in mind?</h1>
+          <h1 className="mt-5 text-3xl font-medium tracking-tight md:text-5xl">Have a product, problem, or opportunity in mind?</h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-400">
             Tell me what you are trying to achieve. I&apos;ll review the context and reply with a clear next step—whether that means working together or pointing you in the right direction.
           </p>
@@ -66,7 +66,7 @@ export default function ContactClient() {
                   <contact.icon size={22} />
                 </div>
                 <div>
-                  <h4 className="mb-1 font-semibold">{contact.title}</h4>
+                  <h4 className="mb-1 font-medium">{contact.title}</h4>
                   {contact.href ? (
                     <a href={contact.href} className="text-slate-600 transition hover:text-primary dark:text-slate-400">
                       {contact.value}
@@ -81,7 +81,7 @@ export default function ContactClient() {
 
           <form onSubmit={handleSubmit(onSubmit)} className="card space-y-5 p-6 md:p-9">
             <div className="mb-2 border-b border-slate-200 pb-5 dark:border-slate-800">
-              <p className="font-semibold text-slate-900 dark:text-white">Project enquiry</p>
+              <p className="font-medium text-slate-900 dark:text-white">Project enquiry</p>
               <p className="mt-1 text-sm text-slate-500">A few details help me understand how I can be useful.</p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">

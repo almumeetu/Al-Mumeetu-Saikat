@@ -16,8 +16,8 @@ import type { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  await connectDB();
-  const blog = await Blog.findOne({ slug }).lean<BlogLean>();
+  const conn = await connectDB();
+  const blog = conn ? await Blog.findOne({ slug }).lean<BlogLean>() : null;
 
   if (!blog) {
     return { title: 'Post Not Found' };
@@ -44,8 +44,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function BlogDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  await connectDB();
-  const blog = await Blog.findOne({ slug }).lean<BlogLean>();
+  const conn = await connectDB();
+  const blog = conn ? await Blog.findOne({ slug }).lean<BlogLean>() : null;
 
   if (!blog) notFound();
 
@@ -53,10 +53,10 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
     <article className="py-20">
       <div className="container-custom max-w-4xl space-y-8">
         <div className="space-y-4">
-          <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
+          <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
             {blog.category ?? 'General'}
           </span>
-          <h1 className="text-4xl font-extrabold md:text-6xl">{blog.title}</h1>
+          <h1 className="text-4xl font-medium md:text-6xl">{blog.title}</h1>
           <p className="text-lg text-slate-600 dark:text-slate-400">{blog.excerpt}</p>
         </div>
 

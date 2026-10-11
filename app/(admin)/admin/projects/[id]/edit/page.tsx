@@ -108,7 +108,7 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
           <ArrowLeft size={16} />
         </Link>
         <div>
-          <h1 className="text-2xl font-extrabold">Edit Project</h1>
+          <h1 className="text-2xl font-medium">Edit Project</h1>
           <p className="text-sm text-slate-500">Update project details</p>
         </div>
       </div>

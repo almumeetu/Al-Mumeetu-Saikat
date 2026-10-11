@@ -91,7 +91,7 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
           <ArrowLeft size={16} />
         </Link>
         <div>
-          <h1 className="text-2xl font-extrabold">Edit Blog Post</h1>
+          <h1 className="text-2xl font-medium">Edit Blog Post</h1>
           <p className="text-sm text-slate-500">Update your article</p>
         </div>
       </div>

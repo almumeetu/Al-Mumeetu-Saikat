@@ -26,7 +26,7 @@ export type SiteSettingsData = {
 
 const DEFAULTS: SiteSettingsData = {
   heroName: 'Md Al Mumeetu (Al Mumeetu Saikat)',
-  heroTagline: 'Software Engineer | React & Next.js Specialist | Full-Stack Developer',
+  heroTagline: 'Software Engineer | Next.js Specialist | Full-Stack Developer',
   heroBio:
     'Frontend-focused software developer with 4+ years of experience building production web applications, ERP systems, e-commerce platforms, POS solutions, and business workflows.',
   avatarUrl: '',
@@ -48,11 +48,11 @@ const DEFAULTS: SiteSettingsData = {
   skillsDevops: ['Git', 'GitHub', 'Docker', 'Docker Compose', 'Vercel', 'GitHub Actions', 'Postman', 'Jira', 'Agile/Scrum'],
   experience: [
     {
-      year: 'Jan 2024 – Present',
+      year: 'Jan 2024 — Present',
       title: 'Associate Software Developer',
-      company: 'Softzino Technologies · Dhaka',
+      company: 'Softzino Technologies · Dhaka, Bangladesh',
       description:
-        'Develop and maintain production e-commerce and Point-of-Sale interfaces using **Next.js**, **React**, and **TypeScript**. Build reusable responsive components, integrate REST APIs and relational data with **Prisma**, **PostgreSQL**, and **Supabase**, and deliver features through Docker, Git, code review, and Agile workflows.',
+        'Develop and maintain production e-commerce and Point-of-Sale interfaces using Next.js, React, and TypeScript.\n• Build reusable responsive components, commerce workflows, and client-side interactions from product requirements and designs.\n• Integrate REST APIs and relational data using Prisma ORM, PostgreSQL, and Supabase, including inventory-related operations.\n• Collaborate directly with clients and stakeholders to gather requirements, discuss solutions, manage feedback, and deliver production-ready features.\n• Use Docker, Git, code review, and collaborative Agile workflows to deliver production features, fixes, and improvements.\n• Deliver tailored WordPress/WooCommerce solutions for international clients, including custom Elementor widgets and frontend fixes.',
     },
     {
       year: 'Nov 2022 – Dec 2023',
@@ -83,7 +83,8 @@ const DEFAULTS: SiteSettingsData = {
 
 export async function getSiteSettings(): Promise<SiteSettingsData> {
   try {
-    await connectDB();
+    const conn = await connectDB();
+    if (!conn) return DEFAULTS;
     const doc = await SiteSettings.findById('singleton').lean<SiteSettingsData>();
     if (!doc) {
       const created = await SiteSettings.create({ _id: 'singleton' });

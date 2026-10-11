@@ -174,7 +174,7 @@ export default function CategoryPicker({ value, onChange }: Props) {
                 <button
                   type="button"
                   onClick={addCustom}
-                  className="rounded-lg bg-primary px-2 py-0.5 text-xs font-bold text-white"
+                  className="rounded-lg bg-primary px-2 py-0.5 text-xs font-medium text-white"
                 >
                   Add
                 </button>

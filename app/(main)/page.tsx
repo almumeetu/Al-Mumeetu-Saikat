@@ -10,36 +10,50 @@ import { getSiteSettings } from '@/lib/getSiteSettings';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Al Mumeetu Saikat | React & Next.js Software Engineer',
-  description: 'Md Al Mumeetu Saikat is a React and Next.js software engineer building reliable e-commerce platforms, business systems, and high-performance web experiences.',
+  title: 'Al Mumeetu Saikat | Frontend Engineer & Software Developer',
+  description: 'Frontend Engineer specializing in React.js, Next.js and modern web applications. Experienced in building scalable, responsive and user-focused digital solutions.',
   alternates: {
     canonical: '/',
   }
 };
 
 
+export const revalidate = 60;
+
 export default async function HomePage() {
   const settings = await getSiteSettings();
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://almumeetusaikat.com';
   const jsonLd = [
     {
       '@context': 'https://schema.org',
       '@type': 'Person',
       name: 'Md Al Mumeetu Saikat',
-      url: process.env.NEXT_PUBLIC_SITE_URL || 'https://almumeetusaikat.com',
-      jobTitle: 'Full-Stack Engineer',
-      description: 'I build scalable, fast, and modern web applications with Next.js and React.',
+      alternateName: 'Al Mumeetu Saikat',
+      url: siteUrl,
+      image: `${siteUrl}/images/saikat-headshot.png`,
+      jobTitle: 'Frontend Engineer & Software Developer',
+      worksFor: {
+        '@type': 'Organization',
+        name: 'Softzino Technologies',
+      },
+      description: 'Frontend Engineer specializing in React.js, Next.js and modern web applications.',
       sameAs: [
-        settings.githubUrl,
-        settings.linkedinUrl,
-        settings.twitterUrl,
+        settings.githubUrl || 'https://github.com/almumeetu',
+        settings.linkedinUrl || 'https://www.linkedin.com/in/almumeetu/',
+        settings.twitterUrl && settings.twitterUrl !== '#' ? settings.twitterUrl : null,
       ].filter(Boolean),
     },
     {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: 'Al Mumeetu Saikat | Portfolio',
-      url: process.env.NEXT_PUBLIC_SITE_URL || 'https://almumeetusaikat.com',
+      url: siteUrl,
+      description: 'Official portfolio of Al Mumeetu Saikat - Frontend Engineer and Software Developer.',
+      publisher: {
+        '@type': 'Person',
+        name: 'Md Al Mumeetu Saikat',
+      },
     },
     {
       '@context': 'https://schema.org',
@@ -64,11 +78,11 @@ export default async function HomePage() {
       <Hero s={settings} />
       <TrustBar />
       <About s={settings} />
-      <Services s={settings} />
+      <Services />
       <Skills s={settings} />
       <Experience s={settings} />
       <FeaturedProjects />
-      <Newsletter />
+      <Newsletter s={settings} />
     </>
   );
 }

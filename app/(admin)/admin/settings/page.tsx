@@ -176,7 +176,7 @@ export default function AdminSettingsPage() {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold">Site Settings</h1>
+          <h1 className="text-2xl font-medium">Site Settings</h1>
           <p className="mt-0.5 text-sm text-slate-500">Manage all portfolio content from one place.</p>
         </div>
         <button onClick={save} disabled={saving} className="btn-primary">
@@ -191,7 +191,7 @@ export default function AdminSettingsPage() {
           <button
             key={id}
             onClick={() => setTab(id)}
-            className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all ${
+            className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all ${
               tab === id
                 ? 'bg-white text-primary shadow-sm dark:bg-slate-800'
                 : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
@@ -302,7 +302,7 @@ export default function AdminSettingsPage() {
           {(settings.experience ?? []).map((exp, i) => (
             <div key={i} className="card space-y-4 p-6">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-semibold text-primary">Entry #{i + 1}</span>
+                <span className="text-sm font-medium text-primary">Entry #{i + 1}</span>
                 <button
                   type="button"
                   onClick={() => removeExp(i)}
@@ -348,7 +348,7 @@ export default function AdminSettingsPage() {
             {(settings.services ?? []).map((svc, i) => (
               <div key={i} className="card space-y-4 p-5">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-primary">Service #{i + 1}</span>
+                  <span className="text-sm font-medium text-primary">Service #{i + 1}</span>
                   <button
                     type="button"
                     onClick={() => removeService(i)}

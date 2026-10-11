@@ -57,7 +57,7 @@ function SidebarLink({
       />
       <span className="flex-1">{label}</span>
       {badgeCount && badgeCount > 0 ? (
-        <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white shadow-sm ring-2 ring-white dark:ring-slate-900">
+        <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-medium text-white shadow-sm ring-2 ring-white dark:ring-slate-900">
           {badgeCount}
         </span>
       ) : null}
@@ -114,14 +114,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary">
               <Sparkles size={16} className="text-white" />
             </div>
-            <Link href="/admin" className="text-lg font-extrabold gradient-text">
+            <Link href="/admin" className="text-lg font-medium gradient-text">
               Admin Panel
             </Link>
           </div>
 
           {/* Nav */}
           <nav className="flex-1 space-y-1 overflow-y-auto p-4">
-            <p className="mb-2 px-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+            <p className="mb-2 px-4 text-[10px] font-medium uppercase tracking-widest text-slate-400">
               Navigation
             </p>
             {links.map((link) => {
@@ -173,7 +173,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               )}
             </div>
             <div className="flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-xs font-bold text-white">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-xs font-medium text-white">
                 A
               </div>
             </div>
